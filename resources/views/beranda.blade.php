@@ -100,6 +100,24 @@ Dashboard <small>statistics and more</small>
         <li>
             <a href="#">Dashboard</a>
         </li>
+        @can('create')
+        <a href="#" class="btn btn-sm btn-primary">CREATE</a>
+        @endcan
+        @can('view')
+        <a href="#" class="btn btn-sm btn-primary">VIEW</a>
+        @endcan
+        @can('edit')
+        <a href="#" class="btn btn-sm btn-primary">EDIT</a>
+        @endcan
+        @can('delete')
+        <a href="#" class="btn btn-sm btn-primary">DELETE</a>
+        @endcan
+        @can('publish')
+        <a href="#" class="btn btn-sm btn-primary">PUBLISH</a>
+        @endcan
+        @can('unpublish')
+        <a href="#" class="btn btn-sm btn-primary">UNPUBLISH</a>
+        @endcan
     </ul>
     <div class="page-toolbar">
         <div id="dashboard-report-range" class="pull-right tooltips btn btn-fit-height btn-primary" data-container="body" data-placement="bottom" data-original-title="Change dashboard date range">
