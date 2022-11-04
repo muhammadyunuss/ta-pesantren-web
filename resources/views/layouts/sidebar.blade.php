@@ -52,8 +52,8 @@
                                 <i class="icon-vector"></i>
                                 </span>Ekstrakurikuler</a>
                         </li>
-                        <li class= "{{ (request()->segment(2) == '#') ? 'active' : '' }}">
-                            <a href="#">
+                        <li class= "{{ (request()->segment(2) == 'perizinan') ? 'active' : '' }}">
+                            <a href="{{route('perizinan.index')}}">
                                 <i class="icon-cursor"></i>
                                 Perizinan</a>
                         </li>
@@ -72,15 +72,10 @@
                     <span class="arrow {{ (request()->segment(1) == 'manajemen-pegawai') ? 'open' : '' }}"></span>
                     </a>
                     <ul class="sub-menu">
-                        <li>
+                        <li class= "{{ (request()->segment(2) == 'pegawai') ? 'active' : '' }}">
                             <a href="{{route('pegawai.index')}}">
                                 <i class="icon-anchor"></i>
                                 Data Pegawai</a>
-                        </li>
-                        <li>
-                            <a href="">
-                                <i class="icon-anchor"></i>
-                                Data Guru</a>
                         </li>
                         <li>
                             <a href="">
@@ -89,14 +84,19 @@
                         </li>
                     </ul>
                 </li>
-                <li class="{{ (request()->segment(1) == 'produksi') ? 'active' : '' }}">
+                <li class="{{ (request()->segment(1) == 'manajemen-akademik') ? 'active' : '' }}">
                     <a href="javascript:;">
                     <i class="icon-present"></i>
                     <span class="title">Manajemen Akademik</span>
                     <span class="selected"></span>
-                    <span class="arrow {{ (request()->segment(1) == 'produksi') ? 'open' : '' }}"></span>
+                    <span class="arrow {{ (request()->segment(1) == 'manajemen-akademik') ? 'open' : '' }}"></span>
                     </a>
                     <ul class="sub-menu">
+                        <li class= "{{ (request()->segment(2) == 'guru') ? 'active' : '' }}">
+                            <a href="{{route('guru.index')}}">
+                                <i class="icon-anchor"></i>
+                                Data Guru</a>
+                        </li>
                         <li>
                             <a href="">
                                 <i class="icon-anchor"></i>
