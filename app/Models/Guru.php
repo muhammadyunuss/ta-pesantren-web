@@ -20,8 +20,8 @@ class Guru extends Model
         'walikelas',
         'pesantren_idpesantren',
       ];
+      
     public function pesantren() {
         return $this->belongsTo("App\Models\Pesantren","pesantren_idpesantren");
     }
-    public $timestamps = false;
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\EkstrakurikulerController;
 use App\Http\Controllers\GuruController;
+use App\Http\Controllers\KelasController;
 use App\Http\Controllers\KesehatanController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\PelanggaranController;
@@ -55,6 +56,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('manajemen-akademik')->group(function () {
         Route::resource('guru',GuruController::class);
+        Route::resource('kelas',KelasController::class);
     });
 
 });

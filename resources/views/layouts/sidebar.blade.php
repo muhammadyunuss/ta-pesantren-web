@@ -97,6 +97,11 @@
                                 <i class="icon-anchor"></i>
                                 Data Guru</a>
                         </li>
+                        <li class= "{{ (request()->segment(2) == 'kelas') ? 'active' : '' }}">
+                            <a href="{{route('kelas.index')}}">
+                                <i class="icon-anchor"></i>
+                                Data Kelas</a>
+                        </li>
                         <li>
                             <a href="">
                                 <i class="icon-anchor"></i>

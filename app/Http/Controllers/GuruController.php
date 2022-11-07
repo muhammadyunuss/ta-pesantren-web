@@ -16,13 +16,8 @@ class GuruController extends Controller
     public function index()
     {
         // $id = $request->id;
-        $data = DB::table('guru');
-        // ->join('bahan_baku','guru.bahan_baku_id','bahan_baku.id');
-        // if($id){
-        //     $data->where('guru.detail_pemesanan_model_id', $id);
-        // }
-        // ->join('detail_pemesanan_model', 'guru.detail_pemesanan_model_id', 'detail_pemesanan_model.id')
-        $data = $data->select(
+        $data = DB::table('guru')
+        ->select(
             'guru.*',
             // 'bahan_baku.nama_bahanbaku',
             // 'bahan_baku.stok',
@@ -41,7 +36,7 @@ class GuruController extends Controller
     {
         $user = auth()->user();
         $getPesantren = DB::table('pesantren')
-        ->where('id', $user->pesantren_id)
+        ->where('id', $user->pesantren_idpesantren)
         ->first();
         return view('guru.create', compact('getPesantren'));
     }
@@ -69,7 +64,12 @@ class GuruController extends Controller
 
         Guru::create($data);
 
-        return redirect()->route('guru.index')->with('status','Data model Anda berhasil ditambah');
+        if($request){
+            return redirect()->route('guru.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        }else{
+            return redirect()->route('guru.index')->with(['error' => 'Data Gagal Disimpan!']);
+        }
+
     }
 
     /**
@@ -129,7 +129,12 @@ class GuruController extends Controller
         }
 
         Guru::where('id', $guru->id)->update($data);
-        return redirect()->route('guru.index')->with('status','Data model Anda berhasil diubah');
+
+        if($guru){
+            return redirect()->route('guru.index')->with(['success' => 'Data Berhasil Diupdate!']);
+        }else{
+            return redirect()->route('guru.index')->with(['error' => 'Data Gagal Diupdate!']);
+        }
     }
 
     /**
@@ -140,6 +145,12 @@ class GuruController extends Controller
      */
     public function destroy(Guru $guru)
     {
-        //
+        $guru->delete();
+
+        if($guru){
+            return redirect()->route('guru.index')->with(['success' => 'Data Berhasil Dihapus!']);
+        }else{
+            return redirect()->route('guru.index')->with(['error' => 'Data Gagal Dihapus!']);
+        }
     }
 }

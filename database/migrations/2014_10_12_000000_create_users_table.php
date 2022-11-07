@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->string('status_jabatan')->nullable();
+            $table->bigInteger('pesantren_idpesantren');
             $table->timestamps();
         });
     }

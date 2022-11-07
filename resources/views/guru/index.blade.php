@@ -130,12 +130,6 @@
 jQuery(document).ready(function() {
 	//plugin datatable
 	$('#sample_1').DataTable();
-    $('#s_pemesanan_id').on('change', function() {
-        let id_pemesanan = $(this).val();
-        let url = id_pemesanan? '{{ route("guru.index") }}?id='+id_pemesanan : '{{ route("guru.index") }}'
-        $('#btn-search').attr('href', url);
-
-    });
 });
 </script>
 @stop
