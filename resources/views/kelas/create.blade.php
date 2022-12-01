@@ -1,4 +1,4 @@
-@extends('layouts.layout')jadwal-progres
+@extends('layouts.layout')
 
 @section('content')
 <!-- BEGIN PAGE HEADER-->
@@ -40,8 +40,8 @@
 			@csrf
 				<div class="form-body">
                     <div class="form-group">
-                        <label for="pesantren_idpesantren">Pesantren</label>
-                        <select name="pesantren_idpesantren" id="pesantren_idpesantren" data-with="100%" class="form-control @error('pesantren_idpesantren') is-invalid @enderror">
+                        <label for="pesantren_id">Pesantren</label>
+                        <select name="pesantren_id" id="pesantren_id" data-with="100%" class="form-control @error('pesantren_id') is-invalid @enderror">
                             <option value="{{ $pesantren->id }}">{{ $pesantren->nama_pesantren }}</option>
                         </select>
                     </div>
@@ -52,8 +52,8 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="guru_idguru">Guru</label>
-                        <select name="guru_idguru" id="guru_idguru" data-with="100%" class="form-control @error('guru_idguru') is-invalid @enderror">
+                        <label for="guru_id">Guru</label>
+                        <select name="guru_id" id="guru_id" data-with="100%" class="form-control @error('guru_id') is-invalid @enderror">
                             <option value="">Pilih Guru</option>
                             @foreach ($guru as $g)
                             <option value="{{ $g->id }}">{{ $g->nama_guru }}</option>
@@ -71,27 +71,6 @@
 @endsection
 @section('scripts')
 <script type="text/javascript">
-
-        $('#pemesanan_id').change(function(e){
-            let id=$(this).val();
-            $.ajax({
-                url : "{{ url('/produksi/jadwal-progres/get-ajax-pemesanan-to-pemesanan-detail') }}"+"/"+id,
-                method : "GET",
-                async : true,
-                dataType : 'json',
-                success: function(data){
-                    let html = '<option value=0>Pilih Pemesanan Detail</option>';
-                    let i;
-                    $('#detail_pemesanan_model_id').html(html);
-                    for(i=0; i<data.length; i++){
-                        html += '<option value='+data[i].id+'>'+data[i].nama_model+' '+data[i].nama_jenismodel+' '+data[i].banyaknya+' Pcs'+'</option>';
-                    }
-                    $('#detail_pemesanan_model_id').html(html);
-
-                }
-            });
-            return false;
-        });
 
 </script>
 @endsection

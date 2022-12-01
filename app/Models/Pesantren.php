@@ -11,7 +11,7 @@ class Pesantren extends Model
     protected $primarykey = 'id';
 
     public function pegawai() {
-        return $this->hasMany("App\Pegawai","pesantren_idpesantren","id");
+        return $this->hasMany("App\Pegawai","pesantren_id","id");
     }
     public $timestamps = false;
 }

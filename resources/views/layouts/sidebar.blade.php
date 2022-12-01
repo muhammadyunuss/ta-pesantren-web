@@ -62,6 +62,11 @@
                                 <i class="icon-rocket"></i>
                                 Pelanggaran</a>
                         </li>
+                        <li class= "{{ (request()->segment(2) == 'presensi-santri-asrama') ? 'active' : '' }}">
+                            <a href="{{route('presensi-santri-asrama.index')}}">
+                                <i class="icon-anchor"></i>
+                                Presensi Asrama Santri</a>
+                        </li>
                     </ul>
                 </li>
                 <li class="{{ (request()->segment(1) == 'manajemen-pegawai') ? 'active' : '' }}">
@@ -77,8 +82,8 @@
                                 <i class="icon-anchor"></i>
                                 Data Pegawai</a>
                         </li>
-                        <li>
-                            <a href="">
+                        <li class= "{{ (request()->segment(2) == 'presensi-pegawai') ? 'active' : '' }}">
+                            <a href="{{route('presensi-pegawai.index')}}">
                                 <i class="icon-anchor"></i>
                                 Presensi Pegawai</a>
                         </li>
@@ -102,30 +107,36 @@
                                 <i class="icon-anchor"></i>
                                 Data Kelas</a>
                         </li>
-                        <li>
-                            <a href="">
+                        <li class= "{{ (request()->segment(2) == 'mata-pelajaran') ? 'active' : '' }}">
+                            <a href="{{route('mata-pelajaran.index')}}">
                                 <i class="icon-anchor"></i>
                                 Mata Pelajaran</a>
                         </li>
-                        <li>
-                            <a href="">
+                        <li class= "{{ (request()->segment(2) == 'nilai') ? 'active' : '' }}">
+                            <a href="{{route('nilai.index')}}">
                                 <i class="icon-anchor"></i>
                                 Nilai Mata Pelajaran</a>
                         </li>
-                        <li>
-                            <a href="">
+                        <li class= "{{ (request()->segment(2) == 'presensi-santri-kelas') ? 'active' : '' }}">
+                            <a href="{{route('presensi-santri-kelas.index')}}">
                                 <i class="icon-anchor"></i>
-                                Presensi Sekolah Santri</a>
+                                Presensi Asrama Kelas</a>
                         </li>
                     </ul>
                 </li>
-                <li>
+                <li class="{{ (request()->segment(1) == 'manajemen-keuangan') ? 'active' : '' }}">
                     <a href="javascript:;">
-                        <i class="icon-puzzle"></i>
+                        <i class="icon-present"></i>
                         <span class="title">Manajemen Keuangan</span>
-                        <span class="arrow "></span>
+                        <span class="selected"></span>
+                        <span class="arrow {{ (request()->segment(1) == 'manajemen-keuangan') ? 'open' : '' }}"></span>
                     </a>
                     <ul class="sub-menu">
+                        <li class= "{{ (request()->segment(2) == 'pembayaran') ? 'active' : '' }}">
+                            <a href="{{route('pembayaran.index')}}">
+                                <i class="icon-anchor"></i>
+                                Pembayaran</a>
+                        </li>
                         <li>
                             <a href="">
                                 <i class="icon-anchor"></i>
@@ -153,6 +164,26 @@
                         </li>
                     </ul>
 
+                </li>
+                <li class="{{ (request()->segment(1) == 'setting') ? 'active' : '' }}">
+                    <a href="javascript:;">
+                        <i class="icon-settings"></i>
+                        <span class="title">Setting</span>
+                        <span class="selected"></span>
+                        <span class="arrow {{ (request()->segment(1) == 'setting') ? 'open' : '' }}"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class= "{{ (request()->segment(2) == 'users') ? 'active' : '' }}">
+                            <a href="{{route('users.index')}}">
+                                <i class="icon-anchor"></i>
+                               Users</a>
+                        </li>
+                        <li class= "{{ (request()->segment(2) == 'roles') ? 'active' : '' }}">
+                            <a href="{{route('roles.index')}}">
+                                <i class="icon-book-open"></i>
+                                Roles</a>
+                        </li>
+                    </ul>
                 </li>
 			</ul>
 			<!-- END SIDEBAR MENU -->

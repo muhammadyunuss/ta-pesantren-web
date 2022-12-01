@@ -1,4 +1,4 @@
-@extends('layouts.layout')jadwal-progres
+@extends('layouts.layout')
 
 @section('content')
 <!-- BEGIN PAGE HEADER-->
@@ -40,9 +40,9 @@
 			@csrf
 				<div class="form-body">
                     <div class="form-group">
-                        <label for="pesantren_idpesantren">Pesantren</label>
-                        <select name="pesantren_idpesantren" id="pesantren_idpesantren" data-with="100%" class="form-control @error('pesantren_idpesantren') is-invalid @enderror">
-                                <option value="{{ $getPesantren->id }}" {{ old('pesantren_idpesantren', $getPesantren->id) == $getPesantren->id  ? 'selected' : null }}>{{ $getPesantren->nama_pesantren }}</option>
+                        <label for="pesantren_id">Pesantren</label>
+                        <select name="pesantren_id" id="pesantren_id" data-with="100%" class="form-control @error('pesantren_id') is-invalid @enderror">
+                                <option value="{{ $getPesantren->id }}" {{ old('pesantren_id', $getPesantren->id) == $getPesantren->id  ? 'selected' : null }}>{{ $getPesantren->nama_pesantren }}</option>
                         </select>
                     </div>
                     <div class="form-group">

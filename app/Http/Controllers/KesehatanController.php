@@ -17,7 +17,7 @@ class KesehatanController extends Controller
     public function index()
     {
         $queryBuilder = DB::table('kesehatan')
-            ->join("santri","kesehatan.santri_id_santri","=","santri.id")->get();
+            ->join("santri","kesehatan.santri_id","=","santri.id")->get();
 
         return view('kesehatan.index', ['data' => $queryBuilder]);
     }
@@ -56,7 +56,7 @@ class KesehatanController extends Controller
         $data->keterangan_kesehatan = $request->get('keterangan');
         $data->riwayat_kesehatan = $request->get('riwayat');
         $data->tanggal_riwayat_santri = $request->get('tanggalKeluhan');
-        $data->santri_id_santri = $request->get('namaSantri');
+        $data->santri_id = $request->get('namaSantri');
         $data->save();
         return redirect()->route('kesehatan.index')->with('status','Data Kesehatan berhasil ditambah');
     }
@@ -108,7 +108,7 @@ class KesehatanController extends Controller
         $kesehatan->keterangan_kesehatan = $request->get('keterangan');
         $kesehatan->riwayat_kesehatan = $request->get('riwayat');
         $kesehatan->tanggal_riwayat_santri = $request->get('tanggalKeluhan');
-        $kesehatan->santri_id_santri = $request->get('namaSantri');
+        $kesehatan->santri_id = $request->get('namaSantri');
         $kesehatan->save();
         return redirect()->route('kesehatan.index')->with('status','Data Kesehatan berhasil diubah');
     }

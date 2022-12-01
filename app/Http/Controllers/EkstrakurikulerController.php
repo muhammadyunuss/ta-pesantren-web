@@ -53,7 +53,7 @@ class EkstrakurikulerController extends Controller
         $data = new Ekstrakurikuler();
         $data->nama_ekstrakurikuler = $request->get('namaEkskul');
         $data->keterangan_ekstrakurikuler = $request->get('keterangan');
-        $data->santri_id_santri = $request->get('namaSantri');
+        $data->santri_id = $request->get('namaSantri');
         $data->save();
         return redirect()->route('ekstrakurikuler.index')->with('status','Data Ekstrakurikuler Santri berhasil ditambah');
     }
@@ -102,7 +102,7 @@ class EkstrakurikulerController extends Controller
         ]);
         $ekstrakurikuler->nama_ekstrakurikuler = $request->get('namaEkskul');
         $ekstrakurikuler->keterangan_ekstrakurikuler = $request->get('keterangan');
-        $ekstrakurikuler->santri_id_santri = $request->get('namaSantri');
+        $ekstrakurikuler->santri_id = $request->get('namaSantri');
         $ekstrakurikuler->save();
         return redirect()->route('ekstrakurikuler.index')->with('status','Data Ekstrakurikuler Santri berhasil diubah');
     }

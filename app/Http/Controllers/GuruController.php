@@ -36,7 +36,7 @@ class GuruController extends Controller
     {
         $user = auth()->user();
         $getPesantren = DB::table('pesantren')
-        ->where('id', $user->pesantren_idpesantren)
+        ->where('id', $user->pesantren_id)
         ->first();
         return view('guru.create', compact('getPesantren'));
     }
@@ -92,7 +92,7 @@ class GuruController extends Controller
     public function edit(Guru $guru)
     {
         // dd($guru);
-        $data = Guru::join('pesantren', 'guru.pesantren_idpesantren','pesantren.id')
+        $data = Guru::join('pesantren', 'guru.pesantren_id','pesantren.id')
         ->where('guru.id', $guru->id)
         ->select(
             'guru.*',

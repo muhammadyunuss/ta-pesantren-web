@@ -18,10 +18,10 @@ class Guru extends Model
         'nomor_guru',
         'pendidikan_guru',
         'walikelas',
-        'pesantren_idpesantren',
+        'pesantren_id',
       ];
-      
+
     public function pesantren() {
-        return $this->belongsTo("App\Models\Pesantren","pesantren_idpesantren");
+        return $this->belongsTo("App\Models\Pesantren","pesantren_id");
     }
 }

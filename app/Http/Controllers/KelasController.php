@@ -16,7 +16,7 @@ class KelasController extends Controller
      */
     public function index()
     {
-        $data = Kelas::join('guru', 'kelas.guru_idguru', 'guru.id')
+        $data = Kelas::join('guru', 'kelas.guru_id', 'guru.id')
         ->select(
             'kelas.*',
             'guru.nama_guru'
@@ -33,8 +33,8 @@ class KelasController extends Controller
     public function create()
     {
         $user = auth()->user();
-        $pesantren = Pesantren::where('id', $user->pesantren_idpesantren)->first();
-        $guru = Guru::where('pesantren_idpesantren', $user->pesantren_idpesantren)->get();
+        $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
+        $guru = Guru::where('pesantren_id', $user->pesantren_id)->get();
         return view('kelas.create',compact('guru', 'user', 'pesantren'));
     }
 
@@ -76,14 +76,12 @@ class KelasController extends Controller
      */
     public function edit($id)
     {
-        // dd($id);
         $user = auth()->user();
         $data = Kelas::where('kelas.id', $id)
         ->first();
-        $pesantren = Pesantren::where('id', $user->pesantren_idpesantren)->first();
-        $guru = Guru::where('pesantren_idpesantren', $user->pesantren_idpesantren)->get();
+        $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
+        $guru = Guru::where('pesantren_id', $user->pesantren_id)->get();
 
-        // dd($guru);
         return view('kelas.edit',compact('data', 'pesantren', 'guru', 'id'));
     }
 
@@ -96,7 +94,7 @@ class KelasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = request()->except(['pesantren_idpesantren','_token', '_method']);
+        $data = request()->except(['pesantren_id','_token', '_method']);
         Kelas::where('id', $id)->update($data);
 
         if($request){

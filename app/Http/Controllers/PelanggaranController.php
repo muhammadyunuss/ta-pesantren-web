@@ -56,7 +56,7 @@ class PelanggaranController extends Controller
         $data->keterangan_pelanggaran = $request->get('keterangan');
         $data->riwayat_pelanggaran = $request->get('riwayat');
         $data->tanggal_pelanggaran = $request->get('tanggalPelanggaran');
-        $data->santri_id_santri = $request->get('namaSantri');
+        $data->santri_id = $request->get('namaSantri');
         $data->save();
         return redirect()->route('pelanggaran.index')->with('status','Data Pelanggaran Santri berhasil ditambah');
     }
@@ -109,7 +109,7 @@ class PelanggaranController extends Controller
         $pelanggaran->keterangan_pelanggaran = $request->get('keterangan');
         $pelanggaran->riwayat_pelanggaran = $request->get('riwayat');
         $pelanggaran->tanggal_pelanggaran = $request->get('tanggalPelanggaran');
-        $pelanggaran->santri_id_santri = $request->get('namaSantri');
+        $pelanggaran->santri_id = $request->get('namaSantri');
         $pelanggaran->save();
         return redirect()->route('pelanggaran.index')->with('status','Data Pelanggaran Santri berhasil diubah');
     }

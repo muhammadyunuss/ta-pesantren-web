@@ -56,7 +56,7 @@ class PrestasiController extends Controller
         $data->keterangan_prestasi = $request->get('keteranganP');
         $data->riwayat_prestasi = $request->get('riwayatP');
         $data->tanggal_prestasi = $request->get('tanggalPrestasi');
-        $data->santri_id_santri = $request->get('namaSantri');
+        $data->santri_id = $request->get('namaSantri');
         $data->save();
         return redirect()->route('prestasi.index')->with('status','Data Prestasi Santri berhasil ditambah');
     }
@@ -108,7 +108,7 @@ class PrestasiController extends Controller
         $prestasi->keterangan_prestasi = $request->get('keteranganP');
         $prestasi->riwayat_prestasi = $request->get('riwayatP');
         $prestasi->tanggal_prestasi = $request->get('tanggalPrestasi');
-        $prestasi->santri_id_santri = $request->get('namaSantri');
+        $prestasi->santri_id = $request->get('namaSantri');
         $prestasi->save();
         return redirect()->route('prestasi.index')->with('status','Data Prestasi Santri berhasil diubah');
     }

@@ -14,8 +14,8 @@ class AddPesantrenidColumn extends Migration
     public function up()
     {
         Schema::table('pegawai', function (Blueprint $table) {
-            $table->unsignedBigInteger('pesantren_idpesantren');
-            $table->foreign('pesantren_idpesantren')->references('id')->on('pesantren');
+            $table->unsignedBigInteger('pesantren_id');
+            $table->foreign('pesantren_id')->references('id')->on('pesantren');
            });
     }
 
@@ -27,8 +27,8 @@ class AddPesantrenidColumn extends Migration
     public function down()
     {
         Schema::table('pegawai', function (Blueprint $table) {
-            $table->dropForeign('pesantren_idpesantren');
-            $table->dropColumn('pesantren_idpesantren');
+            $table->dropForeign('pesantren_id');
+            $table->dropColumn('pesantren_id');
            });
     }
 }

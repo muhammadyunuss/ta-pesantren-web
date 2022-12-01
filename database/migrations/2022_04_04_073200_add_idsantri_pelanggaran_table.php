@@ -14,8 +14,8 @@ class AddIdsantriPelanggaranTable extends Migration
     public function up()
     {
         Schema::table('pelanggaran', function (Blueprint $table) {
-            $table->unsignedBigInteger('santri_id_santri');
-            $table->foreign('santri_id_santri')->references('id')->on('santri');
+            $table->unsignedBigInteger('santri_id');
+            $table->foreign('santri_id')->references('id')->on('santri');
         });
     }
 
@@ -27,8 +27,8 @@ class AddIdsantriPelanggaranTable extends Migration
     public function down()
     {
         Schema::table('pelanggaran', function (Blueprint $table) {
-            $table->dropForeign('santri_id_santri');
-            $table->dropColumn('santri_id_santri');
+            $table->dropForeign('santri_id');
+            $table->dropColumn('santri_id');
         });
     }
 }

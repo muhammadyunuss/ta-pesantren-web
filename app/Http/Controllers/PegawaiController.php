@@ -66,7 +66,7 @@ class PegawaiController extends Controller
         $data->kontak_pegawai = $request->get('kontakPegawai');
         $data->foto_pegawai = $request->get('image');
         $data->tanggal_lahir_pegawai=$request->get('tanggalPegawai');
-        $data->pesantren_idpesantren = $request->get('namaPesantren');
+        $data->pesantren_id = $request->get('namaPesantren');
         $data->save();
 
 
@@ -129,7 +129,7 @@ class PegawaiController extends Controller
         $pegawai->kontak_pegawai = $request->get('kontakPegawai');
         $pegawai->foto_pegawai = $request->get('image');
         $pegawai->tanggal_lahir_pegawai=$request->get('tanggalPegawai');
-        $pegawai->pesantren_idpesantren = $request->get('namaPesantren');
+        $pegawai->pesantren_id = $request->get('namaPesantren');
         dd($request);
         $pegawai->save();
 

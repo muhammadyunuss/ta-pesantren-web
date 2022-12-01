@@ -10,7 +10,7 @@ class Pelanggaran extends Model
 
     protected $primarykey = 'id';
     public function santri() {
-        return $this->belongsTo("App\Santri","santri_id_santri");
+        return $this->belongsTo("App\Santri","santri_id");
     }
     public $timestamps = false;
 }

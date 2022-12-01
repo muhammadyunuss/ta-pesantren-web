@@ -10,8 +10,7 @@ class Pegawai extends Model
 
     protected $primarykey = 'id';
     public function pesantren() {
-        return $this->belongsTo("App\Pesantren","pesantren_idpesantren");
+        return $this->belongsTo("App\Pesantren","pesantren_id");
     }
 
-    public $timestamps = false;
 }

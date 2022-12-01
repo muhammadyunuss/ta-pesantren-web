@@ -14,8 +14,8 @@ class AddGuruidColumn extends Migration
     public function up()
     {
         Schema::table('kelas', function (Blueprint $table) {
-            $table->unsignedBigInteger('guru_idguru');
-            $table->foreign('guru_idguru')->references('id')->on('guru');
+            $table->unsignedBigInteger('guru_id');
+            $table->foreign('guru_id')->references('id')->on('guru');
         });
     }
 
@@ -27,8 +27,8 @@ class AddGuruidColumn extends Migration
     public function down()
     {
         Schema::table('kelas', function (Blueprint $table) {
-            $table->dropForeign('guru_idguru');
-            $table->dropColumn('guru_idguru');
+            $table->dropForeign('guru_id');
+            $table->dropColumn('guru_id');
         });
     }
 }

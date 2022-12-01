@@ -10,7 +10,7 @@ class Kesehatan extends Model
 
     protected $primarykey = 'id';
     public function santri() {
-        return $this->belongsToMany("App\Santri","santri_id_santri");
+        return $this->belongsToMany("App\Santri","santri_id");
     }
     public $timestamps = false;
 }
