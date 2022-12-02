@@ -9,6 +9,7 @@ use App\Http\Controllers\NilaiController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\PelanggaranController;
 use App\Http\Controllers\PembayaranController;
+use App\Http\Controllers\PengeluaranPemasukanController;
 use App\Http\Controllers\PerizinanController;
 use App\Http\Controllers\PesantrenController;
 use App\Http\Controllers\PresensiPegawaiController;
@@ -85,6 +86,11 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('manajemen-keuangan')->group(function () {
         Route::resource('pembayaran', PembayaranController::class);
+        Route::resource('pengeluaran-pemasukan', PengeluaranPemasukanController::class);
+        Route::prefix('pengeluaran-pemasukan')->group(function () {
+            Route::get('create-pemasukan', [PengeluaranPemasukanController::class, 'createPemasukan'])->name('pengeluaran-pemasukan.create-pemasukan');
+            Route::get('create-pengeluaran', [PengeluaranPemasukanController::class, 'createPengeluaran'])->name('pengeluaran-pemasukan.create-pengeluaran');
+        });
     });
 
 });

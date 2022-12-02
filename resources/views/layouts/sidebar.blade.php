@@ -137,8 +137,8 @@
                                 <i class="icon-anchor"></i>
                                 Pembayaran</a>
                         </li>
-                        <li>
-                            <a href="">
+                        <li class= "{{ (request()->segment(2) == 'pengeluaran-pemasukan') ? 'active' : '' }}">
+                            <a href="{{route('pengeluaran-pemasukan.index')}}">
                                 <i class="icon-anchor"></i>
                                 Pemasukan & Pengeluaran</a>
                         </li>
