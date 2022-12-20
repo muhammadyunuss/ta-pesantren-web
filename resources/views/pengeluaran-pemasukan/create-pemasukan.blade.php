@@ -36,7 +36,7 @@
 			</div>
 		</div>
 		<div class="portlet-body form">
-			<form method="POST" action="{{ route('pengeluaran-pemasukan.store') }}" enctype="multipart/form-data">
+			<form method="POST" action="{{ route('pengeluaran-pemasukan.save-pemasukan') }}" enctype="multipart/form-data">
 			@csrf
 				<div class="form-body">
                     <div class="form-group">
@@ -46,43 +46,37 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="pegawai_id">Pegawai</label>
-                        <select name="pegawai_id" id="pegawai_id" data-with="100%" class="form-control @error('pegawai_id') is-invalid @enderror" required>
-                            <option value="">Pilih Pegawai</option>
-                            @foreach ($pegawai as $s)
-                            <option value="{{ $s->id }}">{{ $s->nama_pegawai }}</option>
+                        <label for="tanggal_pembayaran">Tanggal Pembayaran</label>
+                        <div>
+                            <input type="date" data-date-format="dd-mm-yyyy" class="form-control @error('tanggal_pembayaran') is-invalid @enderror" id="tanggal_pembayaran" name="tanggal_pembayaran" value="{{ old('tanggal_pembayaran') }}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="pembayaran_id">Pembayaran</label>
+                        <select name="pembayaran_id" id="pembayaran_id" data-with="100%" class="form-control @error('pembayaran_id') is-invalid @enderror" required>
+                            <option value="">Pilih Pembayaran</option>
+                            @foreach ($pembayaran as $s)
+                            <option value="{{ $s->id }}">{{ $s->nama_pembayaran }} - {{ $s->jenis_pembayaran }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="nama_pembayaran">Nama Pemasukan</label>
+                        <label for="debet_pembayaran">Nominal</label>
                         <div>
-                            <input type="text" id="nama_pembayaran" name="nama_pembayaran" class="form-control @error('nama_pembayaran') is-invalid @enderror" placeholder="Nama Pemasukan">
+                            <input type="number" id="debet_pembayaran" name="debet_pembayaran" class="form-control @error('debet_pembayaran') is-invalid @enderror" placeholder="Nominal">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="jenis_pembayaran">Jenis Pemasukan</label>
-                        <select name="jenis_pembayaran" id="jenis_pembayaran" data-with="100%" class="form-control @error('jenis_pembayaran') is-invalid @enderror">
-                            <option value="">Pilih</option>
-                            <option value="Tunai">Tunai</option>
-                            <option value="Transfer">Transfer</option>
-                        </select>
+                        <label for="keterangan_pembayaran">Keterangan</label>
+                        <div>
+                            <input type="text" id="keterangan_pembayaran" name="keterangan_pembayaran" class="form-control @error('keterangan_pembayaran') is-invalid @enderror" placeholder="Keterangan">
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label>Inline Radio</label>
+                        <label>Status Bayar</label>
                         <div class="radio-list">
-                            <label class="radio-inline">
-                            <div class="radio" id="uniform-optionsRadios4"><span class=""><input type="radio" name="optionsRadios" id="optionsRadios4" value="option1" checked=""></span></div> Option 1 </label>
-                            <label class="radio-inline">
-                            <div class="radio" id="uniform-optionsRadios5"><span class="checked"><input type="radio" name="optionsRadios" id="optionsRadios5" value="option2"></span></div> Option 2 </label>
-                            <label class="radio-inline">
-                            <div class="radio disabled" id="uniform-optionsRadios6"><span><input type="radio" name="optionsRadios" id="optionsRadios6" value="option3" disabled=""></span></div> Disabled </label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="nominal_pembayaran">Nominal Pemasukan</label>
-                        <div>
-                            <input type="number" id="nominal_pembayaran" name="nominal_pembayaran" class="form-control @error('nominal_pembayaran') is-invalid @enderror" placeholder="Nominal">
+                            <label class="radio-inline"><input type="radio" name="status_pembayaran" id="status_pembayaran" value="Lunas">Lunas </label>
+                            <label class="radio-inline"><input type="radio" name="status_pembayaran" id="status_pembayaran" value="Belum Lunas">Belum Lunas </label>
                         </div>
                     </div>
 				</div>

@@ -3,13 +3,9 @@
 @section('content')
 <!-- BEGIN PAGE HEADER-->
 <h3 class="page-title">
-    Pengeluaran Pemasukan | {{ $pesantren->nama_pesantren }} &nbsp;&nbsp;
-    <a type= "button" href="{{route('pengeluaran-pemasukan.create-pemasukan')}}" class="btn btn-primary btn-sm">
-        + TAMBAH PEMASUKAN
-    </a>
-    |
-    <a type= "button" href="{{route('pengeluaran-pemasukan.create-pengeluaran')}}" class="btn btn-primary btn-sm">
-        + TAMBAH PENGELUARAN
+    Daftar Ulang | {{ $pesantren->nama_pesantren }} &nbsp;&nbsp;
+    <a type= "button" href="{{route('daftar-ulang.create')}}" class="btn btn-primary btn-sm">
+        + TAMBAH DAFTAR ULANG
     </a>
 </h3>
 <div class="page-bar">
@@ -20,7 +16,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('pengeluaran-pemasukan.index')}}">Pengeluaran Pemasukan</a>
+            <a href="{{route('daftar-ulang.index')}}">Daftar Ulang</a>
         </li>
     </ul>
 </div>
@@ -70,10 +66,10 @@
     <td>
         <ul class="nav nav-pills">
             {{-- <li >
-                <button onclick="window.location='{{ route('pengeluaran-pemasukan.edit', $d->id) }}'" type="button" class="btn btn-success">Ubah</button>
+                <button onclick="window.location='{{ route('daftar-ulang.edit', $d->id) }}'" type="button" class="btn btn-success">Ubah</button>
             </li> --}}
             <li>
-                <form method="POST" action="{{route('pengeluaran-pemasukan.destroy' , $d->id)}}">
+                <form method="POST" action="{{route('daftar-ulang.destroy' , $d->id)}}">
                     @method('DELETE')
                     @csrf
                     <input class="btn btn-danger " type="SUBMIT" value="Hapus"

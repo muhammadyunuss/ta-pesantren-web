@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\DaftarUlangController;
 use App\Http\Controllers\EkstrakurikulerController;
 use App\Http\Controllers\GuruController;
+use App\Http\Controllers\InfaqController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\KesehatanController;
 use App\Http\Controllers\MataPelajaranController;
@@ -18,6 +20,7 @@ use App\Http\Controllers\PresensiSantriKelasController;
 use App\Http\Controllers\PrestasiController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SantriController;
+use App\Http\Controllers\SppController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -88,9 +91,15 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('pembayaran', PembayaranController::class);
         Route::resource('pengeluaran-pemasukan', PengeluaranPemasukanController::class);
         Route::prefix('pengeluaran-pemasukan')->group(function () {
-            Route::get('create-pemasukan', [PengeluaranPemasukanController::class, 'createPemasukan'])->name('pengeluaran-pemasukan.create-pemasukan');
-            Route::get('create-pengeluaran', [PengeluaranPemasukanController::class, 'createPengeluaran'])->name('pengeluaran-pemasukan.create-pengeluaran');
         });
+        Route::get('create-pemasukan', [PengeluaranPemasukanController::class, 'createPemasukan'])->name('pengeluaran-pemasukan.create-pemasukan');
+        Route::post('save-pemasukan', [PengeluaranPemasukanController::class, 'storePemasukan'])->name('pengeluaran-pemasukan.save-pemasukan');
+        Route::get('create-pengeluaran', [PengeluaranPemasukanController::class, 'createPengeluaran'])->name('pengeluaran-pemasukan.create-pengeluaran');
+
+        Route::resource('daftar-ulang', DaftarUlangController::class);
+        Route::resource('infaq', InfaqController::class);
+        Route::resource('spp', SppController::class);
+
     });
 
 });

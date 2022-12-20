@@ -147,18 +147,18 @@
                                 <i class="icon-anchor"></i>
                                 Buku Besar</a>
                         </li>
-                        <li>
-                            <a href="">
+                        <li class= "{{ (request()->segment(2) == 'daftar-ulang') ? 'active' : '' }}">
+                            <a href="{{route('daftar-ulang.index')}}">
                                 <i class="icon-anchor"></i>
                                 Daftar Ulang</a>
                         </li>
-                        <li>
-                            <a href="">
+                        <li class= "{{ (request()->segment(2) == 'infaq') ? 'active' : '' }}">
+                            <a href="{{route('infaq.index')}}">
                                 <i class="icon-anchor"></i>
                                 Infaq</a>
                         </li>
-                        <li>
-                            <a href="">
+                        <li class= "{{ (request()->segment(2) == 'spp') ? 'active' : '' }}">
+                            <a href="{{route('spp.index')}}">
                                 <i class="icon-anchor"></i>
                                 SPP</a>
                         </li>

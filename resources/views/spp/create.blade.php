@@ -3,7 +3,7 @@
 @section('content')
 <!-- BEGIN PAGE HEADER-->
 <h3 class="page-title">
-    Keluar<br>
+    SPP<br>
 </h3>
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -13,15 +13,15 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('pengeluaran-pemasukan.index')}}">Manajemen Keuangan</a>
+            <a href="{{route('spp.index')}}">Manajemen Keuangan</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('pengeluaran-pemasukan.index')}}">Keluar</a>
+            <a href="{{route('spp.index')}}">SPP</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('pengeluaran-pemasukan.create')}}">Tambah Keluar</a>
+            <a href="{{route('spp.create')}}">Tambah SPP</a>
         </li>
     </ul>
 </div>
@@ -32,11 +32,11 @@
     <div class="portlet">
 		<div class="portlet-title">
 			<div class="caption">
-				<i class="fa fa-reorder"></i> Tambah Keluar
+				<i class="fa fa-reorder"></i> Tambah SPP
 			</div>
 		</div>
 		<div class="portlet-body form">
-			<form method="POST" action="{{ route('pengeluaran-pemasukan.save-pemasukan') }}" enctype="multipart/form-data">
+			<form method="POST" action="{{ route('spp.store') }}" enctype="multipart/form-data">
 			@csrf
 				<div class="form-body">
                     <div class="form-group">
@@ -54,16 +54,24 @@
                     <div class="form-group">
                         <label for="pembayaran_id">Pembayaran</label>
                         <select name="pembayaran_id" id="pembayaran_id" data-with="100%" class="form-control @error('pembayaran_id') is-invalid @enderror" required>
-                            <option value="">Pilih Pembayaran</option>
                             @foreach ($pembayaran as $s)
                             <option value="{{ $s->id }}">{{ $s->nama_pembayaran }} - {{ $s->jenis_pembayaran }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="kredit_pembayaran">Nominal</label>
+                        <label for="santri_id">Santri</label>
+                        <select name="santri_id" id="santri_id" data-with="100%" class="form-control @error('santri_id') is-invalid @enderror" required>
+                            <option value="">Pilih Santri</option>
+                            @foreach ($santri as $s)
+                            <option value="{{ $s->id }}">{{ $s->nama_santri }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="debet_pembayaran">Nominal</label>
                         <div>
-                            <input type="number" id="kredit_pembayaran" name="kredit_pembayaran" class="form-control @error('kredit_pembayaran') is-invalid @enderror" placeholder="Nominal">
+                            <input type="number" id="debet_pembayaran" name="debet_pembayaran" class="form-control @error('debet_pembayaran') is-invalid @enderror" placeholder="Nominal">
                         </div>
                     </div>
                     <div class="form-group">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\JenisPembayaran;
 use App\Models\Pegawai;
 use App\Models\Pembayaran;
 use App\Models\PengeluaranPemasukan;
@@ -19,10 +20,10 @@ class PengeluaranPemasukanController extends Controller
     {
         $user = auth()->user();
         $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
-        $data = PengeluaranPemasukan::join('pembayaran', 'jenis_pembayaran.pembayaran_id', 'pembayaran.id')
-        ->join('santri', 'jenis_pembayaran.santri_id', 'santri.id')
+        $data = JenisPembayaran::join('pembayaran', 'jenis_pembayaran.pembayaran_id', 'pembayaran.id')
+        ->leftjoin('santri', 'jenis_pembayaran.santri_id', 'santri.id')
         ->select(
-            'pembayaran.*',
+            'jenis_pembayaran.*',
             'pembayaran.nama_pembayaran',
             'santri.nama_santri'
         )
@@ -46,21 +47,20 @@ class PengeluaranPemasukanController extends Controller
 
     public function createPemasukan()
     {
-        dd("pemasukan");
         $user = auth()->user();
         $pegawai = Pegawai::where('pesantren_id', $user->pesantren_id)->get();
         $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
-        return view('pengeluaran-pemasukan.create-pemasukan',compact('pesantren', 'pegawai'));
+        $pembayaran = Pembayaran::where('pegawai_id', $user->pegawai_id)->get();
+        return view('pengeluaran-pemasukan.create-pemasukan',compact('pesantren', 'pegawai', 'pembayaran'));
     }
 
     public function createPengeluaran()
     {
-        dd("pemasukan");
-
         $user = auth()->user();
         $pegawai = Pegawai::where('pesantren_id', $user->pesantren_id)->get();
         $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
-        return view('pengeluaran-pemasukan.create-pengeluaran',compact('pesantren', 'pegawai'));
+        $pembayaran = Pembayaran::where('pegawai_id', $user->pegawai_id)->get();
+        return view('pengeluaran-pemasukan.create-pengeluaran',compact('pesantren', 'pegawai', 'pembayaran'));
     }
 
     /**
@@ -74,6 +74,19 @@ class PengeluaranPemasukanController extends Controller
         $data = $request->except(['_token', '_method']);
 
         Pembayaran::create($data);
+
+        if($request){
+            return redirect()->route('pengeluaran-pemasukan.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        }else{
+            return redirect()->route('pengeluaran-pemasukan.index')->with(['error' => 'Data Gagal Disimpan!']);
+        }
+    }
+
+    public function storePemasukan(Request $request)
+    {
+        $data = $request->all();
+        $data['santri_id'] = 0;
+        JenisPembayaran::create($data);
 
         if($request){
             return redirect()->route('pengeluaran-pemasukan.index')->with(['success' => 'Data Berhasil Disimpan!']);
