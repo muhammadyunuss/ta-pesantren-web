@@ -126,6 +126,139 @@ Dashboard <small>statistics and more</small>
     </div>
 </div>
 <!-- END PAGE HEADER-->
+<table class="table" id="sample_1">
+    @php
+        $data = verifikasiPembayaranSpp();
+    @endphp
+    <thead>
+        <tr>
+        <th>No</th>
+        <th>Tanggal</th>
+        <th>Nama Pembayaran</th>
+        <th>Santri</th>
+        <th>Nominal</th>
+        <th>Status</th>
+        <th>Bukti</th>
+        <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @php
+            $no = 1;
+        @endphp
+        @foreach($data as $d)
+        <tr>
+        <td>{{ $no++ }}</td>
+        <td>{{ $d->tanggal }}</td>
+        <td>{{ $d->nama_pembayaran }}</td>
+        <td>{{ $d->nama_santri }}</td>
+        <td>{{ $d->kredit_pembayaran  }}</td>
+        <td>
+            @if ($d->status_verifikasi == 0)
+                Belum
+            @elseif ($d->status_verifikasi == 1)
+                Sukses
+            @else
+                Tolak
+            @endif
+        </td>
+        <td>
+            @if ($d->upload_bukti)
+            <button type = "button" style="background-color: Transparent; background-repeat:no-repeat; border: none; cursor:pointer; overflow: hidden;">
+                <img src="{{ asset('file_upload/upload_bukti/'.$d->upload_bukti) }}" width="100px" alt="" data-toggle="modal" href="#detail_{{$d->id}}">
+            @endif
+            </button>
+            <div class="modal fade" id="detail_{{$d->id}}" tabindex="-1" role="basic" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <h4 class="modal-title">{{ $d->nama_guru }}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <img src="{{ asset('file_upload/upload_bukti/'.$d->upload_bukti) }}" width="500px" style="display: block; margin-left: auto; margin-right: auto;">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td>
+            <ul class="nav nav-pills">
+                <li >
+                    <form method="POST" action="{{route('update-verifikasi-pembayaran')}}">
+                        @csrf
+                        <input type="hidden" name="id" value="{{ $d->id }}">
+                        <input type="hidden" name="status_verifikasi" value="1">
+                        <button class="btn btn-success " type="submit" onclick="if(!confirm('Apakah Anda yakin akan verifikasi data berkaitan?')) {return false;}">Sukses</button>
+                    </form>
+                </li>
+                <li>
+                    <form method="POST" action="{{route('update-verifikasi-pembayaran')}}">
+                        @csrf
+                        <input type="hidden" name="id" value="{{ $d->id }}">
+                        <input  type="hidden" name="status_verifikasi" value="2">
+                        <button class="btn btn-danger" type="submit" onclick="if(!confirm('Apakah Anda yakin akan verifikasi data berkaitan?')) {return false;}">Tolak</button>
+                    </form>
+                </li>
+            </ul>
+        </td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
+<table class="table" id="sample_2">
+    @php
+        $data2 = jenisPembayaran();
+    @endphp
+    <thead>
+        <tr>
+        <th>No</th>
+        <th>Tanggal</th>
+        <th>Nama</th>
+        <th>Keterangan</th>
+        <th>Debet</th>
+        <th>Kredit</th>
+        <th>Nama Santri</th>
+        <th>Status</th>
+        <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @php
+            $no = 1;
+        @endphp
+        @foreach($data2 as $d)
+        <tr>
+        <td>{{ $no++ }}</td>
+        <td>{{ $d->tanggal_pembayaran }}</td>
+        <td>{{ $d->nama_pembayaran }}</td>
+        <td>{{ $d->keterangan_pembayaran }}</td>
+        <td>Rp. {{ number_format($d->debet_pembayaran ,2,',','.') }}</td>
+        <td>Rp. {{ number_format($d->kredit_pembayaran ,2,',','.') }}</td>
+        <td>{{ $d->nama_santri }}</td>
+        <td>{{ $d->status_pembayaran }}</td>
+        <td>
+            <ul class="nav nav-pills">
+                <li >
+                    <button onclick="window.location='{{ route('verifikasi-pembayaran', $d->id) }}'" type="button" class="btn btn-success">Bayar</button>
+                </li>
+                {{-- <li>
+                    <form method="POST" action="{{route('daftar-ulang.destroy' , $d->id)}}">
+                        @method('DELETE')
+                        @csrf
+                        <input class="btn btn-danger " type="SUBMIT" value="Hapus"
+                        onclick="if(!confirm('Apakah Anda yakin akan menghapus data jadwal-progres dan data sediaan bahan baku yang berkaitan?')) {return false;}">
+                    </form>
+                </li> --}}
+            </ul>
+        </td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
 <!-- BEGIN OVERVIEW STATISTIC BARS-->
 <div class="row stats-overview-cont">
     <div class="col-md-2 col-sm-4">
@@ -1937,3 +2070,17 @@ Dashboard <small>statistics and more</small>
     </div>
 </div>
 @endsection
+
+@section('scripts')
+<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/datatables/media/js/jquery.dataTables.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js')}}"></script>
+<script>
+jQuery(document).ready(function() {
+	//plugin datatable
+	$('#sample_1').DataTable();
+	$('#sample_2').DataTable();
+
+});
+</script>
+@stop

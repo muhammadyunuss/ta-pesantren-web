@@ -37,6 +37,11 @@
                                 <i class="icon-anchor"></i>
                                 Data Santri</a>
                         </li>
+                        <li class= "{{ (request()->segment(2) == 'walisantri') ? 'active' : '' }}">
+                            <a href="{{route('walisantri.index')}}">
+                                <i class="icon-anchor"></i>
+                                Wali Santri</a>
+                        </li>
                         <li class= "{{ (request()->segment(2) == 'kesehatan') ? 'active' : '' }}">
                             <a href="{{route('kesehatan.index')}}">
                                 <i class="icon-book-open"></i>

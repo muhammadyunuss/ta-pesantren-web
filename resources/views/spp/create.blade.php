@@ -87,6 +87,12 @@
                             <label class="radio-inline"><input type="radio" name="status_pembayaran" id="status_pembayaran" value="Belum Lunas">Belum Lunas </label>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label >Notifikasi</label>
+                        <div class="checkbox-list">
+                            <label><input name="notifikasi" id="notifikasi" type="checkbox"> Centang untuk mengirim Notifikasi kepada wali santri </label>
+                        </div>
+                    </div>
 				</div>
 				<div class="form-actions">
 					<button type="submit" class="btn btn-primary">Simpan</button>

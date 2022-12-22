@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\DaftarUlangController;
 use App\Http\Controllers\EkstrakurikulerController;
 use App\Http\Controllers\GuruController;
@@ -22,6 +23,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SantriController;
 use App\Http\Controllers\SppController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WaliSantriController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -45,6 +47,10 @@ Route::get('/dashboard', function () {
 
 Route::middleware(['auth'])->group(function () {
 
+    Route::get('verifikasi-pembayaran/{id}', [BerandaController::class, 'verifikasiPembayaran'])->name('verifikasi-pembayaran');
+    Route::post('save-verifikasi-pembayaran', [BerandaController::class, 'saveVerifikasiPembayaran'])->name('save-verifikasi-pembayaran');
+    Route::post('update-verifikasi-pembayaran', [BerandaController::class, 'updateVerifikasiPembayaran'])->name('update-verifikasi-pembayaran');
+
     Route::prefix('setting')->group(function () {
         Route::resource('roles', RoleController::class);
         Route::resource('users', UserController::class);
@@ -52,6 +58,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('manajemen-santri')->group(function () {
         Route::resource('santri',SantriController::class);
+        Route::resource('walisantri',WaliSantriController::class);
         Route::resource('kesehatan',KesehatanController::class);
         Route::resource('prestasi',PrestasiController::class);
         Route::resource('ekstrakurikuler',EkstrakurikulerController::class);
@@ -92,9 +99,12 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('pengeluaran-pemasukan', PengeluaranPemasukanController::class);
         Route::prefix('pengeluaran-pemasukan')->group(function () {
         });
-        Route::get('create-pemasukan', [PengeluaranPemasukanController::class, 'createPemasukan'])->name('pengeluaran-pemasukan.create-pemasukan');
-        Route::post('save-pemasukan', [PengeluaranPemasukanController::class, 'storePemasukan'])->name('pengeluaran-pemasukan.save-pemasukan');
-        Route::get('create-pengeluaran', [PengeluaranPemasukanController::class, 'createPengeluaran'])->name('pengeluaran-pemasukan.create-pengeluaran');
+
+        Route::controller(PengeluaranPemasukanController::class)->group(function (){
+            Route::get('create-pemasukan', 'createPemasukan')->name('pengeluaran-pemasukan.create-pemasukan');
+            Route::post('save-pemasukan', 'storePemasukan')->name('pengeluaran-pemasukan.save-pemasukan');
+            Route::get('create-pengeluaran', 'createPengeluaran')->name('pengeluaran-pemasukan.create-pengeluaran');
+        });
 
         Route::resource('daftar-ulang', DaftarUlangController::class);
         Route::resource('infaq', InfaqController::class);

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\JenisPembayaran;
+use App\Models\Notifikasi;
 use App\Models\Pegawai;
 use App\Models\Pembayaran;
 use App\Models\Pesantren;
 use App\Models\Santri;
+use App\Models\WaliSantri;
 use Illuminate\Http\Request;
 
 class SppController extends Controller
@@ -44,8 +46,26 @@ class SppController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->all();
-        JenisPembayaran::create($data);
+        // dd($request->all());
+        if(!$request->notifikasi){
+            // dd("Notifikasi Tidak Ada");
+            JenisPembayaran::create($request->except(['notifikasi']));
+        }else{
+            // dd("Notifikasi Ada");
+            $walisantri = WaliSantri::where('santri_id', $request->santri_id)->first();
+            // dd($walisantri);
+            // $detail_pemberitahuan = "Tagihan Pembayaran SPP, Atas nama Santri ".$walisantri->nama_walisantri." Sebesar Rp. ".number_format($request->debet_pembayaran ,2,',','.')." pada Tanggal ".date("d-m-Y", strtotime($request->tanggal_pembayaran));
+            // dd($detail_pemberitahuan);
+            Notifikasi::create([
+                'walisantri_id' => $walisantri->id,
+                'email_username' => $walisantri->email_walisantri,
+                'judul_pemberitahuan' => 'Tagihan Pembayaran SPP',
+                'detail_pemberitahuan' => "Tagihan Pembayaran SPP, Atas nama Santri ".$walisantri->nama_walisantri." Sebesar Rp. ".number_format($request->debet_pembayaran ,2,',','.')." pada Tanggal ".date("d-m-Y", strtotime($request->tanggal_pembayaran)),
+                'tanggal_pemberitahuan' => $request->tanggal_pembayaran,
+                'status_terbaca' => 0
+            ]);
+            JenisPembayaran::create($request->except(['notifikasi']));
+        }
 
         if($request){
             return redirect()->route('spp.index')->with(['success' => 'Data Berhasil Disimpan!']);
