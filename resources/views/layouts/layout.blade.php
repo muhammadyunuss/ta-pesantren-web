@@ -17,8 +17,8 @@ License: You must have a valid license purchased only from themeforest(the above
 <!--<![endif]-->
 <!-- BEGIN HEAD -->
 <head>
-<meta charset="utf-8"/>
-<title>Pesantren</title>
+    <meta charset="utf-8"/>
+    <title>Pesantren</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta content="" name="description"/>
@@ -83,16 +83,7 @@ License: You must have a valid license purchased only from themeforest(the above
 </div>
 <!-- END CONTAINER -->
 <!-- BEGIN FOOTER -->
-<div class="footer">
-	<div class="footer-inner">
-		 {{ date('Y') }} &copy; M.Y
-	</div>
-	<div class="footer-tools">
-		<span class="go-top">
-		<i class="fa fa-angle-up"></i>
-		</span>
-	</div>
-</div>
+    @include('layouts.footer')
 <!-- END FOOTER -->
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 <!-- BEGIN CORE PLUGINS -->

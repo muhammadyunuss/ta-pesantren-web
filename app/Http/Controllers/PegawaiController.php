@@ -17,9 +17,14 @@ class PegawaiController extends Controller
     public function index()
     {
         $queryBuilder = DB::table('pegawai')
-        ->join("pesantren","pegawai.id","=","pesantren.id")->get();
+        ->join("pesantren","pegawai.pesantren_id","=","pesantren.id")
+        ->select(
+            'pegawai.*',
+            'pesantren.nama_pesantren'
+        )
+        ->get();
 
-    return view('pegawai.index', ['data' => $queryBuilder]);
+        return view('pegawai.index', ['data' => $queryBuilder]);
     }
 
     /**
@@ -30,7 +35,7 @@ class PegawaiController extends Controller
     public function create()
     {
         $datapesantren = Pesantren::all();
-        return view('pegawai.addpegawai', compact('datapesantren'));
+        return view('pegawai.create', compact('datapesantren'));
     }
 
     /**
@@ -41,32 +46,27 @@ class PegawaiController extends Controller
      */
     public function store(Request $request)
     {
+        $user = auth()->user();
         $request->validate([
-            'namaPegawai' => 'required',
-            'alamatPegawai' => 'required',
-            'kontakPegawai' => 'required',
-            'image' => 'required',
-            'tanggalPegawai' => 'required', //max 10mb (10240kb)
-            'namaPesantren' => 'required',
-
-        ], [
-            'namaPegawai.required' => 'Nama Pegawai tidak boleh kosong',
-            'alamatPegawai.required' => 'Alamat Pegawai harus diisi',
-            'kontakPegawai.required' => 'Kontak Pegawai harus diisi',
-            'image.required' => 'Foto pegawai tidak boleh kosong',
-            'tanggalPegawai.required' => 'Tanggal Lahir Pegawai tidak boleh kosong',
-            'namaPesantren.required' => 'Nama Pesantren tidak boleh kosong',
-
+            'foto_pegawai' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
+        $data = $request->except(['_token', '_method']);
         $data = new Pegawai();
+
+        if ($image = $request->file('foto_pegawai')) {
+            $destinationPath = 'image_upload/foto_pegawai/';
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $profileImage);
+            $data['foto_pegawai'] = "$profileImage";
+        }
 
         $data->nama_pegawai = $request->get('namaPegawai');
         $data->alamat_pegawai = $request->get('alamatPegawai');
         $data->kontak_pegawai = $request->get('kontakPegawai');
-        $data->foto_pegawai = $request->get('image');
+        $data->foto_pegawai = $data['foto_pegawai'];
         $data->tanggal_lahir_pegawai=$request->get('tanggalPegawai');
-        $data->pesantren_id = $request->get('namaPesantren');
+        $data->pesantren_id = $user->pesantren_id;
         $data->save();
 
 
@@ -94,7 +94,7 @@ class PegawaiController extends Controller
     {
         $data = $pegawai;
         $datapesantren = Pesantren::all();
-        return view('pegawai/editpegawai',compact('data', 'datapesantren'));
+        return view('pegawai.edit',compact('data', 'datapesantren'));
     }
 
     /**
@@ -106,34 +106,42 @@ class PegawaiController extends Controller
      */
     public function update(Request $request, Pegawai $pegawai)
     {
+        $user = auth()->user();
         $request->validate([
-            'namaPegawai' => 'required',
-            'alamatPegawai' => 'required',
-            'kontakPegawai' => 'required',
-            'image' => 'required',
-            'tanggalPegawai' => 'required', //max 10mb (10240kb)
-            'namaPesantren' => 'required',
-
-        ], [
-            'namaPegawai.required' => 'Nama Pegawai tidak boleh kosong',
-            'alamatPegawai.required' => 'Alamat Pegawai harus diisi',
-            'kontakPegawai.required' => 'Kontak Pegawai harus diisi',
-            'image.required' => 'Foto pegawai tidak boleh kosong',
-            'tanggalPegawai.required' => 'Tanggal Lahir Pegawai tidak boleh kosong',
-            'namaPesantren.required' => 'Nama Pesantren tidak boleh kosong',
-
+            'foto_pegawai' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        $pegawai->nama_pegawai = $request->get('namaPegawai');
-        $pegawai->alamat_pegawai = $request->get('alamatPegawai');
-        $pegawai->kontak_pegawai = $request->get('kontakPegawai');
-        $pegawai->foto_pegawai = $request->get('image');
-        $pegawai->tanggal_lahir_pegawai=$request->get('tanggalPegawai');
-        $pegawai->pesantren_id = $request->get('namaPesantren');
-        dd($request);
-        $pegawai->save();
+        $data = request()->except(['_token', '_method']);
 
+        if ($image = $request->file('foto_pegawai')) {
+            $destinationPath = 'image_upload/foto_pegawai/';
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $profileImage);
+            $data['foto_pegawai'] = "$profileImage";
+        }
+        else{
+            unset($data['foto_pegawai']);
+        }
 
+        if($request->file('foto_pegawai'))
+        {
+            Pegawai::where('id', $pegawai->id)->update([
+                'nama_pegawai' => $request->get('namaPegawai'),
+                'alamat_pegawai' => $request->get('alamatPegawai'),
+                'kontak_pegawai' => $request->get('kontakPegawai'),
+                'foto_pegawai' => $data['foto_pegawai'],
+                'tanggal_lahir_pegawai' => $request->get('tanggalPegawai'),
+                'pesantren_id' =>  $user->pesantren_id,
+            ]);
+        }else{
+            Pegawai::where('id', $pegawai->id)->update([
+                'nama_pegawai' => $request->get('namaPegawai'),
+                'alamat_pegawai' => $request->get('alamatPegawai'),
+                'kontak_pegawai' => $request->get('kontakPegawai'),
+                'tanggal_lahir_pegawai' => $request->get('tanggalPegawai'),
+                'pesantren_id' =>  $user->pesantren_id,
+            ]);
+        }
         return redirect()->route('pegawai.index')->with('status','Data Pegawai berhasil diubah');
     }
 

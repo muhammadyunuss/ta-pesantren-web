@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Perizinan;
+use App\Models\Santri;
 use Illuminate\Http\Request;
 
 class PerizinanController extends Controller
@@ -14,7 +15,13 @@ class PerizinanController extends Controller
      */
     public function index()
     {
-        //
+        $data = Perizinan::join("santri","perizinan.santri_id","=","santri.id")
+        ->select(
+            'perizinan.*',
+            'santri.nama_santri'
+        )
+        ->get();
+        return view('perizinan.index',compact('data'));
     }
 
     /**
@@ -24,7 +31,8 @@ class PerizinanController extends Controller
      */
     public function create()
     {
-        //
+        $datasantri = Santri::all();
+        return view('perizinan.create', compact('datasantri'));
     }
 
     /**
@@ -35,7 +43,14 @@ class PerizinanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->except(['_token', '_method']);
+        Perizinan::create($data);
+
+        if($request){
+            return redirect()->route('perizinan.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        }else{
+            return redirect()->route('perizinan.index')->with(['error' => 'Data Gagal Disimpan!']);
+        }
     }
 
     /**
@@ -57,7 +72,10 @@ class PerizinanController extends Controller
      */
     public function edit(Perizinan $perizinan)
     {
-        //
+        $data = $perizinan;
+        $datasantri = Santri::all();
+
+        return view('perizinan.edit',compact('data', 'datasantri'));
     }
 
     /**
@@ -69,7 +87,14 @@ class PerizinanController extends Controller
      */
     public function update(Request $request, Perizinan $perizinan)
     {
-        //
+        $data = request()->except(['_token', '_method']);
+        Perizinan::where('id', $perizinan->id)->update($data);
+
+        if($request){
+            return redirect()->route('perizinan.index')->with(['success' => 'Data Berhasil Diupdate!']);
+        }else{
+            return redirect()->route('perizinan.index')->with(['error' => 'Data Gagal Diupdate!']);
+        }
     }
 
     /**
@@ -80,6 +105,7 @@ class PerizinanController extends Controller
      */
     public function destroy(Perizinan $perizinan)
     {
-        //
+        $perizinan->delete();
+        return redirect()->route('perizinan.index')->with('success', 'Data Santri berhasil dihapus');
     }
 }

@@ -55,5 +55,22 @@ if (! function_exists('jenisPembayaran')) {
 
         return $data;
     }
+
+    if (! function_exists('notifications')) {
+        function notifications()
+        {
+            $user = App\Models\User::find(2);
+
+            $notifications = [];
+            foreach ($user->unreadNotifications as $notification) {
+                $notifications[] = $notification;
+            }
+
+            return $notifications;
+            // $notifications = auth()->user()->unreadNotifications;
+
+            // return $notifications;
+        }
+    }
 }
 

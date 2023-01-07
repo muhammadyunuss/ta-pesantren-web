@@ -5,8 +5,9 @@ namespace App\Listeners;
 use App\Models\User;
 use App\Notifications\NewSppNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Notification;
+// use Illuminate\Notifications\Notification;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Notification;
 
 class SendNewSppNotification
 {
@@ -29,8 +30,8 @@ class SendNewSppNotification
     public function handle($event)
     {
         $admins = User::whereHas('roles', function ($query) {
-            $query->where('id', 1);
-        })->get();
+                $query->where('id', 2);
+            })->get();
 
         Notification::send($admins, new NewSppNotification($event->user));
     }

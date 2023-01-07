@@ -30,7 +30,7 @@ class KesehatanController extends Controller
     public function create()
     {
         $datasantri = Santri::all();
-        return view('kesehatan.addkesehatan', compact('datasantri'));
+        return view('kesehatan.create', compact('datasantri'));
     }
 
     /**
@@ -82,7 +82,7 @@ class KesehatanController extends Controller
     {
         $data = $kesehatan;
         $datasantri = Santri::all();
-        return view('kesehatan/editkesehatan',compact('data', 'datasantri'));
+        return view('kesehatan.edit',compact('data', 'datasantri'));
     }
 
     /**

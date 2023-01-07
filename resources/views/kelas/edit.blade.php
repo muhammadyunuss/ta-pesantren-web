@@ -3,25 +3,25 @@
 @section('content')
 <!-- BEGIN PAGE HEADER-->
 <h3 class="page-title">
-    Pengunaan Bahan Baku <br>
+    Kelas<br>
 </h3>
 <div class="page-bar">
     <ul class="page-breadcrumb">
         <li>
             <i class="fa fa-home"></i>
-            <a href="{{url('/')}}">Dashboard</a>
+            <a href="{{url('/dashboard')}}">Dashboard</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('kelas.index')}}">Pemesanan</a>
+            <a href="{{route('kelas.index')}}">Manajemen Akademik</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('kelas.index')}}">Pengunaan Bahan Baku</a>
+            <a href="{{route('kelas.index')}}">Kelas</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('kelas.create')}}">Tambah Pengunaan Bahan Baku</a>
+            <a href="{{route('kelas.create')}}">Tambah Kelas</a>
         </li>
     </ul>
 </div>

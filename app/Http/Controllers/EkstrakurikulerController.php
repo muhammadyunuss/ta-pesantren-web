@@ -17,7 +17,12 @@ class EkstrakurikulerController extends Controller
     public function index()
     {
         $queryBuilder = DB::table('ekstrakurikuler')
-        ->join("santri","ekstrakurikuler.id","=","santri.id")->get();
+        ->join('santri','ekstrakurikuler.santri_id','santri.id')
+        ->select(
+            'ekstrakurikuler.*',
+            'santri.nama_santri'
+        )
+        ->get();
 
     return view('ekstrakurikuler.index', ['data' => $queryBuilder]);
     }
@@ -30,7 +35,7 @@ class EkstrakurikulerController extends Controller
     public function create()
     {
         $datasantri = Santri::all();
-        return view('ekstrakurikuler.addekstrakurikuler', compact('datasantri'));
+        return view('ekstrakurikuler.create', compact('datasantri'));
     }
 
     /**
@@ -79,7 +84,7 @@ class EkstrakurikulerController extends Controller
     {
         $data = $ekstrakurikuler;
         $datasantri = Santri::all();
-        return view('ekstrakurikuler/editekstrakurikuler',compact('data', 'datasantri'));
+        return view('ekstrakurikuler.edit',compact('data', 'datasantri'));
     }
 
     /**

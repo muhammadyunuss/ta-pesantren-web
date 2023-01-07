@@ -1,6 +1,6 @@
 <div class="footer">
 	<div class="footer-inner">
-		 2013 &copy; Conquer by keenthemes.
+		 {{ date('Y') }} &copy; Pesantren
 	</div>
 	<div class="footer-tools">
 		<span class="go-top">

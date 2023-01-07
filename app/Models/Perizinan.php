@@ -9,8 +9,12 @@ class Perizinan extends Model
     protected $table = 'perizinan';
 
     protected $primarykey = 'id';
-    public function santri() {
-        return $this->belongsTo("App\Santri","santri_id");
-    }
-    public $timestamps = false;
+
+    protected $fillable = [
+        'riwayat_perizinan',
+        'keterangan_perizinan',
+        'tanggal_mulai',
+        'tanggal_selesai',
+        'santri_id '
+      ];
 }

@@ -17,7 +17,12 @@ class PelanggaranController extends Controller
     public function index()
     {
         $queryBuilder = DB::table('pelanggaran')
-        ->join("santri","pelanggaran.id","=","santri.id")->get();
+        ->join("santri","pelanggaran.santri_id","=","santri.id")
+        ->select(
+            'pelanggaran.*',
+            'santri.nama_santri'
+        )
+        ->get();
 
     return view('pelanggaran.index', ['data' => $queryBuilder]);
     }
@@ -30,7 +35,7 @@ class PelanggaranController extends Controller
     public function create()
     {
         $datasantri = Santri::all();
-        return view('pelanggaran.addpelanggaran', compact('datasantri'));
+        return view('pelanggaran.create', compact('datasantri'));
     }
 
     /**
@@ -82,7 +87,7 @@ class PelanggaranController extends Controller
     {
         $data = $pelanggaran;
         $datasantri = Santri::all();
-        return view('pelanggaran/editpelanggaran',compact('data', 'datasantri'));
+        return view('pelanggaran.edit',compact('data', 'datasantri'));
     }
 
     /**

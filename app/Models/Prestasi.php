@@ -9,8 +9,10 @@ class Prestasi extends Model
     protected $table = 'prestasi';
 
     protected $primarykey = 'id';
-    public function santri() {
-        return $this->belongsTo("App\Santri","santri_id");
-    }
-    public $timestamps = false;
+    protected $fillable = [
+        'keterangan_prestasi',
+        'riwayat_prestasi',
+        'tanggal_prestasi',
+        'santri_id',
+    ];
 }

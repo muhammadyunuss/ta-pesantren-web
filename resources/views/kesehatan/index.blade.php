@@ -1,39 +1,41 @@
 @extends('layouts.layout')
+
 @section('content')
 <!-- BEGIN PAGE HEADER-->
 <h3 class="page-title">
-Daftar Data Kesehatan Santri
-<small>statistics and more</small>
+    Data Kesehatan &nbsp;&nbsp;
+    <a type= "button" href="{{route('kesehatan.create')}}" class="btn btn-primary btn-sm">
+        + TAMBAH DATA KESEHATAN
+    </a>
 </h3>
 <div class="page-bar">
     <ul class="page-breadcrumb">
         <li>
             <i class="fa fa-home"></i>
-            <a href="{{url('/')}}">
+            <a href="{{url('/dashboard')}}">Dashboard</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <a href="{{route('kesehatan.index')}}">Data Kesehatan</a>
         </li>
     </ul>
 </div>
+<!-- END PAGE HEADER-->
 
-<div class="page-content">
-    <div>
-        <a type="button" href="{{route('kesehatan.create')}}" class="btn btn-fit-height default">
-            + TAMBAH DATA KESEHATAN SANTRI
-        </a>
-    </div>
+@if(session('success'))
+<div class="alert alert-success">
+    {{ session('success') }}
+</div>
+@endif
 
-    @if(session('status'))
-    <div class="alert alert-success">
-        {{ session('status') }}
-    </div>
-    @endif
+@if (session('error'))
+<div class="alert alert-danger">
+    {{ session('error') }}
+</div>
+@endif
 
-    @if (session('statushapus'))
-    <div class="alert alert-danger">
-        {{ session('statushapus') }}
-    </div>
-    @endif
-
-    <table class="table">
+<!-- <p>The .table class adds basic styling (light padding and only horizontal dividers) to a table:</p>             -->
+<table class="table" id="sample_1">
         <thead>
             <tr>
                 <!-- <th>ID</th> -->
@@ -41,6 +43,7 @@ Daftar Data Kesehatan Santri
                 <th>Riwayat Kesehatan</th>
                 <th>Keterangan Kesehatan</th>
                 <th>Tanggal Riwayat</th>
+                <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -63,7 +66,18 @@ Daftar Data Kesehatan Santri
             @endforeach
 
         </tbody>
-    </table>
-</div>
+</table>
+@endsection
 
-    @endsection
+@section('scripts')
+<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/datatables/media/js/jquery.dataTables.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js')}}"></script>
+<script>
+jQuery(document).ready(function() {
+	//plugin datatable
+	$('#sample_1').DataTable();
+});
+</script>
+@stop
+

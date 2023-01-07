@@ -3,21 +3,21 @@
 @section('content')
 <!-- BEGIN PAGE HEADER-->
 <h3 class="page-title">
-   Mata Pelajaran <br>
+    Mata Pelajaran<br>
 </h3>
 <div class="page-bar">
     <ul class="page-breadcrumb">
         <li>
             <i class="fa fa-home"></i>
-            <a href="{{url('/')}}">Dashboard</a>
+            <a href="{{url('/dashboard')}}">Dashboard</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('mata-pelajaran.index')}}">Majanemen Akademik</a>
+            <a href="{{route('mata-pelajaran.index')}}">Manajemen Akademik</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('mata-pelajaran.index')}}">Pengunaan Bahan Baku</a>
+            <a href="{{route('mata-pelajaran.index')}}">Mata Pelajaran</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>

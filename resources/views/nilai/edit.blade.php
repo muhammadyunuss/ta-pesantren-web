@@ -3,28 +3,28 @@
 @section('content')
 <!-- BEGIN PAGE HEADER-->
 <h3 class="page-title">
-   Nilai <br>
-</h3>
-<div class="page-bar">
-    <ul class="page-breadcrumb">
-        <li>
-            <i class="fa fa-home"></i>
-            <a href="{{url('/')}}">Dashboard</a>
-            <i class="fa fa-angle-right"></i>
-        </li>
-        <li>
-            <a href="{{route('nilai.index')}}">Majanemen Akademik</a>
-            <i class="fa fa-angle-right"></i>
-        </li>
-        <li>
-            <a href="{{route('nilai.index')}}">Nilai</a>
-            <i class="fa fa-angle-right"></i>
-        </li>
-        <li>
-            <a href="{{route('nilai.create')}}">Tambah Nilai</a>
-        </li>
-    </ul>
-</div>
+    Nilai <br>
+ </h3>
+ <div class="page-bar">
+     <ul class="page-breadcrumb">
+         <li>
+             <i class="fa fa-home"></i>
+             <a href="{{url('/dashboard')}}">Dashboard</a>
+             <i class="fa fa-angle-right"></i>
+         </li>
+         <li>
+             <a href="{{route('nilai.index')}}">Majanemen Akademik</a>
+             <i class="fa fa-angle-right"></i>
+         </li>
+         <li>
+             <a href="{{route('nilai.index')}}">Nilai</a>
+             <i class="fa fa-angle-right"></i>
+         </li>
+         <li>
+             <a href="{{route('nilai.create')}}">Tambah Nilai</a>
+         </li>
+     </ul>
+ </div>
 <!-- END PAGE HEADER-->
 
 <!-- <p>The .table class adds basic styling (light padding and only horizontal dividers) to a table:</p>             -->

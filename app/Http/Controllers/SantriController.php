@@ -15,9 +15,8 @@ class SantriController extends Controller
      */
     public function index()
     {
-
-        // $qrSantri = DB::select(DB::raw("select * from santri"));
-        return view('santri.index',['data'=>Santri::all()]);
+        $data = Santri::all();
+        return view('santri.index',compact('data'));
     }
 
     /**
@@ -27,8 +26,7 @@ class SantriController extends Controller
      */
     public function create()
     {
-
-        return view('santri.addsantri');
+        return view('santri.create');
     }
 
     /**
@@ -39,45 +37,28 @@ class SantriController extends Controller
      */
     public function store(Request $request)
     {
-         // return $request->file('image')->store('imageCategories');
-
-        //untuk validasi saat user mengisi data, apabila ada yang masih kosong dimunculkan pesan error
+        $user = auth()->user();
         $request->validate([
-            'nisSantri' => 'required',
-            'namaSantri' => 'required',
-            'tanggalSantri' => 'required',
-            'alamatSantri' => 'required',
-            'image' => 'required', //max 10mb (10240kb)
-            'namaAyah' => 'required',
-            'namaIbu' => 'required',
-            'kamar' => 'required',
-            'asrama' => 'required',
-
-        ], [
-            'nisSantri.required' => 'NIS Santri tidak boleh kosong',
-            'namaSantri.required' => 'Nama Santri tidak boleh kosong',
-            'tanggalSantri.required' => 'Tanggal Lahir harus diisi',
-            'alamatSantri.required' => 'Alamat Santri harus diisi',
-            'image.required' => 'Gambar Santri tidak boleh kosong',
-            'namaAyah.required' => 'Nama Ayah Santri tidak boleh kosong',
-            'namaIbu.required' => 'Nama Ibu Santri tidak boleh kosong',
-            'kamar.required' => 'Nama Kamar Harus Diisi',
-            'asrama.required' => 'Nama Gedung Asrama harus diisi',
-
+            'foto_santri' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        //New Kategori berarti artinya new Data Kategori (insert)
+        $data = $request->except(['_token', '_method']);
         $data = new Santri();
 
-        //$data->[nama_kolom_pada_db] = $request->get('[name dari input text]')
+        if ($image = $request->file('foto_santri')) {
+            $destinationPath = 'image_upload/foto_santri/';
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $profileImage);
+            $data['foto_santri'] = "$profileImage";
+        }
+
+
         $data->nis = $request->get('nisSantri');
+        $data->pesantren_id = $user->pesantren_id;
         $data->nama_santri = $request->get('namaSantri');
         $data->tanggal_lahir_santri = $request->get('tanggalSantri');
         $data->alamat_santri = $request->get('alamatSantri');
-        // if($request->file('image')) {
-        //     $data['foto_santri'] = $request->file('image')->store('imageCategories');
-        // }
-        $data->foto_santri=$request->get('image');
+        $data->foto_santri = $data['foto_santri'];
         $data->nama_ayah = $request->get('namaAyah');
         $data->nama_ibu = $request->get('namaIbu');
         $data->kamar_santri = $request->get('kamar');
@@ -85,9 +66,6 @@ class SantriController extends Controller
         $data->status_aktif = $request->get('statusAktif');
         $data->save();
 
-        //akan memanggil route kategori index yang akan kembali ke halaman utama Kategori
-        //dengan menambahkan session status yang isinya berhasil ditambahkan Kategori baru
-        //with = membuat session sementara bernama status yg menampilkan berhasilnya ditambahkan data Kategori
         return redirect()->route('santri.index')->with('status','Data Santri berhasil ditambah');
     }
 
@@ -117,7 +95,7 @@ class SantriController extends Controller
     {
         $data = $santri;
 
-        return view('santri/editsantri',compact('data'));
+        return view('santri.edit',compact('data'));
     }
 
     /**
@@ -129,56 +107,50 @@ class SantriController extends Controller
      */
     public function update(Request $request, Santri $santri)
     {
-      // return $request->file('image')->store('imageCategories');
-
-        //untuk validasi saat user mengisi data, apabila ada yang masih kosong dimunculkan pesan error
         $request->validate([
-            'nisSantri' => 'required',
-            'namaSantri' => 'required',
-            'tanggalSantri' => 'required',
-            'alamatSantri' => 'required',
-            'image' => 'required', //max 10mb (10240kb)
-            'namaAyah' => 'required',
-            'namaIbu' => 'required',
-            'kamar' => 'required',
-            'asrama' => 'required',
-
-        ], [
-            'nisSantri.required' => 'NIS Santri tidak boleh kosong',
-            'namaSantri.required' => 'Nama Santri tidak boleh kosong',
-            'tanggalSantri.required' => 'Tanggal Lahir harus diisi',
-            'alamatSantri.required' => 'Alamat Santri harus diisi',
-            'image.required' => 'Gambar Santri tidak boleh kosong',
-            'namaAyah.required' => 'Nama Ayah Santri tidak boleh kosong',
-            'namaIbu.required' => 'Nama Ibu Santri tidak boleh kosong',
-            'kamar.required' => 'Nama Kamar Harus Diisi',
-            'asrama.required' => 'Nama Gedung Asrama harus diisi',
-
-
+            'foto_santri' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        //New Kategori berarti artinya new Data Kategori (insert)
+        $data = request()->except(['_token', '_method']);
 
+        if ($image = $request->file('foto_santri')) {
+            $destinationPath = 'image_upload/foto_santri/';
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $profileImage);
+            $data['foto_santri'] = "$profileImage";
+        }
+        else{
+            unset($data['foto_santri']);
+        }
 
-        //$data->[nama_kolom_pada_db] = $request->get('[name dari input text]')
-        $santri->nis = $request->get('nisSantri');
-        $santri->nama_santri = $request->get('namaSantri');
-        $santri->tanggal_lahir_santri = $request->get('tanggalSantri');
-        $santri->alamat_santri = $request->get('alamatSantri');
-        // if($request->file('image')) {
-        //     $data['foto_santri'] = $request->file('image')->store('imageCategories');
-        // }
-        $santri->foto_santri=$request->get('image');
-        $santri->nama_ayah = $request->get('namaAyah');
-        $santri->nama_ibu = $request->get('namaIbu');
-        $santri->kamar_santri = $request->get('kamar');
-        $santri->asrama_santri = $request->get('asrama');
-        $santri->status_aktif = $request->get('statusAktif');
-        $santri->save();
+        if($request->file('foto_santri'))
+        {
+            Santri::where('id', $santri->id)->update([
+                'nis' => $request->get('nisSantri'),
+                'nama_santri' => $request->get('namaSantri'),
+                'tanggal_lahir_santri' => $request->get('tanggalSantri'),
+                'alamat_santri' => $request->get('alamatSantri'),
+                'foto_santri'=>$data['foto_santri'],
+                'nama_ayah' => $request->get('namaAyah'),
+                'nama_ibu' => $request->get('namaIbu'),
+                'kamar_santri' => $request->get('kamar'),
+                'asrama_santri' => $request->get('asrama'),
+                'status_aktif' => $request->get('statusAktif'),
+            ]);
+        }else{
+            Santri::where('id', $santri->id)->update([
+                'nis' => $request->get('nisSantri'),
+                'nama_santri' => $request->get('namaSantri'),
+                'tanggal_lahir_santri' => $request->get('tanggalSantri'),
+                'alamat_santri' => $request->get('alamatSantri'),
+                'nama_ayah' => $request->get('namaAyah'),
+                'nama_ibu' => $request->get('namaIbu'),
+                'kamar_santri' => $request->get('kamar'),
+                'asrama_santri' => $request->get('asrama'),
+                'status_aktif' => $request->get('statusAktif'),
+            ]);
+        }
 
-        //akan memanggil route kategori index yang akan kembali ke halaman utama Kategori
-        //dengan menambahkan session status yang isinya berhasil ditambahkan Kategori baru
-        //with = membuat session sementara bernama status yg menampilkan berhasilnya ditambahkan data Kategori
         return redirect()->route('santri.index')->with('status','Data Santri berhasil ditambah');
     }
 
@@ -190,9 +162,6 @@ class SantriController extends Controller
      */
     public function destroy(Santri $santri)
     {
-        // if($product->gambar_produk) { //delete file gambar
-        //     Storage::delete($product->gambar_produk);
-        // }
         $santri->delete();
         return redirect()->route('santri.index')->with('statushapus', 'Data Santri berhasil dihapus');
     }

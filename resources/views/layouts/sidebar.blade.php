@@ -167,6 +167,16 @@
                                 <i class="icon-anchor"></i>
                                 SPP</a>
                         </li>
+                        <li class= "{{ (request()->segment(2) == 'spp') ? 'active' : '' }}">
+                            <a href="{{route('spp.index')}}">
+                                <i class="icon-anchor"></i>
+                                Verifikasi Pembayaran</a>
+                        </li>
+                        <li class= "{{ (request()->segment(2) == 'spp') ? 'active' : '' }}">
+                            <a href="{{route('spp.index')}}">
+                                <i class="icon-anchor"></i>
+                                Rekap Laporan Pengeluaran & Pemasukan</a>
+                        </li>
                     </ul>
 
                 </li>

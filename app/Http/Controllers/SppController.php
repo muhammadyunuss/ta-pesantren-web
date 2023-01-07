@@ -8,8 +8,11 @@ use App\Models\Pegawai;
 use App\Models\Pembayaran;
 use App\Models\Pesantren;
 use App\Models\Santri;
+use App\Models\User;
 use App\Models\WaliSantri;
+use App\Notifications\NewSppNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class SppController extends Controller
 {
@@ -56,7 +59,7 @@ class SppController extends Controller
             // dd($walisantri);
             // $detail_pemberitahuan = "Tagihan Pembayaran SPP, Atas nama Santri ".$walisantri->nama_walisantri." Sebesar Rp. ".number_format($request->debet_pembayaran ,2,',','.')." pada Tanggal ".date("d-m-Y", strtotime($request->tanggal_pembayaran));
             // dd($detail_pemberitahuan);
-            Notifikasi::create([
+            $createnotif = Notifikasi::create([
                 'walisantri_id' => $walisantri->id,
                 'email_username' => $walisantri->email_walisantri,
                 'judul_pemberitahuan' => 'Tagihan Pembayaran SPP',
@@ -64,6 +67,13 @@ class SppController extends Controller
                 'tanggal_pemberitahuan' => $request->tanggal_pembayaran,
                 'status_terbaca' => 0
             ]);
+
+
+            $user = User::whereHas('roles', function ($query) {
+                $query->where('id', 2);
+            })->get();
+
+            Notification::send($user, new NewSppNotification($createnotif));
             JenisPembayaran::create($request->except(['notifikasi']));
         }
 

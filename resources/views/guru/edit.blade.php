@@ -3,25 +3,25 @@
 @section('content')
 <!-- BEGIN PAGE HEADER-->
 <h3 class="page-title">
-    Pengunaan Bahan Baku <br>
+    Guru <br>
 </h3>
 <div class="page-bar">
     <ul class="page-breadcrumb">
         <li>
             <i class="fa fa-home"></i>
-            <a href="{{url('/')}}">Dashboard</a>
+            <a href="{{url('/dashboard')}}">Dashboard</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('guru.index')}}">Pemesanan</a>
+            <a href="{{route('guru.index')}}">Manajemen Akademik</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('guru.index')}}">Pengunaan Bahan Baku</a>
+            <a href="{{route('guru.index')}}">Guru</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('guru.create')}}">Tambah Pengunaan Bahan Baku</a>
+            <a href="{{route('guru.create')}}">Tambah Guru</a>
         </li>
     </ul>
 </div>
@@ -68,11 +68,11 @@
                         <img src="{{ asset('image_upload/foto_guru/'.$data->foto_guru) }}" class="img-fluid" id="img-preview" style="max-height:400px">
                     @else
                         <img class="img-fluid" id="img-preview" style="max-height:400px">
-                    </div>
-                    @error('foto_guru')
-                        <div class="invalid-feedback" style="color:red">{{ $message }}</div>
-                    @enderror
-                @endif
+                        @error('foto_guru')
+                            <div class="invalid-feedback" style="color:red">{{ $message }}</div>
+                        @enderror
+                    @endif
+                </div>
                 <div class="form-group">
                     <label for="tanggal_lahir_guru">Tanggal Lahir</label>
                     <div>

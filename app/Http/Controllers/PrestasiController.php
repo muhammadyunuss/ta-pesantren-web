@@ -17,7 +17,12 @@ class PrestasiController extends Controller
     public function index()
     {
         $queryBuilder = DB::table('prestasi')
-        ->join("santri","prestasi.id","=","santri.id")->get();
+        ->join('santri',"prestasi.santri_id","santri.id")
+        ->select(
+            'prestasi.*',
+            'santri.nama_santri'
+        )
+        ->get();
 
     return view('prestasi.index', ['data' => $queryBuilder]);
     }
@@ -30,7 +35,7 @@ class PrestasiController extends Controller
     public function create()
     {
         $datasantri = Santri::all();
-        return view('prestasi.addprestasi', compact('datasantri'));
+        return view('prestasi.create', compact('datasantri'));
     }
 
     /**
@@ -82,7 +87,7 @@ class PrestasiController extends Controller
     {
         $data = $prestasi;
         $datasantri = Santri::all();
-        return view('prestasi/editprestasi',compact('data', 'datasantri'));
+        return view('prestasi.edit',compact('data', 'datasantri'));
     }
 
     /**
@@ -105,11 +110,16 @@ class PrestasiController extends Controller
             'tanggalPrestasi.required'  => 'Tanggal Prestasi Santri wajib diisi',
             'namaSantri.required' => 'Nama santri harus dipilih',
         ]);
-        $prestasi->keterangan_prestasi = $request->get('keteranganP');
-        $prestasi->riwayat_prestasi = $request->get('riwayatP');
-        $prestasi->tanggal_prestasi = $request->get('tanggalPrestasi');
-        $prestasi->santri_id = $request->get('namaSantri');
-        $prestasi->save();
+
+        $prestasi = Prestasi::findOrFail($prestasi->id);
+
+        $prestasi->update([
+            'keterangan_prestasi' => $request->get('keteranganP'),
+            'riwayat_prestasi' => $request->get('riwayatP'),
+            'tanggal_prestasi' => $request->get('tanggalPrestasi'),
+            'santri_id' => $request->get('namaSantri')
+        ]);
+
         return redirect()->route('prestasi.index')->with('status','Data Prestasi Santri berhasil diubah');
     }
 

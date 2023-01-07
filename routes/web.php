@@ -36,6 +36,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/register', function () {
+    return view('auth.register');
+})->name('register');
 
 Route::get('/', function () {
     return view('auth.login');
@@ -48,6 +51,9 @@ Route::get('/dashboard', function () {
 Route::middleware(['auth'])->group(function () {
 
     Route::get('verifikasi-pembayaran/{id}', [BerandaController::class, 'verifikasiPembayaran'])->name('verifikasi-pembayaran');
+    Route::post('/mark-as-read', [BerandaController::class, 'markNotification'])->name('markNotification');
+
+    // Route::get('notifications', [BerandaController::class, 'notifications'])->name('verifikasi-pembayaran');
     Route::post('save-verifikasi-pembayaran', [BerandaController::class, 'saveVerifikasiPembayaran'])->name('save-verifikasi-pembayaran');
     Route::post('update-verifikasi-pembayaran', [BerandaController::class, 'updateVerifikasiPembayaran'])->name('update-verifikasi-pembayaran');
 

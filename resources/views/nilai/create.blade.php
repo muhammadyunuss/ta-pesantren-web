@@ -3,13 +3,13 @@
 @section('content')
 <!-- BEGIN PAGE HEADER-->
 <h3 class="page-title">
-    Mata Pelajaran<br>
+    Nilai<br>
 </h3>
 <div class="page-bar">
     <ul class="page-breadcrumb">
         <li>
             <i class="fa fa-home"></i>
-            <a href="{{url('/')}}">Dashboard</a>
+            <a href="{{url('/dashboard')}}">Dashboard</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
@@ -17,11 +17,11 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('nilai.index')}}">Mata Pelajaran</a>
+            <a href="{{route('nilai.index')}}">Nilai</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('nilai.create')}}">Tambah Mata Pelajaran</a>
+            <a href="{{route('nilai.create')}}">Tambah Nilai</a>
         </li>
     </ul>
 </div>
