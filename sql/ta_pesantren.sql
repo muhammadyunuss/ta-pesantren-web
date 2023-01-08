@@ -2,8 +2,8 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 172.17.0.2
--- Generation Time: Dec 22, 2022 at 08:30 AM
+-- Host: 172.17.0.3
+-- Generation Time: Jan 07, 2023 at 05:06 AM
 -- Server version: 10.9.3-MariaDB-1:10.9.3+maria~ubu2204
 -- PHP Version: 8.0.24
 
@@ -52,6 +52,13 @@ CREATE TABLE `ekstrakurikuler` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `santri_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `ekstrakurikuler`
+--
+
+INSERT INTO `ekstrakurikuler` (`id`, `nama_ekstrakurikuler`, `keterangan_ekstrakurikuler`, `created_at`, `updated_at`, `santri_id`) VALUES
+(1, 'BASKET', 'adssdadsa', NULL, NULL, 5);
 
 -- --------------------------------------------------------
 
@@ -166,6 +173,14 @@ CREATE TABLE `kesehatan` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `santri_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `kesehatan`
+--
+
+INSERT INTO `kesehatan` (`id`, `riwayat_kesehatan`, `keterangan_kesehatan`, `tanggal_riwayat_santri`, `created_at`, `updated_at`, `santri_id`) VALUES
+(1, 'Sakit Diare', '3 hari', '2023-01-06', NULL, NULL, 1),
+(2, 'GATas', 'sad dwad', '2023-12-11', NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -347,6 +362,15 @@ CREATE TABLE `notifications` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `notifications`
+--
+
+INSERT INTO `notifications` (`id`, `type`, `notifiable_type`, `notifiable_id`, `data`, `read_at`, `created_at`, `updated_at`) VALUES
+('10ccb87a-bc83-4e23-9b83-a85232fb134d', 'App\\Notifications\\NewSppNotification', 'App\\Models\\User', 1, '{\"walisantri_id\":1,\"email_username\":\"wali@gmail.com\",\"judul_pemberitahuan\":\"Tagihan Pembayaran SPP\",\"detail_pemberitahuan\":\"Tagihan Pembayaran SPP, Atas nama Santri Wali Santri Saleh Sebesar Rp. 100.000,00 pada Tanggal 23-12-2022\",\"tanggal_pemberitahuan\":\"2022-12-23\",\"status_terbaca\":0,\"updated_at\":\"2022-12-23T09:25:11.000000Z\",\"created_at\":\"2022-12-23T09:25:11.000000Z\",\"id\":6}', NULL, '2022-12-23 03:10:54', '2022-12-23 03:10:54'),
+('c3aed8ae-ea66-4a16-a1c9-6c5337c27572', 'App\\Notifications\\NewSppNotification', 'App\\Models\\User', 2, '{\"walisantri_id\":1,\"email_username\":\"wali@gmail.com\",\"judul_pemberitahuan\":\"Tagihan Pembayaran SPP\",\"detail_pemberitahuan\":\"Tagihan Pembayaran SPP, Atas nama Santri Wali Santri Saleh Sebesar Rp. 100.000,00 pada Tanggal 23-12-2022\",\"tanggal_pemberitahuan\":\"2022-12-23\",\"status_terbaca\":0,\"updated_at\":\"2022-12-23T09:25:11.000000Z\",\"created_at\":\"2022-12-23T09:25:11.000000Z\",\"id\":6}', NULL, '2022-12-23 09:25:11', '2022-12-23 11:42:14'),
+('ccff75ec-bf60-4c00-a824-08894bb1f1e5', 'App\\Notifications\\NewSppNotification', 'App\\Models\\User', 2, '{\"walisantri_id\":1,\"email_username\":\"wali@gmail.com\",\"judul_pemberitahuan\":\"Tagihan Pembayaran SPP\",\"detail_pemberitahuan\":\"Tagihan Pembayaran SPP, Atas nama Santri Wali Santri Saleh Sebesar Rp. 100.000,00 pada Tanggal 01-01-2023\",\"tanggal_pemberitahuan\":\"2023-01-01\",\"status_terbaca\":0,\"updated_at\":\"2023-01-02T12:39:45.000000Z\",\"created_at\":\"2023-01-02T12:39:45.000000Z\",\"id\":7}', NULL, '2023-01-02 12:39:46', '2023-01-07 04:52:12');
+
 -- --------------------------------------------------------
 
 --
@@ -373,7 +397,11 @@ INSERT INTO `notifikasi` (`id`, `walisantri_id`, `email_username`, `judul_pember
 (1, 1, 'wali@gmail.com', 'Tagihan Pembayaran SPP', 'Tagihan Pembayaran SPP\nAtas nama Santri Sales\nSebesar Rp. 1.000.000 (ambil dari nominal)\nTanggal 1 Januari 2022', '2022-12-19 12:57:45', 0, '2022-12-20 04:39:45', '0000-00-00 00:00:00'),
 (2, 1, 'wali@gmail.com', 'Konfirmasi Pembayaran SPP Berhasil', 'Konfirmasi Pembayaran SPP Berhasil\r\nAtas nama Santri Sales\r\nSebesar Rp. 1.000.000 (ambil dari nominal)\r\nTanggal 1 Januari 2022', '2022-12-19 12:57:45', 0, '2022-12-20 04:39:45', '0000-00-00 00:00:00'),
 (3, 1, 'wali@gmail.com', 'Konfirmasi Pembayaran SPP Ditolak', 'Konfirmasi Pembayaran SPP Ditolak\r\nAtas nama Santri Sales\r\nSebesar Rp. 1.000.000 (ambil dari nominal)\r\nTanggal 1 Januari 2022', '2022-12-19 12:57:45', 0, '2022-12-20 04:39:45', '0000-00-00 00:00:00'),
-(4, 1, 'wali@gmail.com', 'Tagihan Pembayaran SPP', 'Tagihan Pembayaran SPP, Atas nama Santri Wali Santri Saleh Sebesar Rp. 100.000,00 pada Tanggal 20-12-2022', '2022-12-20 00:00:00', 0, '2022-12-20 07:47:13', '2022-12-20 07:47:13');
+(4, 1, 'wali@gmail.com', 'Tagihan Pembayaran SPP', 'Tagihan Pembayaran SPP, Atas nama Santri Wali Santri Saleh Sebesar Rp. 100.000,00 pada Tanggal 20-12-2022', '2022-12-20 00:00:00', 0, '2022-12-20 07:47:13', '2022-12-20 07:47:13'),
+(5, 1, 'wali@gmail.com', 'Tagihan Pembayaran SPP', 'Tagihan Pembayaran SPP, Atas nama Santri Wali Santri Saleh Sebesar Rp. 100.000,00 pada Tanggal 23-12-2022', '2022-12-23 00:00:00', 0, '2022-12-23 09:21:32', '2022-12-23 09:21:32'),
+(6, 1, 'wali@gmail.com', 'Tagihan Pembayaran SPP', 'Tagihan Pembayaran SPP, Atas nama Santri Wali Santri Saleh Sebesar Rp. 100.000,00 pada Tanggal 23-12-2022', '2022-12-23 00:00:00', 0, '2022-12-23 09:25:11', '2022-12-23 09:25:11'),
+(7, 1, 'wali@gmail.com', 'Tagihan Pembayaran SPP', 'Tagihan Pembayaran SPP, Atas nama Santri Wali Santri Saleh Sebesar Rp. 100.000,00 pada Tanggal 01-01-2023', '2023-01-01 00:00:00', 0, '2023-01-02 12:39:45', '2023-01-02 12:39:45'),
+(8, 2, 'painem@gmail.com', 'Tagihan Pembayaran Daftar Ulang', 'Tagihan Pembayaran Daftar Ulang, Atas nama Santri Painem Sebesar Rp. 213.213,00 pada Tanggal 07-01-2023', '2023-01-07 00:00:00', 0, '2023-01-07 05:05:02', '2023-01-07 05:05:02');
 
 -- --------------------------------------------------------
 
@@ -410,7 +438,10 @@ CREATE TABLE `pegawai` (
 --
 
 INSERT INTO `pegawai` (`id`, `nama_pegawai`, `alamat_pegawai`, `kontak_pegawai`, `foto_pegawai`, `tanggal_lahir_pegawai`, `created_at`, `updated_at`, `pesantren_id`) VALUES
-(1, 'Pegawai Saleh', 'Jl. Pegawai saleh', '123123123', 'Pegawai Saleh', '2021-12-12', NULL, NULL, 1);
+(1, 'Pegawai Saleh', 'Jl. Pegawai saleh', '123123123', 'Pegawai Saleh', '2021-12-12', NULL, NULL, 1),
+(2, '12312312', '213123213', '1212321', '20230107043318.jpg', '2023-01-07', '2023-01-07 04:09:42', '2023-01-07 04:33:18', 1),
+(3, '123123', '123213', '123123', NULL, '2023-01-07', '2023-01-07 04:10:32', '2023-01-07 04:10:32', 1),
+(4, '1111', '1111', '11111', '20230107043310.jpg', '2023-01-07', '2023-01-07 04:10:55', '2023-01-07 04:33:10', 1);
 
 -- --------------------------------------------------------
 
@@ -427,6 +458,17 @@ CREATE TABLE `pelanggaran` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `santri_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `pelanggaran`
+--
+
+INSERT INTO `pelanggaran` (`id`, `keterangan_pelanggaran`, `riwayat_pelanggaran`, `tanggal_pelanggaran`, `created_at`, `updated_at`, `santri_id`) VALUES
+(1, 'cccc', 'Pelanggaran 1', '2023-01-02', NULL, NULL, 1),
+(2, 'xxxxx', 'Pacaran', '2023-01-02', NULL, NULL, 1),
+(3, '123123', '213123', '2023-01-14', NULL, NULL, 1),
+(4, '123123', '213123', '2023-01-07', NULL, NULL, 1),
+(5, '123123', '123123', '2023-01-07', NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -452,7 +494,9 @@ INSERT INTO `pembayaran` (`id`, `nama_pembayaran`, `jenis_pembayaran`, `nominal_
 (1, 'Daftar Ulang', 'Tunai', '400000', '2022-12-01 07:28:03', '2022-12-01 07:40:20', 1),
 (2, 'Infaq', 'Tunai', '1000000', '2022-12-01 07:28:03', '2022-12-01 07:40:20', 1),
 (3, 'SPP', 'Tunai', '5000000', '2022-12-01 07:28:03', '2022-12-01 07:40:20', 1),
-(4, 'Sewa Ruang', 'Tunai', '100000', '2022-12-19 10:51:55', '2022-12-19 10:51:55', 1);
+(4, 'Sewa Ruang', 'Tunai', '100000', '2022-12-19 10:51:55', '2022-12-19 10:51:55', 1),
+(5, 'Catering', 'Transfer', '500000', '2023-01-02 13:14:47', '2023-01-02 13:14:58', 1),
+(6, 'Daftar Ulang', 'Transfer', '400000', '2022-12-01 07:28:03', '2022-12-01 07:40:20', 1);
 
 -- --------------------------------------------------------
 
@@ -468,8 +512,16 @@ CREATE TABLE `perizinan` (
   `tanggal_selesai` date NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `santri_id` bigint(20) UNSIGNED NOT NULL
+  `santri_id` bigint(20) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `perizinan`
+--
+
+INSERT INTO `perizinan` (`id`, `riwayat_perizinan`, `keterangan_perizinan`, `tanggal_mulai`, `tanggal_selesai`, `created_at`, `updated_at`, `santri_id`) VALUES
+(1, '123123', '12332', '2023-01-07', '2023-01-07', '2023-01-07 02:37:26', '2023-01-07 02:53:52', 2),
+(2, '123123', '12332', '2023-01-07', '2023-01-07', '2023-01-07 02:52:57', '2023-01-07 02:52:57', NULL);
 
 -- --------------------------------------------------------
 
@@ -620,6 +672,13 @@ CREATE TABLE `prestasi` (
   `santri_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `prestasi`
+--
+
+INSERT INTO `prestasi` (`id`, `riwayat_prestasi`, `keterangan_prestasi`, `tanggal_prestasi`, `created_at`, `updated_at`, `santri_id`) VALUES
+(1, 'KA', 'wqeqwesad', '2023-01-06', NULL, '2023-01-06 16:05:38', 2);
+
 -- --------------------------------------------------------
 
 --
@@ -699,7 +758,9 @@ CREATE TABLE `santri` (
 --
 
 INSERT INTO `santri` (`id`, `pesantren_id`, `nis`, `nama_santri`, `tanggal_lahir_santri`, `alamat_santri`, `foto_santri`, `nama_ayah`, `nama_ibu`, `kamar_santri`, `asrama_santri`, `status_aktif`, `created_at`, `updated_at`) VALUES
-(1, 1, '0001', 'Santri Saleh', '2022-11-29', 'Jl CIP', 'Santri Saleh', 'ASYAH', 'ASBU', 'Melati', 'Wali Santri', 'yes', NULL, NULL);
+(1, 1, '0001', 'Santri Saleh', '2022-11-29', 'Jl CIP', 'Santri Saleh', 'ASYAH', 'ASBU', 'Melati', 'Wali Santri', 'yes', NULL, NULL),
+(2, 1, '0002', 'Yunus', '2022-11-29', 'Jl CIP', 'Santri Saleh', 'ASYAH', 'ASBU', 'Melati', 'Wali Santri', 'yes', NULL, NULL),
+(5, 1, '123213', '123123', '2022-12-12', '213123', '20230106145516.jpg', '123213', '123213', '123213', '123213', 'yes', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -717,7 +778,7 @@ CREATE TABLE `users` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `pesantren_id` int(11) DEFAULT NULL,
-  `pegawai_id` int(11) NOT NULL
+  `pegawai_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -726,9 +787,10 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `pesantren_id`, `pegawai_id`) VALUES
 (1, 'Super Admin', 'superadmin@superadmin.com', '2022-12-20 13:09:53', '$2y$10$4WTRbBFdjP5V9NRRo0idHu3kebdBXERQNBepX2CdqzUsJBzBSsMeO', 'GfFTn6oKSB', '2022-12-20 13:09:53', '2022-12-20 13:09:53', 1, 1),
-(2, 'Admin', 'admin@admin.com', '2022-12-20 13:09:53', '$2y$10$DkqnHswXOzqpYR0mpX4un.rXjnowFwTKQJNuVktMBNpANzyp8E2gS', 'RABE7wWowl', '2022-12-20 13:09:53', '2022-12-20 13:09:53', 1, 1),
+(2, 'Admin', 'admin@admin.com', '2022-12-20 13:09:53', '$2y$10$DkqnHswXOzqpYR0mpX4un.rXjnowFwTKQJNuVktMBNpANzyp8E2gS', '7MnOw1KNiOE9r75Tun7rwUapqmxlMosCQ25zPOmmtkAY8cE0VQPmFtNCwGTz', '2022-12-20 13:09:53', '2022-12-20 13:09:53', 1, 1),
 (3, 'Wali Murid', 'walimurid@walimurid.com', '2022-12-20 13:09:53', '$2y$10$WcIRAjsqqtPTOOeEe3wIL.FIj4RU8S25QqZGqnlipKjungkO.2che', 'REzjiYqbvn', '2022-12-20 13:09:53', '2022-12-20 13:09:53', 1, 1),
-(4, 'Santri', 'santri@santri.com', '2022-12-20 13:09:53', '$2y$10$aWqLFL5M2V7eEKas6zWFkupOX8QACpDHrmxzjpaKvo/RxMnCQPxvi', 'uhysNYXi9T', '2022-12-20 13:09:53', '2022-12-20 13:09:53', 1, 1);
+(4, 'Santri', 'santri@santri.com', '2022-12-20 13:09:53', '$2y$10$aWqLFL5M2V7eEKas6zWFkupOX8QACpDHrmxzjpaKvo/RxMnCQPxvi', 'uhysNYXi9T', '2022-12-20 13:09:53', '2022-12-20 13:09:53', 1, 1),
+(9, 'Employee', 'employee@satu.com', NULL, '$2y$10$3tAECPszE49GdLcgqT.9Z.Fscz/TTm8vR2n.4q4kZNTimnqMhuzRG', NULL, '2022-12-23 03:10:54', '2022-12-23 03:10:54', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -752,7 +814,7 @@ CREATE TABLE `walisantri` (
 
 INSERT INTO `walisantri` (`id`, `nama_walisantri`, `kontak_walisantri`, `email_walisantri`, `created_at`, `updated_at`, `santri_id`) VALUES
 (1, 'Wali Santri Saleh', '098765432456', 'wali@gmail.com', NULL, NULL, 1),
-(2, 'Painem', '0821391239', 'painem@gmail.com', '2022-12-20 08:57:15', '2022-12-20 08:57:15', 1);
+(2, 'Painem', '0821391239', 'painem@gmail.com', '2022-12-20 08:57:15', '2022-12-20 08:57:15', 2);
 
 --
 -- Indexes for dumped tables
@@ -884,8 +946,7 @@ ALTER TABLE `pelanggaran`
 -- Indexes for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `pembayaran_pegawai_id_pegawai_foreign` (`pegawai_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `perizinan`
@@ -988,7 +1049,7 @@ ALTER TABLE `chat`
 -- AUTO_INCREMENT for table `ekstrakurikuler`
 --
 ALTER TABLE `ekstrakurikuler`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -1006,7 +1067,7 @@ ALTER TABLE `guru`
 -- AUTO_INCREMENT for table `jenis_pembayaran`
 --
 ALTER TABLE `jenis_pembayaran`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `kelas`
@@ -1018,7 +1079,7 @@ ALTER TABLE `kelas`
 -- AUTO_INCREMENT for table `kesehatan`
 --
 ALTER TABLE `kesehatan`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `konfirmasi_pembayaran_spp`
@@ -1048,31 +1109,31 @@ ALTER TABLE `nilai`
 -- AUTO_INCREMENT for table `notifikasi`
 --
 ALTER TABLE `notifikasi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `pegawai`
 --
 ALTER TABLE `pegawai`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `pelanggaran`
 --
 ALTER TABLE `pelanggaran`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `perizinan`
 --
 ALTER TABLE `perizinan`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `permissions`
@@ -1114,25 +1175,25 @@ ALTER TABLE `presensi_santri_pada_kelas`
 -- AUTO_INCREMENT for table `prestasi`
 --
 ALTER TABLE `prestasi`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `santri`
 --
 ALTER TABLE `santri`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `walisantri`
@@ -1143,37 +1204,6 @@ ALTER TABLE `walisantri`
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `chat`
---
-ALTER TABLE `chat`
-  ADD CONSTRAINT `chat_pegawai_id_pegawai_foreign` FOREIGN KEY (`pegawai_id`) REFERENCES `pegawai` (`id`),
-  ADD CONSTRAINT `chat_walisantri_id_wali_foreign` FOREIGN KEY (`walisantri_id`) REFERENCES `walisantri` (`id`);
-
---
--- Constraints for table `ekstrakurikuler`
---
-ALTER TABLE `ekstrakurikuler`
-  ADD CONSTRAINT `ekstrakurikuler_santri_id_santri_foreign` FOREIGN KEY (`santri_id`) REFERENCES `santri` (`id`);
-
---
--- Constraints for table `guru`
---
-ALTER TABLE `guru`
-  ADD CONSTRAINT `guru_pesantren_idpesantren_foreign` FOREIGN KEY (`pesantren_id`) REFERENCES `guru` (`id`);
-
---
--- Constraints for table `kelas`
---
-ALTER TABLE `kelas`
-  ADD CONSTRAINT `kelas_guru_idguru_foreign` FOREIGN KEY (`guru_id`) REFERENCES `guru` (`id`);
-
---
--- Constraints for table `kesehatan`
---
-ALTER TABLE `kesehatan`
-  ADD CONSTRAINT `kesehatan_santri_id_santri_foreign` FOREIGN KEY (`santri_id`) REFERENCES `santri` (`id`);
 
 --
 -- Constraints for table `model_has_permissions`
@@ -1188,55 +1218,11 @@ ALTER TABLE `model_has_roles`
   ADD CONSTRAINT `model_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `nilai`
---
-ALTER TABLE `nilai`
-  ADD CONSTRAINT `nilai_kelas_idkelas_foreign` FOREIGN KEY (`kelas_id`) REFERENCES `kelas` (`id`),
-  ADD CONSTRAINT `nilai_santri_id_santri_foreign` FOREIGN KEY (`santri_id`) REFERENCES `santri` (`id`);
-
---
--- Constraints for table `pegawai`
---
-ALTER TABLE `pegawai`
-  ADD CONSTRAINT `pegawai_pesantren_idpesantren_foreign` FOREIGN KEY (`pesantren_id`) REFERENCES `pesantren` (`id`);
-
---
--- Constraints for table `pelanggaran`
---
-ALTER TABLE `pelanggaran`
-  ADD CONSTRAINT `pelanggaran_santri_id_santri_foreign` FOREIGN KEY (`santri_id`) REFERENCES `santri` (`id`);
-
---
--- Constraints for table `pembayaran`
---
-ALTER TABLE `pembayaran`
-  ADD CONSTRAINT `pembayaran_pegawai_id_pegawai_foreign` FOREIGN KEY (`pegawai_id`) REFERENCES `pegawai` (`id`);
-
---
--- Constraints for table `perizinan`
---
-ALTER TABLE `perizinan`
-  ADD CONSTRAINT `perizinan_santri_id_santri_foreign` FOREIGN KEY (`santri_id`) REFERENCES `santri` (`id`);
-
---
--- Constraints for table `prestasi`
---
-ALTER TABLE `prestasi`
-  ADD CONSTRAINT `prestasi_santri_id_santri_foreign` FOREIGN KEY (`santri_id`) REFERENCES `santri` (`id`);
-
---
 -- Constraints for table `role_has_permissions`
 --
 ALTER TABLE `role_has_permissions`
   ADD CONSTRAINT `role_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `role_has_permissions_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `walisantri`
---
-ALTER TABLE `walisantri`
-  ADD CONSTRAINT `walisantri_santri_id_santri_foreign` FOREIGN KEY (`santri_id`) REFERENCES `santri` (`id`);
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -3,7 +3,7 @@
 @section('content')
 <!-- BEGIN PAGE HEADER-->
 <h3 class="page-title">
-    Pengeluaran Pemasukan | {{ $pesantren->nama_pesantren }} &nbsp;&nbsp;
+    Infaq | {{ $pesantren->nama_pesantren }} &nbsp;&nbsp;
     <a type= "button" href="{{route('infaq.create')}}" class="btn btn-primary btn-sm">
         + TAMBAH INFAQ
     </a>
@@ -16,7 +16,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('infaq.index')}}">Pengeluaran Pemasukan</a>
+            <a href="{{route('infaq.index')}}">Infaq</a>
         </li>
     </ul>
 </div>

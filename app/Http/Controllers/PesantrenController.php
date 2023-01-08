@@ -24,7 +24,7 @@ class PesantrenController extends Controller
      */
     public function create()
     {
-        return view('pesantren.addpesantren');
+        return view('pesantren.create');
     }
 
     /**
@@ -52,7 +52,7 @@ class PesantrenController extends Controller
 
         $data->save();
 
-        return redirect()->route('pesantrens.index')->with('status','Data Pesantren berhasil ditambah');
+        return redirect()->route('pesantren.index')->with('status','Data Pesantren berhasil ditambah');
     }
 
     /**
@@ -76,7 +76,7 @@ class PesantrenController extends Controller
     {
         $data = $pesantren;
 
-        return view('pesantren/editpesantren',compact('data'));
+        return view('pesantren.edit',compact('data'));
     }
 
     /**
@@ -102,7 +102,7 @@ class PesantrenController extends Controller
 
         $pesantren->save();
 
-        return redirect()->route('pesantrens.index')->with('status','Data Pesantren berhasil Diubah');
+        return redirect()->route('pesantren.index')->with('status','Data Pesantren berhasil Diubah');
     }
 
     /**
@@ -114,6 +114,6 @@ class PesantrenController extends Controller
     public function destroy(Pesantren $pesantren)
     {
         $pesantren->delete();
-        return redirect()->route('pesantrens.index')->with('statushapus', 'Data Pesantren berhasil dihapus');
+        return redirect()->route('pesantren.index')->with('statushapus', 'Data Pesantren berhasil dihapus');
     }
 }

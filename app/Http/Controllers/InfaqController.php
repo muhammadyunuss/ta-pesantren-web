@@ -26,7 +26,7 @@ class InfaqController extends Controller
         )
         ->get();
 
-        return view('daftar-ulang.index', compact('data','pesantren'));
+        return view('infaq.index', compact('data','pesantren'));
     }
 
     public function create()
@@ -39,7 +39,7 @@ class InfaqController extends Controller
         ->get();
         $santri = Santri::get();
 
-        return view('daftar-ulang.create',compact('pesantren', 'pegawai', 'pembayaran', 'santri'));
+        return view('infaq.create',compact('pesantren', 'pegawai', 'pembayaran', 'santri'));
     }
 
     public function store(Request $request)
@@ -48,9 +48,9 @@ class InfaqController extends Controller
         JenisPembayaran::create($data);
 
         if($request){
-            return redirect()->route('daftar-ulang.index')->with(['success' => 'Data Berhasil Disimpan!']);
+            return redirect()->route('infaq.index')->with(['success' => 'Data Berhasil Disimpan!']);
         }else{
-            return redirect()->route('daftar-ulang.index')->with(['error' => 'Data Gagal Disimpan!']);
+            return redirect()->route('infaq.index')->with(['error' => 'Data Gagal Disimpan!']);
         }
     }
 
@@ -61,7 +61,7 @@ class InfaqController extends Controller
         $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
         $pegawai = Pegawai::where('pesantren_id', $user->pesantren_id)->get();
 
-        return view('daftar-ulang.edit',compact('data', 'pesantren', 'pegawai', 'id'));
+        return view('infaq.edit',compact('data', 'pesantren', 'pegawai', 'id'));
     }
 
     public function update(Request $request, $id)
@@ -70,15 +70,15 @@ class InfaqController extends Controller
         JenisPembayaran::where('id', $id)->update($data);
 
         if($request){
-            return redirect()->route('daftar-ulang.index')->with(['success' => 'Data Berhasil Diupdate!']);
+            return redirect()->route('infaq.index')->with(['success' => 'Data Berhasil Diupdate!']);
         }else{
-            return redirect()->route('daftar-ulang.index')->with(['error' => 'Data Gagal Diupdate!']);
+            return redirect()->route('infaq.index')->with(['error' => 'Data Gagal Diupdate!']);
         }
     }
 
     public function destroy(JenisPembayaran $pembayaran)
     {
         JenisPembayaran::where('id', $pembayaran)->delete();
-        return redirect()->route('daftar-ulang.index')->with(['success' => 'Data Berhasil Dihapus!']);
+        return redirect()->route('infaq.index')->with(['success' => 'Data Berhasil Dihapus!']);
     }
 }

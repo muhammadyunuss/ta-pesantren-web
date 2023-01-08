@@ -1,7 +1,4 @@
 @extends('layouts.layout')
-@section('content')
-<!-- BEGIN PAGE HEADER-->
-@extends('layouts.layout')
 
 @section('content')
 <!-- BEGIN PAGE HEADER-->

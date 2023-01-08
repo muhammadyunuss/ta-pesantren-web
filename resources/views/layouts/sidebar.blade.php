@@ -167,8 +167,8 @@
                                 <i class="icon-anchor"></i>
                                 SPP</a>
                         </li>
-                        <li class= "{{ (request()->segment(2) == 'spp') ? 'active' : '' }}">
-                            <a href="{{route('spp.index')}}">
+                        <li class= "{{ (request()->segment(2) == 'verifikasi-pembayaran') ? 'active' : '' }}">
+                            <a href="{{route('verifikasi-pembayaran.index')}}">
                                 <i class="icon-anchor"></i>
                                 Verifikasi Pembayaran</a>
                         </li>
@@ -197,6 +197,11 @@
                             <a href="{{route('roles.index')}}">
                                 <i class="icon-book-open"></i>
                                 Roles</a>
+                        </li>
+                        <li class= "{{ (request()->segment(2) == 'pesantren') ? 'active' : '' }}">
+                            <a href="{{route('pesantren.index')}}">
+                                <i class="icon-anchor"></i>
+                                Pesantren</a>
                         </li>
                     </ul>
                 </li>

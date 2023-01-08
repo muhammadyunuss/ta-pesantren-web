@@ -46,16 +46,10 @@ class DaftarUlangController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
         if(!$request->notifikasi){
-            // dd("Notifikasi Tidak Ada");
             JenisPembayaran::create($request->except(['notifikasi']));
         }else{
-            // dd("Notifikasi Ada");
             $walisantri = WaliSantri::where('santri_id', $request->santri_id)->first();
-            // dd($walisantri);
-            // $detail_pemberitahuan = "Tagihan Pembayaran SPP, Atas nama Santri ".$walisantri->nama_walisantri." Sebesar Rp. ".number_format($request->debet_pembayaran ,2,',','.')." pada Tanggal ".date("d-m-Y", strtotime($request->tanggal_pembayaran));
-            // dd($detail_pemberitahuan);
             Notifikasi::create([
                 'walisantri_id' => $walisantri->id,
                 'email_username' => $walisantri->email_walisantri,

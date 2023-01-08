@@ -23,6 +23,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SantriController;
 use App\Http\Controllers\SppController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VerifikasiPembayaranController;
 use App\Http\Controllers\WaliSantriController;
 use Illuminate\Support\Facades\Route;
 
@@ -60,6 +61,7 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('setting')->group(function () {
         Route::resource('roles', RoleController::class);
         Route::resource('users', UserController::class);
+        Route::resource('pesantren',PesantrenController::class);
     });
 
     Route::prefix('manajemen-santri')->group(function () {
@@ -69,7 +71,6 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('prestasi',PrestasiController::class);
         Route::resource('ekstrakurikuler',EkstrakurikulerController::class);
         Route::resource('perizinan',PerizinanController::class);
-        Route::resource('pesantren',PesantrenController::class);
         Route::resource('pelanggaran',PelanggaranController::class);
         Route::resource('presensi-santri-asrama',PresensiSantriAsramaController::class);
         Route::prefix('presensi-santri-asrama')->group(function () {
@@ -115,6 +116,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('daftar-ulang', DaftarUlangController::class);
         Route::resource('infaq', InfaqController::class);
         Route::resource('spp', SppController::class);
+        Route::resource('verifikasi-pembayaran', VerifikasiPembayaranController::class);
 
     });
 
