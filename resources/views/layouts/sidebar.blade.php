@@ -172,6 +172,11 @@
                                 <i class="icon-anchor"></i>
                                 Verifikasi Pembayaran</a>
                         </li>
+                        <li class= "{{ (request()->segment(2) == 'tagihan') ? 'active' : '' }}">
+                            <a href="{{route('tagihan.index')}}">
+                                <i class="icon-anchor"></i>
+                                Tagihan</a>
+                        </li>
                         <li class= "{{ (request()->segment(2) == 'spp') ? 'active' : '' }}">
                             <a href="{{route('spp.index')}}">
                                 <i class="icon-anchor"></i>

@@ -22,6 +22,7 @@ use App\Http\Controllers\PrestasiController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SantriController;
 use App\Http\Controllers\SppController;
+use App\Http\Controllers\TagihanController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VerifikasiPembayaranController;
 use App\Http\Controllers\WaliSantriController;
@@ -117,6 +118,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('infaq', InfaqController::class);
         Route::resource('spp', SppController::class);
         Route::resource('verifikasi-pembayaran', VerifikasiPembayaranController::class);
+        Route::resource('tagihan', TagihanController::class);
 
     });
 

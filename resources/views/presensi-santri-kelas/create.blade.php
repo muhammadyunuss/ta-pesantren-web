@@ -66,7 +66,7 @@
                     <div class="form-group">
                         <label for="tanggal_presensi">Tanggal Presensi</label>
                         <div>
-                            <input type="date" id="tanggal_presensi" name="tanggal_presensi" class="form-control @error('tanggal_presensi') is-invalid @enderror" placeholder="dd-mm-yyyy">
+                            <input type="datetime-local" id="tanggal_presensi" name="tanggal_presensi" class="form-control @error('tanggal_presensi') is-invalid @enderror" placeholder="dd-mm-yyyy">
                         </div>
                     </div>
                     <div class="form-group">

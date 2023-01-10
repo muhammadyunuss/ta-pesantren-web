@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\KonfirmasiPembayaranSpp;
+use App\Models\JenisPembayaran;
+use App\Models\WaliSantri;
 use Illuminate\Http\Request;
 
-class VerifikasiPembayaranController extends Controller
+class TagihanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,20 +15,22 @@ class VerifikasiPembayaranController extends Controller
      */
     public function index()
     {
-        $data = KonfirmasiPembayaranSpp::leftjoin('jenis_pembayaran', 'konfirmasi_pembayaran_spp.jenis_pembayaran_id', 'jenis_pembayaran.id')
-        ->leftjoin('pembayaran', 'jenis_pembayaran.pembayaran_id', 'pembayaran.id')
-        // ->where('pembayaran_id', 1)
-        // ->where('pesantren_id',$user->pesantren_id)
+        $user = auth()->user();
+        $walisantri = WaliSantri::where('id', $user->walisantri_id)->first();
+        $data = JenisPembayaran::join('pembayaran', 'jenis_pembayaran.pembayaran_id', 'pembayaran.id')
         ->leftjoin('santri', 'jenis_pembayaran.santri_id', 'santri.id')
+        ->leftjoin('walisantri', 'santri.id', 'walisantri.santri_id')
+        ->where('jenis_pembayaran.santri_id', $walisantri->id)
+        ->where('pesantren_id',$user->pesantren_id)
         ->select(
-            'konfirmasi_pembayaran_spp.*',
-            'jenis_pembayaran.kredit_pembayaran',
+            'jenis_pembayaran.*',
             'pembayaran.nama_pembayaran',
-            'santri.nama_santri'
+            'santri.nama_santri',
+            'walisantri.nama_walisantri'
         )
         ->get();
 
-        return view('verifikasi-pembayaran.index', compact('data'));
+        return view('tagihan.index', compact('data'));
     }
 
     /**
