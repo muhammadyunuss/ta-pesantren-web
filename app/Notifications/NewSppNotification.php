@@ -11,6 +11,8 @@ class NewSppNotification extends Notification
 {
     use Queueable;
 
+    protected $user;
+
     /**
      * Create a new notification instance.
      *
@@ -55,15 +57,11 @@ class NewSppNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'walisantri_id' => $this->user->walisantri_id,
-            'email_username' => $this->user->email_username,
-            'judul_pemberitahuan' => $this->user->judul_pemberitahuan,
-            'detail_pemberitahuan' => $this->user->detail_pemberitahuan,
-            'tanggal_pemberitahuan' => $this->user->tanggal_pemberitahuan,
-            'status_terbaca' => $this->user->status_terbaca,
-            'updated_at' => $this->user->updated_at,
-            'created_at' => $this->user->created_at,
-            'id' => $this->user->id,
+            'walisantri_id' => $this->user['walisantri_id'],
+            'email_username' => $this->user['email_username'],
+            'judul_pemberitahuan' => $this->user['judul_pemberitahuan'],
+            'detail_pemberitahuan' => $this->user['detail_pemberitahuan'],
+            'tanggal_pemberitahuan' => $this->user['tanggal_pemberitahuan'],
         ];
     }
 }

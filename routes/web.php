@@ -19,6 +19,7 @@ use App\Http\Controllers\PresensiPegawaiController;
 use App\Http\Controllers\PresensiSantriAsramaController;
 use App\Http\Controllers\PresensiSantriKelasController;
 use App\Http\Controllers\PrestasiController;
+use App\Http\Controllers\RekapLaporanController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SantriController;
 use App\Http\Controllers\SppController;
@@ -119,6 +120,10 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('spp', SppController::class);
         Route::resource('verifikasi-pembayaran', VerifikasiPembayaranController::class);
         Route::resource('tagihan', TagihanController::class);
+        Route::resource('rekap-laporan', RekapLaporanController::class);
+        Route::prefix('rekap-laporan')->group(function () {
+            Route::post('search', [RekapLaporanController::class, 'search'])->name('rekap-laporan-search');
+        });
 
     });
 

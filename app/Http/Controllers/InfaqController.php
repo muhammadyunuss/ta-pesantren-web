@@ -3,11 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\JenisPembayaran;
+use App\Models\Notifikasi;
 use App\Models\Pegawai;
 use App\Models\Pembayaran;
 use App\Models\Pesantren;
 use App\Models\Santri;
+use App\Models\User;
+use App\Models\WaliSantri;
+use App\Notifications\NewSppNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
+use Ramsey\Uuid\Uuid;
 
 class InfaqController extends Controller
 {
@@ -44,13 +50,27 @@ class InfaqController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->all();
-        JenisPembayaran::create($data);
-
-        if($request){
-            return redirect()->route('infaq.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        if(!$request->notifikasi){
+            JenisPembayaran::create($request->except(['notifikasi']));
         }else{
-            return redirect()->route('infaq.index')->with(['error' => 'Data Gagal Disimpan!']);
+            $walisantri = WaliSantri::where('santri_id', $request->santri_id)->first();
+            $user = User::where('walisantri_id', $walisantri->id)->get();
+            $param = [
+                'walisantri_id' => $walisantri->id,
+                'email_username' => $walisantri->email_walisantri,
+                'judul_pemberitahuan' => 'Tagihan Pembayaran Daftar Ulang',
+                'detail_pemberitahuan' => "Tagihan Pembayaran Daftar Ulang, Atas nama Santri ".$walisantri->nama_walisantri." Sebesar Rp. ".number_format($request->debet_pembayaran ,2,',','.')." pada Tanggal ".date("d-m-Y", strtotime($request->tanggal_pembayaran)),
+                'tanggal_pemberitahuan' => $request->tanggal_pembayaran,
+            ];
+            $dataParam = response()->json( $param );
+            Notification::send($user, new NewSppNotification($param));
+            JenisPembayaran::create($request->except(['notifikasi']));
+
+            if($request){
+                return redirect()->route('infaq.index')->with(['success' => 'Data Berhasil Disimpan!']);
+            }else{
+                return redirect()->route('infaq.index')->with(['error' => 'Data Gagal Disimpan!']);
+            }
         }
     }
 

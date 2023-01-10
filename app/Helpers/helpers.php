@@ -59,7 +59,7 @@ if (! function_exists('jenisPembayaran')) {
     if (! function_exists('notifications')) {
         function notifications()
         {
-            $user = App\Models\User::find(2);
+            $user = App\Models\User::find(auth()->user()->id);
 
             $notifications = [];
             foreach ($user->unreadNotifications as $notification) {

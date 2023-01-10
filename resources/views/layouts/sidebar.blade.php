@@ -177,8 +177,8 @@
                                 <i class="icon-anchor"></i>
                                 Tagihan</a>
                         </li>
-                        <li class= "{{ (request()->segment(2) == 'spp') ? 'active' : '' }}">
-                            <a href="{{route('spp.index')}}">
+                        <li class= "{{ (request()->segment(2) == 'rekap-laporan') ? 'active' : '' }}">
+                            <a href="{{route('rekap-laporan.index')}}">
                                 <i class="icon-anchor"></i>
                                 Rekap Laporan Pengeluaran & Pemasukan</a>
                         </li>

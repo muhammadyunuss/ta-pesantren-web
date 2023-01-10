@@ -8,8 +8,12 @@ use App\Models\Pegawai;
 use App\Models\Pembayaran;
 use App\Models\Pesantren;
 use App\Models\Santri;
+use App\Models\User;
 use App\Models\WaliSantri;
+use App\Notifications\NewSppNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
+use Ramsey\Uuid\Uuid;
 
 class DaftarUlangController extends Controller
 {
@@ -18,9 +22,10 @@ class DaftarUlangController extends Controller
         $user = auth()->user();
         $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
         $data = JenisPembayaran::join('pembayaran', 'jenis_pembayaran.pembayaran_id', 'pembayaran.id')
-        ->where('pembayaran_id', 1)
-        // ->where('pesantren_id',$user->pesantren_id)
         ->leftjoin('santri', 'jenis_pembayaran.santri_id', 'santri.id')
+        // ->where('pembayaran_id', 1)
+        ->where('pembayaran.nama_pembayaran','LIKE',"%daftar ulang%")
+        // ->where('pesantren_id',$user->pesantren_id)
         ->select(
             'jenis_pembayaran.*',
             'pembayaran.nama_pembayaran',
@@ -50,14 +55,16 @@ class DaftarUlangController extends Controller
             JenisPembayaran::create($request->except(['notifikasi']));
         }else{
             $walisantri = WaliSantri::where('santri_id', $request->santri_id)->first();
-            Notifikasi::create([
+            $user = User::where('walisantri_id', $walisantri->id)->get();
+            $param = [
                 'walisantri_id' => $walisantri->id,
                 'email_username' => $walisantri->email_walisantri,
                 'judul_pemberitahuan' => 'Tagihan Pembayaran Daftar Ulang',
                 'detail_pemberitahuan' => "Tagihan Pembayaran Daftar Ulang, Atas nama Santri ".$walisantri->nama_walisantri." Sebesar Rp. ".number_format($request->debet_pembayaran ,2,',','.')." pada Tanggal ".date("d-m-Y", strtotime($request->tanggal_pembayaran)),
                 'tanggal_pemberitahuan' => $request->tanggal_pembayaran,
-                'status_terbaca' => 0
-            ]);
+            ];
+            $dataParam = response()->json( $param );
+            Notification::send($user, new NewSppNotification($param));
             JenisPembayaran::create($request->except(['notifikasi']));
         }
 
