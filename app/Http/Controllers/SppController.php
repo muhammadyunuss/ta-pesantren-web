@@ -19,9 +19,10 @@ class SppController extends Controller
     public function index()
     {
         $user = auth()->user();
+        $term = 'Spp';
         $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
         $data = JenisPembayaran::join('pembayaran', 'jenis_pembayaran.pembayaran_id', 'pembayaran.id')
-        ->where('pembayaran_id', 3)
+        ->where('pembayaran.nama_pembayaran','LIKE','%'.$term.'%')
         // ->where('pesantren_id',$user->pesantren_id)
         ->leftjoin('santri', 'jenis_pembayaran.santri_id', 'santri.id')
         ->select(
@@ -37,10 +38,11 @@ class SppController extends Controller
     public function create()
     {
         $user = auth()->user();
+        $term = 'Spp';
         $pegawai = Pegawai::where('pesantren_id', $user->pesantren_id)->get();
         $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
         $pembayaran = Pembayaran::where('pegawai_id', $user->pegawai_id)
-        ->where('id', 3)
+        ->where('nama_pembayaran','LIKE','%'.$term.'%')
         ->get();
         $santri = Santri::get();
 
@@ -49,16 +51,10 @@ class SppController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
         if(!$request->notifikasi){
-            // dd("Notifikasi Tidak Ada");
             JenisPembayaran::create($request->except(['notifikasi']));
         }else{
-            // dd("Notifikasi Ada");
             $walisantri = WaliSantri::where('santri_id', $request->santri_id)->first();
-            // dd($walisantri);
-            // $detail_pemberitahuan = "Tagihan Pembayaran SPP, Atas nama Santri ".$walisantri->nama_walisantri." Sebesar Rp. ".number_format($request->debet_pembayaran ,2,',','.')." pada Tanggal ".date("d-m-Y", strtotime($request->tanggal_pembayaran));
-            // dd($detail_pemberitahuan);
             $createnotif = Notifikasi::create([
                 'walisantri_id' => $walisantri->id,
                 'email_username' => $walisantri->email_walisantri,

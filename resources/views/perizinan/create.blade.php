@@ -52,7 +52,7 @@
                 </div>
                 <div class="form-group">
                     <label for="riwayat_perizinan">Riwayat Perizinan</label>
-                    <input type="number" class="form-control @error('riwayat_perizinan') is-invalid @enderror" name="riwayat_perizinan" value="{{ old('riwayat_perizinan') }}" placeholder="Isikan Izin">
+                    <input type="text" class="form-control @error('riwayat_perizinan') is-invalid @enderror" name="riwayat_perizinan" value="{{ old('riwayat_perizinan') }}" placeholder="Isikan Izin">
                     @error('riwayat_perizinan')
                     <div class="invalid-feedback" style="color:red">{{ $message }}</div>
                     @enderror

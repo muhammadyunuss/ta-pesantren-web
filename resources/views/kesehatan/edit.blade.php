@@ -46,7 +46,7 @@
                         <select name="namaSantri" id="namaSantri" class="form-control @error('namaSantri') is-invalid @enderror">
                             <option value="">== Pilih Nama Santri ==</option>
                             @foreach($datasantri as $ds)
-                            <option value="{{ $ds->id }}" {{ old('namaSantri', $data->id) == $ds->id ? 'selected' : null }}>{{ $ds->nama_santri }}</option>
+                            <option value="{{ $ds->id }}" {{ old('namaSantri', $ds->id) == $data->santri_id ? 'selected' : null }}>{{ $ds->nama_santri }}</option>
                             @endforeach
                         </select>
                         @error('namaSantri')

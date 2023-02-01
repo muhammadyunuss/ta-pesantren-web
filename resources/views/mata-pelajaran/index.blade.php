@@ -40,7 +40,7 @@
     <tr>
     <th>No</th>
     <th>Nama Mata Pelajaran</th>
-    <th>Guru Pengajar</th>
+    <th>Nama Pesantren</th>
     <th>Aksi</th>
     </tr>
 </thead>

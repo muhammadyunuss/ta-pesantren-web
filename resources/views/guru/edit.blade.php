@@ -99,6 +99,14 @@
                             <option value="no">Tidak</option>
                     </select>
                 </div>
+                <div class="form-group">
+                    <label for="kategori_guru">Kategori Guru</label>
+                    <select name="kategori_guru" id="kategori_guru" data-with="100%" class="form-control @error('kategori_guru') is-invalid @enderror">
+                            <option value="{{ $data->kategori_guru }}" {{ old('kategori_guru', $data->kategori_guru) == $data->kategori_guru  ? 'selected' : null }}>{{ $data->kategori_guru }}</option>
+                            <option value="Tetap">Tetap</option>
+                            <option value="Honorer">Honorer</option>
+                    </select>
+                </div>
             </div>
 				<div class="form-actions">
 					<button type="submit" class="btn btn-primary">Ubah</button>

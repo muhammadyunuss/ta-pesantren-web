@@ -64,6 +64,7 @@
     <th>Nama Guru</th>
     <th>Alamat</th>
     <th>No. Hp</th>
+    <th>Kategori Guru</th>
     <th>Aksi</th>
     </tr>
 </thead>
@@ -96,6 +97,7 @@
     <td>{{ $d->nama_guru }}</td>
     <td>{{ $d->alamat_guru }}</td>
     <td>{{ $d->nomor_guru  }}</td>
+    <td>{{ $d->kategori_guru  }}</td>
     <td>
         <ul class="nav nav-pills">
             <li >

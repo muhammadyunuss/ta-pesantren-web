@@ -116,6 +116,9 @@ Route::middleware(['auth'])->group(function () {
         });
 
         Route::resource('daftar-ulang', DaftarUlangController::class);
+        Route::controller(DaftarUlangController::class)->group(function (){
+            Route::get('daftar-ulang-walisantri', 'indexWalisantri')->name('daftar-ulang-walisantri.index');
+        });
         Route::resource('infaq', InfaqController::class);
         Route::resource('spp', SppController::class);
         Route::resource('verifikasi-pembayaran', VerifikasiPembayaranController::class);

@@ -20,11 +20,12 @@ class DaftarUlangController extends Controller
     public function index()
     {
         $user = auth()->user();
+        $term = 'Daftar Ulang';
         $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
         $data = JenisPembayaran::join('pembayaran', 'jenis_pembayaran.pembayaran_id', 'pembayaran.id')
         ->leftjoin('santri', 'jenis_pembayaran.santri_id', 'santri.id')
         // ->where('pembayaran_id', 1)
-        ->where('pembayaran.nama_pembayaran','LIKE',"%daftar ulang%")
+        ->where('pembayaran.nama_pembayaran','LIKE','%'.$term.'%')
         // ->where('pesantren_id',$user->pesantren_id)
         ->select(
             'jenis_pembayaran.*',
@@ -39,10 +40,11 @@ class DaftarUlangController extends Controller
     public function create()
     {
         $user = auth()->user();
+        $term = 'Daftar Ulang';
         $pegawai = Pegawai::where('pesantren_id', $user->pesantren_id)->get();
         $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
         $pembayaran = Pembayaran::where('pegawai_id', $user->pegawai_id)
-        ->where('id', 1)
+        ->where('nama_pembayaran','LIKE','%'.$term.'%')
         ->get();
         $santri = Santri::get();
 
@@ -102,5 +104,9 @@ class DaftarUlangController extends Controller
     {
         JenisPembayaran::where('id', $pembayaran)->delete();
         return redirect()->route('daftar-ulang.index')->with(['success' => 'Data Berhasil Dihapus!']);
+    }
+
+    public function indexWalisantri(){
+        return view('daftar-ulang.walisantri');
     }
 }

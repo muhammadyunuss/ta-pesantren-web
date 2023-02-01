@@ -19,6 +19,7 @@ class Guru extends Model
         'pendidikan_guru',
         'walikelas',
         'pesantren_id',
+        'kategori_guru'
       ];
 
     public function pesantren() {

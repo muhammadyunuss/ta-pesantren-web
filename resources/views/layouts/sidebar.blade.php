@@ -24,6 +24,7 @@
 					{{-- <span class="selected"></span> --}}
 					</a>
 				</li>
+                @if(Auth::user()->hasAnyPermission(['admin','super-admin']))
                 <li class="{{ (request()->segment(1) == 'manajemen-santri') ? 'active' : '' }}">
                     <a href="javascript:;">
                         <i class="icon-puzzle"></i>
@@ -209,6 +210,94 @@
                                 Pesantren</a>
                         </li>
                     </ul>
+                </li>
+                @endif
+                <li class="{{ (request()->segment(1) == 'manajemen-keuangan') ? 'active' : '' }}">
+                    <a href="javascript:;">
+                        <i class="icon-present"></i>
+                        <span class="title">Keuangan Bulanan</span>
+                        <span class="selected"></span>
+                        <span class="arrow {{ (request()->segment(1) == 'manajemen-keuangan') ? 'open' : '' }}"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class= "{{ (request()->segment(2) == 'spp') ? 'active' : '' }}">
+                            <a href="{{route('spp.index')}}">
+                                <i class="icon-anchor"></i>
+                                SPP</a>
+                        </li>
+                        <li class= "{{ (request()->segment(2) == 'infaq') ? 'active' : '' }}">
+                            <a href="{{route('infaq.index')}}">
+                                <i class="icon-anchor"></i>
+                                Infaq</a>
+                        </li>
+                        <li class= "{{ (request()->segment(2) == 'daftar-ulang') ? 'active' : '' }}">
+                            <a href="{{route('daftar-ulang.index')}}">
+                                <i class="icon-anchor"></i>
+                                Daftar Ulang</a>
+                        </li>
+                    </ul>
+
+                </li>
+                <li class="{{ (request()->segment(1) == 'manajemen-santri') ? 'active' : '' }}">
+                    <a href="javascript:;">
+                        <i class="icon-puzzle"></i>
+                        <span class="title">Status Santri</span>
+                        <span class="selected"></span>
+                        <span class="arrow {{ (request()->segment(1) == 'manajemen-santri') ? 'open' : '' }}"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class= "{{ (request()->segment(2) == 'kesehatan') ? 'active' : '' }}">
+                            <a href="{{route('kesehatan.index')}}">
+                                <i class="icon-book-open"></i>
+                                Kesehatan</a>
+                        </li>
+                        <li class= "{{ (request()->segment(2) == 'prestasi') ? 'active' : '' }}">
+                            <a href="{{route('prestasi.index')}}">
+                                <i class="icon-pin"></i>
+                                Prestasi</a>
+                        </li>
+                        <li class= "{{ (request()->segment(2) == 'ekstrakurikuler') ? 'active' : '' }}">
+                            <a href="{{route('ekstrakurikuler.index')}}">
+                                <i class="icon-vector"></i>
+                                </span>Ekstrakurikuler</a>
+                        </li>
+                        <li class= "{{ (request()->segment(2) == 'perizinan') ? 'active' : '' }}">
+                            <a href="{{route('perizinan.index')}}">
+                                <i class="icon-cursor"></i>
+                                Perizinan</a>
+                        </li>
+                        <li class= "{{ (request()->segment(2) == 'pelanggaran') ? 'active' : '' }}">
+                            <a href="{{route('pelanggaran.index')}}">
+                                <i class="icon-rocket"></i>
+                                Pelanggaran</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="{{ (request()->segment(1) == 'manajemen-keuangan') ? 'active' : '' }}">
+                    <a href="javascript:;">
+                        <i class="icon-present"></i>
+                        <span class="title">Pembayaran</span>
+                        <span class="selected"></span>
+                        <span class="arrow {{ (request()->segment(1) == 'manajemen-keuangan') ? 'open' : '' }}"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class= "{{ (request()->segment(2) == 'spp') ? 'active' : '' }}">
+                            <a href="{{route('spp.index')}}">
+                                <i class="icon-anchor"></i>
+                                SPP</a>
+                        </li>
+                        <li class= "{{ (request()->segment(2) == 'infaq') ? 'active' : '' }}">
+                            <a href="{{route('infaq.index')}}">
+                                <i class="icon-anchor"></i>
+                                Infaq</a>
+                        </li>
+                        <li class= "{{ (request()->segment(2) == 'daftar-ulang-walisantri') ? 'active' : '' }}">
+                            <a href="{{route('daftar-ulang-walisantri.index')}}">
+                                <i class="icon-anchor"></i>
+                                Daftar Ulang</a>
+                        </li>
+                    </ul>
+
                 </li>
 			</ul>
 			<!-- END SIDEBAR MENU -->

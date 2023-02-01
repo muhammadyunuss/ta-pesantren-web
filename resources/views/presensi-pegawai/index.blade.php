@@ -51,7 +51,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="date" class="col-form-label col-sm-2">Lain</label>
+                        <label for="date" class="col-form-label col-sm-2">Filter</label>
                         <div class="col-sm-3">
                             <select class="form-control input-sm" name="santri_id" id="santri_id" data-with="100%" class="form-control @error('santri_id') is-invalid @enderror">
                                 <option value="">Pilih Pegawai</option>

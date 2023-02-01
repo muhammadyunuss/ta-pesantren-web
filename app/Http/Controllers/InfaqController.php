@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Models\WaliSantri;
 use App\Notifications\NewSppNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 use Ramsey\Uuid\Uuid;
 
@@ -20,17 +21,35 @@ class InfaqController extends Controller
     public function index()
     {
         $user = auth()->user();
+        $term = 'Infaq';
         $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
-        $data = JenisPembayaran::join('pembayaran', 'jenis_pembayaran.pembayaran_id', 'pembayaran.id')
-        ->where('pembayaran_id', 2)
-        // ->where('pesantren_id',$user->pesantren_id)
-        ->leftjoin('santri', 'jenis_pembayaran.santri_id', 'santri.id')
-        ->select(
-            'jenis_pembayaran.*',
-            'pembayaran.nama_pembayaran',
-            'santri.nama_santri'
-        )
-        ->get();
+        if (Auth::user()->hasAnyPermission(['admin','super-admin'])) {
+            $data = JenisPembayaran::join('pembayaran', 'jenis_pembayaran.pembayaran_id', 'pembayaran.id')
+            // ->where('pembayaran_id', 2)
+            ->where('pembayaran.nama_pembayaran','LIKE','%'.$term.'%')
+            // ->where('pesantren_id',$user->pesantren_id)
+            ->leftjoin('santri', 'jenis_pembayaran.santri_id', 'santri.id')
+            ->select(
+                'jenis_pembayaran.*',
+                'pembayaran.nama_pembayaran',
+                'santri.nama_santri'
+            )
+            ->get();
+        }else{
+            $data = JenisPembayaran::join('pembayaran', 'jenis_pembayaran.pembayaran_id', 'pembayaran.id')
+            // ->where('pembayaran_id', 2)
+            ->where('pembayaran.nama_pembayaran','LIKE','%'.$term.'%')
+            // ->where('pesantren_id',$user->pesantren_id)
+            ->leftjoin('santri', 'jenis_pembayaran.santri_id', 'santri.id')
+            ->leftjoin("walisantri","santri.id", "walisantri.santri_id")
+            ->where('walisantri.id', Auth::user()->walisantri_id)
+            ->select(
+                'jenis_pembayaran.*',
+                'pembayaran.nama_pembayaran',
+                'santri.nama_santri'
+            )
+            ->get();
+        }
 
         return view('infaq.index', compact('data','pesantren'));
     }
@@ -38,10 +57,11 @@ class InfaqController extends Controller
     public function create()
     {
         $user = auth()->user();
+        $term = 'Infaq';
         $pegawai = Pegawai::where('pesantren_id', $user->pesantren_id)->get();
         $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
         $pembayaran = Pembayaran::where('pegawai_id', $user->pegawai_id)
-        ->where('id', 2)
+        ->where('nama_pembayaran','LIKE','%'.$term.'%')
         ->get();
         $santri = Santri::get();
 
@@ -58,8 +78,8 @@ class InfaqController extends Controller
             $param = [
                 'walisantri_id' => $walisantri->id,
                 'email_username' => $walisantri->email_walisantri,
-                'judul_pemberitahuan' => 'Tagihan Pembayaran Daftar Ulang',
-                'detail_pemberitahuan' => "Tagihan Pembayaran Daftar Ulang, Atas nama Santri ".$walisantri->nama_walisantri." Sebesar Rp. ".number_format($request->debet_pembayaran ,2,',','.')." pada Tanggal ".date("d-m-Y", strtotime($request->tanggal_pembayaran)),
+                'judul_pemberitahuan' => 'Tagihan Pembayaran SPP',
+                'detail_pemberitahuan' => "Tagihan Pembayaran SPP, Atas nama Santri ".$walisantri->nama_walisantri." Sebesar Rp. ".number_format($request->debet_pembayaran ,2,',','.')." pada Tanggal ".date("d-m-Y", strtotime($request->tanggal_pembayaran)),
                 'tanggal_pemberitahuan' => $request->tanggal_pembayaran,
             ];
             $dataParam = response()->json( $param );

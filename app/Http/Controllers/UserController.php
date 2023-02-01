@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\WaliSantri;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
@@ -51,6 +52,14 @@ class UserController extends Controller
             'roles' => 'required'
         ]);
 
+        if($request->walisantri){
+            $walisantri = WaliSantri::create([
+                'nama_walisantri' => $request->name,
+                'email_walisantri' => $request->email
+            ]);
+            $request->request->add(['walisantri_id' => $walisantri->id]);
+        }
+
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
 
@@ -84,7 +93,6 @@ class UserController extends Controller
         $user = User::find($id);
         $roles = Role::pluck('name','name')->all();
         $userRole = $user->roles->pluck('name','name')->all();
-
         return view('users.edit',compact('user','roles','userRole'));
     }
 

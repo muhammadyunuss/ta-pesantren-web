@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Santri;
 use Illuminate\Http\Request;
 use DB;
+use Illuminate\Support\Facades\Auth;
 
 class SantriController extends Controller
 {
@@ -15,7 +16,17 @@ class SantriController extends Controller
      */
     public function index()
     {
-        $data = Santri::all();
+        if (Auth::user()->hasAnyPermission(['admin','super-admin'])) {
+            $data = Santri::all();
+        }else{
+            $data = Santri::join('walisantri', 'santri.id', 'walisantri.santri_id')
+            ->where('walisantri.id', Auth::user()->walisantri_id)
+            ->select(
+                'santri.*',
+                'walisantri.id as walisantri_id'
+            )
+            ->get();
+        }
         return view('santri.index',compact('data'));
     }
 

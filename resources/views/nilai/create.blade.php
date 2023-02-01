@@ -32,7 +32,7 @@
     <div class="portlet">
 		<div class="portlet-title">
 			<div class="caption">
-				<i class="fa fa-reorder"></i> Tambah Mata Pelajaran
+				<i class="fa fa-reorder"></i> Tambah NIlai
 			</div>
 		</div>
 		<div class="portlet-body form">
@@ -64,9 +64,9 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="matapelajaran_id">Kelas</label>
+                        <label for="matapelajaran_id">Mata Pelajaran</label>
                         <select name="matapelajaran_id" id="matapelajaran_id" data-with="100%" class="form-control @error('matapelajaran_id') is-invalid @enderror">
-                            <option value="">Pilih Kelas</option>
+                            <option value="">Pilih Mata Pelajaran</option>
                             @foreach ($mata_pelajaran as $s)
                             <option value="{{ $s->id }}">{{ $s->nama_mata_pelajaran }}</option>
                             @endforeach
