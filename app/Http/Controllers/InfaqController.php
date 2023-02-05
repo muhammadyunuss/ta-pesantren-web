@@ -35,6 +35,8 @@ class InfaqController extends Controller
                 'santri.nama_santri'
             )
             ->get();
+            return view('infaq.index', compact('data','pesantren'));
+
         }else{
             $data = JenisPembayaran::join('pembayaran', 'jenis_pembayaran.pembayaran_id', 'pembayaran.id')
             // ->where('pembayaran_id', 2)
@@ -46,12 +48,13 @@ class InfaqController extends Controller
             ->select(
                 'jenis_pembayaran.*',
                 'pembayaran.nama_pembayaran',
+                'pembayaran.jenis_pembayaran',
                 'santri.nama_santri'
             )
             ->get();
+            return view('infaq.walisantri', compact('data','pesantren'));
         }
 
-        return view('infaq.index', compact('data','pesantren'));
     }
 
     public function create()

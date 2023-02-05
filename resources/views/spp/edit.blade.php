@@ -86,6 +86,18 @@
 @endsection
 @section('scripts')
 <script type="text/javascript">
-
+    $('#santri_id').change(function(e){
+        let id=$(this).val();
+        $.ajax({
+            url : "{{ url('/manajemen-keuangan/get-ajax-nominal-from-santri') }}"+"/"+id,
+            method : "GET",
+            async : true,
+            dataType : 'json',
+            success: function(data){
+                $('#debet_pembayaran').val(data.nominal_spp_perbulan);
+            }
+        });
+        return false;
+    });
 </script>
 @endsection

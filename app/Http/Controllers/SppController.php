@@ -11,7 +11,9 @@ use App\Models\Santri;
 use App\Models\User;
 use App\Models\WaliSantri;
 use App\Notifications\NewSppNotification;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 
 class SppController extends Controller
@@ -33,6 +35,39 @@ class SppController extends Controller
         ->get();
 
         return view('spp.index', compact('data','pesantren'));
+    }
+
+    public function indexWalisantri()
+    {
+        $user = auth()->user();
+        $term = 'Spp';
+        $walisantri = WaliSantri::where('id', $user->walisantri_id)->first();
+        // dd($walisantri->santri_id);
+        $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
+        $data = JenisPembayaran::join('pembayaran', 'jenis_pembayaran.pembayaran_id', 'pembayaran.id')
+        ->leftjoin('santri', 'jenis_pembayaran.santri_id', 'santri.id')
+        ->where('jenis_pembayaran.santri_id', $walisantri->santri_id)
+        ->where('pembayaran.nama_pembayaran','LIKE','%'.$term.'%')
+        ->where('pesantren_id',$user->pesantren_id)
+        ->select(
+            'jenis_pembayaran.*',
+            'pembayaran.nama_pembayaran',
+            'santri.nama_santri'
+        )
+        ->get();
+        // dd($data);
+        // dd(Carbon::parse($data[0]->tanggal_pembayaran)->format('m'));
+        return view('spp.walisantri', compact('data', 'pesantren'));
+    }
+
+    function getAjaxNominalFromSantri($id){
+        $nominal = DB::table('santri')
+        ->where('id', $id)
+        ->select(
+            'nominal_spp_perbulan',
+        )
+        ->first();
+        return response()->json($nominal);
     }
 
     public function create()

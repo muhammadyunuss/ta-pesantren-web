@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Perizinan;
 use App\Models\Santri;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PerizinanController extends Controller
 {
@@ -15,13 +16,25 @@ class PerizinanController extends Controller
      */
     public function index()
     {
-        $data = Perizinan::join("santri","perizinan.santri_id","=","santri.id")
-        ->select(
-            'perizinan.*',
-            'santri.nama_santri'
-        )
-        ->get();
-        return view('perizinan.index',compact('data'));
+        if (Auth::user()->hasAnyPermission(['admin','super-admin'])) {
+            $data = Perizinan::join("santri","perizinan.santri_id","=","santri.id")
+            ->select(
+                'perizinan.*',
+                'santri.nama_santri'
+            )
+            ->get();
+            return view('perizinan.index',compact('data'));
+        }else{
+            $data = Perizinan::join("santri","perizinan.santri_id","=","santri.id")
+            ->join("walisantri","santri.id", "walisantri.santri_id")
+            ->where('walisantri.id', Auth::user()->walisantri_id)
+            ->select(
+                'perizinan.*',
+                'santri.nama_santri'
+            )
+            ->get();
+            return view('perizinan.walisantri',compact('data'));
+        }
     }
 
     /**

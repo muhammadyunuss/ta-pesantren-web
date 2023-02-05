@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Ekstrakurikuler;
 use App\Models\Santri;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class EkstrakurikulerController extends Controller
@@ -16,15 +17,29 @@ class EkstrakurikulerController extends Controller
      */
     public function index()
     {
-        $queryBuilder = DB::table('ekstrakurikuler')
-        ->join('santri','ekstrakurikuler.santri_id','santri.id')
-        ->select(
-            'ekstrakurikuler.*',
-            'santri.nama_santri'
-        )
-        ->get();
+        if (Auth::user()->hasAnyPermission(['admin','super-admin'])) {
+            $queryBuilder = DB::table('ekstrakurikuler')
+            ->join('santri','ekstrakurikuler.santri_id','santri.id')
+            ->select(
+                'ekstrakurikuler.*',
+                'santri.nama_santri'
+            )
+            ->get();
 
-    return view('ekstrakurikuler.index', ['data' => $queryBuilder]);
+            return view('ekstrakurikuler.index', ['data' => $queryBuilder]);
+        }else{
+            $queryBuilder = DB::table('ekstrakurikuler')
+            ->join('santri','ekstrakurikuler.santri_id','santri.id')
+            ->join("walisantri","santri.id", "walisantri.santri_id")
+            ->where('walisantri.id', Auth::user()->walisantri_id)
+            ->select(
+                'ekstrakurikuler.*',
+                'santri.nama_santri'
+            )
+            ->get();
+
+            return view('ekstrakurikuler.walisantri', ['data' => $queryBuilder]);
+        }
     }
 
     /**

@@ -71,7 +71,7 @@
                     <div class="form-group">
                         <label for="debet_pembayaran">Nominal</label>
                         <div>
-                            <input type="number" id="debet_pembayaran" name="debet_pembayaran" class="form-control @error('debet_pembayaran') is-invalid @enderror" placeholder="Nominal">
+                            <input type="text" id="debet_pembayaran" name="debet_pembayaran" class="form-control @error('debet_pembayaran') is-invalid @enderror" placeholder="Nominal">
                         </div>
                     </div>
                     <div class="form-group">
@@ -104,6 +104,18 @@
 @endsection
 @section('scripts')
 <script type="text/javascript">
-
+    $('#santri_id').change(function(e){
+        let id=$(this).val();
+        $.ajax({
+            url : "{{ url('/manajemen-keuangan/get-ajax-nominal-from-santri') }}"+"/"+id,
+            method : "GET",
+            async : true,
+            dataType : 'json',
+            success: function(data){
+                $('#debet_pembayaran').val(data.nominal_spp_perbulan);
+            }
+        });
+        return false;
+    });
 </script>
 @endsection

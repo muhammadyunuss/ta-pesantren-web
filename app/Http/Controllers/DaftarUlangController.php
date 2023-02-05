@@ -37,6 +37,26 @@ class DaftarUlangController extends Controller
         return view('daftar-ulang.index', compact('data','pesantren'));
     }
 
+    public function indexWalisantri(){
+        $user = auth()->user();
+        $term = 'Daftar Ulang';
+        $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
+        $data = JenisPembayaran::join('pembayaran', 'jenis_pembayaran.pembayaran_id', 'pembayaran.id')
+        ->leftjoin('santri', 'jenis_pembayaran.santri_id', 'santri.id')
+        // ->where('pembayaran_id', 1)
+        ->where('pembayaran.nama_pembayaran','LIKE','%'.$term.'%')
+        // ->where('pesantren_id',$user->pesantren_id)
+        ->select(
+            'jenis_pembayaran.*',
+            'pembayaran.nama_pembayaran',
+            'santri.nama_santri'
+        )
+        ->get();
+
+        return view('daftar-ulang.walisantri', compact('data','pesantren'));
+
+    }
+
     public function create()
     {
         $user = auth()->user();
@@ -104,9 +124,5 @@ class DaftarUlangController extends Controller
     {
         JenisPembayaran::where('id', $pembayaran)->delete();
         return redirect()->route('daftar-ulang.index')->with(['success' => 'Data Berhasil Dihapus!']);
-    }
-
-    public function indexWalisantri(){
-        return view('daftar-ulang.walisantri');
     }
 }

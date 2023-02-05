@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pelanggaran;
 use App\Models\Santri;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class PelanggaranController extends Controller
@@ -16,15 +17,28 @@ class PelanggaranController extends Controller
      */
     public function index()
     {
-        $queryBuilder = DB::table('pelanggaran')
-        ->join("santri","pelanggaran.santri_id","=","santri.id")
-        ->select(
-            'pelanggaran.*',
-            'santri.nama_santri'
-        )
-        ->get();
+        if (Auth::user()->hasAnyPermission(['admin','super-admin'])) {
+            $queryBuilder = DB::table('pelanggaran')
+            ->join("santri","pelanggaran.santri_id","=","santri.id")
+            ->select(
+                'pelanggaran.*',
+                'santri.nama_santri'
+            )
+            ->get();
 
-    return view('pelanggaran.index', ['data' => $queryBuilder]);
+            return view('pelanggaran.index', ['data' => $queryBuilder]);
+        }else{
+            $queryBuilder = DB::table('pelanggaran')
+            ->join("santri","pelanggaran.santri_id","=","santri.id")
+            ->join("walisantri","santri.id", "walisantri.santri_id")
+            ->where('walisantri.id', Auth::user()->walisantri_id)
+            ->select(
+                'pelanggaran.*',
+                'santri.nama_santri'
+            )
+            ->get();
+            return view('pelanggaran.walisantri', ['data' => $queryBuilder]);
+        }
     }
 
     /**
@@ -34,7 +48,12 @@ class PelanggaranController extends Controller
      */
     public function create()
     {
-        $datasantri = Santri::all();
+        if (Auth::user()->hasAnyPermission(['admin','super-admin'])) {
+            $datasantri = Santri::all();
+        }else{
+            $datasantri = Santri::join("walisantri","santri.id", "walisantri.santri_id")
+            ->where('walisantri.id', Auth::user()->walisantri_id)->get();
+        }
         return view('pelanggaran.create', compact('datasantri'));
     }
 

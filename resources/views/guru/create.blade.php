@@ -107,26 +107,5 @@
 @section('scripts')
 <script type="text/javascript">
 
-        $('#pemesanan_id').change(function(e){
-            let id=$(this).val();
-            $.ajax({
-                url : "{{ url('/produksi/jadwal-progres/get-ajax-pemesanan-to-pemesanan-detail') }}"+"/"+id,
-                method : "GET",
-                async : true,
-                dataType : 'json',
-                success: function(data){
-                    let html = '<option value=0>Pilih Pemesanan Detail</option>';
-                    let i;
-                    $('#detail_pemesanan_model_id').html(html);
-                    for(i=0; i<data.length; i++){
-                        html += '<option value='+data[i].id+'>'+data[i].nama_model+' '+data[i].nama_jenismodel+' '+data[i].banyaknya+' Pcs'+'</option>';
-                    }
-                    $('#detail_pemesanan_model_id').html(html);
-
-                }
-            });
-            return false;
-        });
-
 </script>
 @endsection

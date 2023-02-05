@@ -33,6 +33,50 @@ class TagihanController extends Controller
         return view('tagihan.index', compact('data'));
     }
 
+    public function daftarUlang()
+    {
+        $user = auth()->user();
+        $term = 'Daftar Ulang';
+        $walisantri = WaliSantri::where('id', $user->walisantri_id)->first();
+        $data = JenisPembayaran::join('pembayaran', 'jenis_pembayaran.pembayaran_id', 'pembayaran.id')
+        ->leftjoin('santri', 'jenis_pembayaran.santri_id', 'santri.id')
+        ->leftjoin('walisantri', 'santri.id', 'walisantri.santri_id')
+        ->where('jenis_pembayaran.santri_id', $walisantri->id)
+        ->where('pembayaran.nama_pembayaran','LIKE','%'.$term.'%')
+        ->where('pesantren_id',$user->pesantren_id)
+        ->select(
+            'jenis_pembayaran.*',
+            'pembayaran.nama_pembayaran',
+            'santri.nama_santri',
+            'walisantri.nama_walisantri'
+        )
+        ->get();
+
+        return view('tagihan.index', compact('data'));
+    }
+
+    public function spp()
+    {
+        $user = auth()->user();
+        $term = 'SPP';
+        $walisantri = WaliSantri::where('id', $user->walisantri_id)->first();
+        $data = JenisPembayaran::join('pembayaran', 'jenis_pembayaran.pembayaran_id', 'pembayaran.id')
+        ->leftjoin('santri', 'jenis_pembayaran.santri_id', 'santri.id')
+        ->leftjoin('walisantri', 'santri.id', 'walisantri.santri_id')
+        ->where('jenis_pembayaran.santri_id', $walisantri->id)
+        ->where('pembayaran.nama_pembayaran','LIKE','%'.$term.'%')
+        ->where('pesantren_id',$user->pesantren_id)
+        ->select(
+            'jenis_pembayaran.*',
+            'pembayaran.nama_pembayaran',
+            'santri.nama_santri',
+            'walisantri.nama_walisantri'
+        )
+        ->get();
+
+        return view('tagihan.index', compact('data'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *

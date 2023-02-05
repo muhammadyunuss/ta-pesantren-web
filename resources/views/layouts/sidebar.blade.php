@@ -24,7 +24,7 @@
 					{{-- <span class="selected"></span> --}}
 					</a>
 				</li>
-                @if(Auth::user()->hasAnyPermission(['admin','super-admin']))
+                @if(Auth::user()->hasRole(['admin','super-admin']))
                 <li class="{{ (request()->segment(1) == 'manajemen-santri') ? 'active' : '' }}">
                     <a href="javascript:;">
                         <i class="icon-puzzle"></i>
@@ -212,6 +212,7 @@
                     </ul>
                 </li>
                 @endif
+                @if(Auth::user()->hasRole('walisantri'))
                 <li class="{{ (request()->segment(1) == 'manajemen-keuangan') ? 'active' : '' }}">
                     <a href="javascript:;">
                         <i class="icon-present"></i>
@@ -220,8 +221,8 @@
                         <span class="arrow {{ (request()->segment(1) == 'manajemen-keuangan') ? 'open' : '' }}"></span>
                     </a>
                     <ul class="sub-menu">
-                        <li class= "{{ (request()->segment(2) == 'spp') ? 'active' : '' }}">
-                            <a href="{{route('spp.index')}}">
+                        <li class= "{{ (request()->segment(2) == 'spp-walisantri') ? 'active' : '' }}">
+                            <a href="{{route('spp-walisantri.index')}}">
                                 <i class="icon-anchor"></i>
                                 SPP</a>
                         </li>
@@ -230,8 +231,8 @@
                                 <i class="icon-anchor"></i>
                                 Infaq</a>
                         </li>
-                        <li class= "{{ (request()->segment(2) == 'daftar-ulang') ? 'active' : '' }}">
-                            <a href="{{route('daftar-ulang.index')}}">
+                        <li class= "{{ (request()->segment(2) == 'daftar-ulang-walisantri') ? 'active' : '' }}">
+                            <a href="{{route('daftar-ulang-walisantri.index')}}">
                                 <i class="icon-anchor"></i>
                                 Daftar Ulang</a>
                         </li>
@@ -273,16 +274,16 @@
                         </li>
                     </ul>
                 </li>
-                <li class="{{ (request()->segment(1) == 'manajemen-keuangan') ? 'active' : '' }}">
+                <li class="{{ (request()->segment(1) == 'pembayaran') ? 'active' : '' }}">
                     <a href="javascript:;">
                         <i class="icon-present"></i>
                         <span class="title">Pembayaran</span>
                         <span class="selected"></span>
-                        <span class="arrow {{ (request()->segment(1) == 'manajemen-keuangan') ? 'open' : '' }}"></span>
+                        <span class="arrow {{ (request()->segment(1) == 'pembayaran') ? 'open' : '' }}"></span>
                     </a>
                     <ul class="sub-menu">
-                        <li class= "{{ (request()->segment(2) == 'spp') ? 'active' : '' }}">
-                            <a href="{{route('spp.index')}}">
+                        <li class= "{{ (request()->segment(2) == 'tagihan-spp') ? 'active' : '' }}">
+                            <a href="{{route('tagihan-spp.index')}}">
                                 <i class="icon-anchor"></i>
                                 SPP</a>
                         </li>
@@ -291,13 +292,14 @@
                                 <i class="icon-anchor"></i>
                                 Infaq</a>
                         </li>
-                        <li class= "{{ (request()->segment(2) == 'daftar-ulang-walisantri') ? 'active' : '' }}">
-                            <a href="{{route('daftar-ulang-walisantri.index')}}">
+                        <li class= "{{ (request()->segment(2) == 'tagihan-daftar-ulang') ? 'active' : '' }}">
+                            <a href="{{route('tagihan-daftar-ulang.index')}}">
                                 <i class="icon-anchor"></i>
                                 Daftar Ulang</a>
                         </li>
                     </ul>
 
                 </li>
+                @endif
 			</ul>
 			<!-- END SIDEBAR MENU -->

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Prestasi;
 use App\Models\Santri;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class PrestasiController extends Controller
@@ -16,15 +17,30 @@ class PrestasiController extends Controller
      */
     public function index()
     {
-        $queryBuilder = DB::table('prestasi')
-        ->join('santri',"prestasi.santri_id","santri.id")
-        ->select(
-            'prestasi.*',
-            'santri.nama_santri'
-        )
-        ->get();
+        if (Auth::user()->hasAnyPermission(['admin','super-admin'])) {
+            $queryBuilder = DB::table('prestasi')
+            ->join('santri',"prestasi.santri_id","santri.id")
+            ->select(
+                'prestasi.*',
+                'santri.nama_santri'
+            )
+            ->get();
+            return view('prestasi.index', ['data' => $queryBuilder]);
 
-    return view('prestasi.index', ['data' => $queryBuilder]);
+        }else{
+            $queryBuilder = DB::table('prestasi')
+            ->join('santri',"prestasi.santri_id","santri.id")
+            ->join("walisantri","santri.id", "walisantri.santri_id")
+            ->where('walisantri.id', Auth::user()->walisantri_id)
+            ->select(
+                'prestasi.*',
+                'santri.nama_santri'
+            )
+            ->get();
+
+            return view('prestasi.walisantri', ['data' => $queryBuilder]);
+        }
+
     }
 
     /**

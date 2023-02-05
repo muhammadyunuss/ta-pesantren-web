@@ -74,6 +74,7 @@ class SantriController extends Controller
         $data->nama_ibu = $request->get('namaIbu');
         $data->kamar_santri = $request->get('kamar');
         $data->asrama_santri = $request->get('asrama');
+        $data->nominal_spp_perbulan = $request->get('nominal_spp_perbulan');
         $data->status_aktif = $request->get('statusAktif');
         $data->save();
 
@@ -146,6 +147,7 @@ class SantriController extends Controller
                 'nama_ibu' => $request->get('namaIbu'),
                 'kamar_santri' => $request->get('kamar'),
                 'asrama_santri' => $request->get('asrama'),
+                'nominal_spp_perbulan' => $request->get('nominal_spp_perbulan'),
                 'status_aktif' => $request->get('statusAktif'),
             ]);
         }else{
@@ -158,6 +160,7 @@ class SantriController extends Controller
                 'nama_ibu' => $request->get('namaIbu'),
                 'kamar_santri' => $request->get('kamar'),
                 'asrama_santri' => $request->get('asrama'),
+                'nominal_spp_perbulan' => $request->get('nominal_spp_perbulan'),
                 'status_aktif' => $request->get('statusAktif'),
             ]);
         }

@@ -25,6 +25,8 @@ class KesehatanController extends Controller
                 'santri.nama_santri'
             )
             ->get();
+            return view('kesehatan.index', ['data' => $queryBuilder]);
+
         }else{
             $queryBuilder = DB::table('kesehatan')
             ->join("santri","kesehatan.santri_id", "santri.id")
@@ -35,10 +37,8 @@ class KesehatanController extends Controller
                 'santri.nama_santri'
             )
             ->get();
+            return view('kesehatan.walisantri', ['data' => $queryBuilder]);
         }
-
-
-        return view('kesehatan.index', ['data' => $queryBuilder]);
     }
 
     /**

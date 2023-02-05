@@ -112,6 +112,13 @@
                         @enderror
                     </div><br>
                     <div class="form-group">
+                        <label for="nominal_spp_perbulan">Nominal Spp Perbulan</label>
+                        <input type="number" class="form-control @error('nominal_spp_perbulan') is-invalid @enderror" name="nominal_spp_perbulan" value="{{ old('nominal_spp_perbulan', $data->nominal_spp_perbulan) }}" placeholder="Isikan Nama Nominal Spp Perbulan Santri" min="0">
+                        @error('nominal_spp_perbulan')
+                        <div class="invalid-feedback" style="color:red">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="form-group">
                         <label for="statusAktif">Status Aktif</label> <br>
                         <div class="form-check">
                             <input type="radio" class="form-check-input" name="statusAktif" id="statusAktif" value="yes" {{ $data->status_aktif == 'yes' ? 'checked' : ''}}>

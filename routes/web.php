@@ -121,13 +121,23 @@ Route::middleware(['auth'])->group(function () {
         });
         Route::resource('infaq', InfaqController::class);
         Route::resource('spp', SppController::class);
+        Route::controller(SppController::class)->group(function (){
+            Route::get('spp-walisantri', 'indexWalisantri')->name('spp-walisantri.index');
+            Route::get('get-ajax-nominal-from-santri/{id}', 'getAjaxNominalFromSantri')->name('get-ajax-nominal-from-santri');
+        });
         Route::resource('verifikasi-pembayaran', VerifikasiPembayaranController::class);
         Route::resource('tagihan', TagihanController::class);
-        Route::resource('rekap-laporan', RekapLaporanController::class);
         Route::prefix('rekap-laporan')->group(function () {
             Route::post('search', [RekapLaporanController::class, 'search'])->name('rekap-laporan-search');
         });
+        Route::resource('rekap-laporan', RekapLaporanController::class);
 
+    });
+
+    Route::prefix('pembayaran')->group(function () {
+        Route::get('tagihan-daftar-ulang', [TagihanController::class, 'daftarUlang'])->name('tagihan-daftar-ulang.index');
+        Route::get('tagihan-spp', [TagihanController::class, 'spp'])->name('tagihan-spp.index');
+        // Route::post('infaq', [RekapLaporanController::class, 'daftarUlang'])->name('tagihan-daftar-ulang');
     });
 
 });
