@@ -128,6 +128,11 @@
                                 <i class="icon-anchor"></i>
                                 Presensi Asrama Kelas</a>
                         </li>
+                        <li class= "{{ (request()->segment(2) == 'broadcast-notifikasi') ? 'active' : '' }}">
+                            <a href="{{route('broadcast-notifikasi.index')}}">
+                                <i class="icon-anchor"></i>
+                                Broadcast Notifikasi</a>
+                        </li>
                     </ul>
                 </li>
                 <li class="{{ (request()->segment(1) == 'manajemen-keuangan') ? 'active' : '' }}">

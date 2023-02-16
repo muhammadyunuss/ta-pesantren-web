@@ -96,6 +96,32 @@
                         @enderror
                     </div>
                 </div> --}}
+                <div class="form-group">
+                    <label for="jabatan">Jabatan</label>
+                    <input type="text" class="form-control @error('jabatan') is-invalid @enderror" name="jabatan" value="{{ old('jabatan', $data->jabatan) }}" placeholder="Isikan deskripsi Jabatan">
+                    @error('jabatan')
+                    <div class="invalid-feedback" style="color:red">{{ $message }}</div>
+                    @enderror
+                </div><br>
+                <div class="form-group">
+                    <label for="tanggal_masuk">Tanggal Masuk</label>
+                    <input type="date" class="form-control @error('tanggal_masuk') is-invalid @enderror" name="tanggal_masuk" value="{{ old('tanggal_masuk', $data->tanggal_masuk) }}" placeholder="Isikan Tanggal Masuk">
+                    @error('tanggal_masuk')
+                    <div class="invalid-feedback" style="color:red">{{ $message }}</div>
+                    @enderror
+                </div><br>
+                <div class="form-group row">
+                    <label for="status_aktif" class="col-md-4 col-form-label">Status Aktif</label>
+                    <div class="col-md-12">
+                        <select name="status_aktif" id="status_aktif" class="form-control @error('status_aktif') is-invalid @enderror">
+                            <option value="1" {{ old('namaPesantren', $data->status_aktif) == 1 ? 'selected' : null }}>Aktif</option>
+                            <option value="0" {{ old('namaPesantren', $data->status_aktif) == 0 ? 'selected' : null }}>Tidak Aktif</option>
+                        </select>
+                        @error('status_aktif')
+                        <div class="invalid-feedback" style="color:red">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>

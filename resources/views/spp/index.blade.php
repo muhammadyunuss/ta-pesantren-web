@@ -40,11 +40,11 @@
     <tr>
     <th>No</th>
     <th>Tanggal</th>
-    <th>Nama</th>
+    <th>Nama Santri</th>
+    <th>Nama Transaksi</th>
     <th>Keterangan</th>
     <th>Debet</th>
     <th>Kredit</th>
-    <th>Nama Santri</th>
     <th>Status</th>
     <th>Aksi</th>
     </tr>
@@ -57,17 +57,17 @@
     <tr>
     <td>{{ $no++ }}</td>
     <td>{{ $d->tanggal_pembayaran }}</td>
+    <td>{{ $d->nama_santri }}</td>
     <td>{{ $d->nama_pembayaran }}</td>
     <td>{{ $d->keterangan_pembayaran }}</td>
     <td>Rp. {{ number_format($d->debet_pembayaran ,2,',','.') }}</td>
     <td>Rp. {{ number_format($d->kredit_pembayaran ,2,',','.') }}</td>
-    <td>{{ $d->nama_santri }}</td>
     <td>{{ $d->status_pembayaran }}</td>
     <td>
         <ul class="nav nav-pills">
-            {{-- <li >
+            <li >
                 <button onclick="window.location='{{ route('spp.edit', $d->id) }}'" type="button" class="btn btn-success">Ubah</button>
-            </li> --}}
+            </li>
             <li>
                 <form method="POST" action="{{route('spp.destroy' , $d->id)}}">
                     @method('DELETE')

@@ -20,16 +20,29 @@ class PengeluaranPemasukanController extends Controller
     {
         $user = auth()->user();
         $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
-        $data = JenisPembayaran::join('pembayaran', 'jenis_pembayaran.pembayaran_id', 'pembayaran.id')
+        $data_pemasukan = JenisPembayaran::join('pembayaran', 'jenis_pembayaran.pembayaran_id', 'pembayaran.id')
         ->leftjoin('santri', 'jenis_pembayaran.santri_id', 'santri.id')
+        ->whereNotNull('debet_pembayaran')
         ->select(
             'jenis_pembayaran.*',
             'pembayaran.nama_pembayaran',
             'santri.nama_santri'
         )
+        ->orderBy('jenis_pembayaran.tanggal_pembayaran', 'DESC')
         ->get();
 
-        return view('pengeluaran-pemasukan.index', compact('data','pesantren'));
+        $data_pengeluaran = JenisPembayaran::join('pembayaran', 'jenis_pembayaran.pembayaran_id', 'pembayaran.id')
+        ->leftjoin('santri', 'jenis_pembayaran.santri_id', 'santri.id')
+        ->whereNotNull('kredit_pembayaran')
+        ->select(
+            'jenis_pembayaran.*',
+            'pembayaran.nama_pembayaran',
+            'santri.nama_santri'
+        )
+        ->orderBy('jenis_pembayaran.tanggal_pembayaran', 'DESC')
+        ->get();
+
+        return view('pengeluaran-pemasukan.index', compact('data_pemasukan','data_pengeluaran', 'pesantren'));
     }
 
     /**
@@ -115,11 +128,34 @@ class PengeluaranPemasukanController extends Controller
     public function edit($id)
     {
         $user = auth()->user();
-        $data = Pembayaran::where('id', $id)->first();
-        $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
         $pegawai = Pegawai::where('pesantren_id', $user->pesantren_id)->get();
+        $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
+        $pembayaran = Pembayaran::where('pegawai_id', $user->pegawai_id)->get();
+        $data = JenisPembayaran::where('id', $id)->first();
 
-        return view('pengeluaran-pemasukan.edit',compact('data', 'pesantren', 'pegawai', 'id'));
+        return view('pengeluaran-pemasukan.edit',compact('data', 'pesantren', 'pegawai', 'id', 'pembayaran'));
+    }
+
+    public function editPemasukan($id)
+    {
+        $user = auth()->user();
+        $pegawai = Pegawai::where('pesantren_id', $user->pesantren_id)->get();
+        $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
+        $pembayaran = Pembayaran::where('pegawai_id', $user->pegawai_id)->get();
+        $data = JenisPembayaran::where('id', $id)->first();
+
+        return view('pengeluaran-pemasukan.edit-pemasukan',compact('data', 'pesantren', 'pegawai', 'id', 'pembayaran'));
+    }
+
+    public function editPengeluaran($id)
+    {
+        $user = auth()->user();
+        $pegawai = Pegawai::where('pesantren_id', $user->pesantren_id)->get();
+        $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
+        $pembayaran = Pembayaran::where('pegawai_id', $user->pegawai_id)->get();
+        $data = JenisPembayaran::where('id', $id)->first();
+
+        return view('pengeluaran-pemasukan.edit-pengeluaran',compact('data', 'pesantren', 'pegawai', 'id', 'pembayaran'));
     }
 
     /**
@@ -132,7 +168,8 @@ class PengeluaranPemasukanController extends Controller
     public function update(Request $request, $id)
     {
         $data = request()->except(['_token', '_method', 'pesantren_id']);
-        Pembayaran::where('id', $id)->update($data);
+        $data['santri_id'] = 0;
+        JenisPembayaran::where('id', $id)->update($data);
 
         if($request){
             return redirect()->route('pengeluaran-pemasukan.index')->with(['success' => 'Data Berhasil Diupdate!']);
@@ -140,6 +177,7 @@ class PengeluaranPemasukanController extends Controller
             return redirect()->route('pengeluaran-pemasukan.index')->with(['error' => 'Data Gagal Diupdate!']);
         }
     }
+
 
     /**
      * Remove the specified resource from storage.

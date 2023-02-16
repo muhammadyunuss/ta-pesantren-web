@@ -100,24 +100,6 @@ Dashboard <small>statistics and more</small>
         <li>
             <a href="#">Dashboard</a>
         </li>
-        @can('create')
-        <a href="#" class="btn btn-sm btn-primary">CREATE</a>
-        @endcan
-        @can('view')
-        <a href="#" class="btn btn-sm btn-primary">VIEW</a>
-        @endcan
-        @can('edit')
-        <a href="#" class="btn btn-sm btn-primary">EDIT</a>
-        @endcan
-        @can('delete')
-        <a href="#" class="btn btn-sm btn-primary">DELETE</a>
-        @endcan
-        @can('publish')
-        <a href="#" class="btn btn-sm btn-primary">PUBLISH</a>
-        @endcan
-        @can('unpublish')
-        <a href="#" class="btn btn-sm btn-primary">UNPUBLISH</a>
-        @endcan
     </ul>
     <div class="page-toolbar">
         <div id="dashboard-report-range" class="pull-right tooltips btn btn-fit-height btn-primary" data-container="body" data-placement="bottom" data-original-title="Change dashboard date range">
@@ -192,10 +174,15 @@ Dashboard <small>statistics and more</small>
                                             </div>
                                             <div class="cont-col2">
                                                 <div class="desc">
-                                                    [{{ $notification->created_at }}] User {{ $notification->data['judul_pemberitahuan'] }} ({{ $notification->data['judul_pemberitahuan'] }}) has just registered. <span class="label label-sm label-default">
-                                                        <a href="#" class="float-right mark-as-read" data-id="{{ $notification->id }}">
-                                                            Mark as read
-                                                        </a> <i class="fa fa-share-alt"></i>
+                                                    <p>[{{ $notification->created_at }}]</p>
+                                                     <p><b>{{ $notification->data['judul_pemberitahuan'] }}</b></p>
+                                                     <p>{{ $notification->data['detail_pemberitahuan'] }}</p>
+                                                     <p>
+                                                            has just registered. <span class="label label-sm label-default">
+                                                            <a href="#" class="float-right mark-as-read" data-id="{{ $notification->id }}">
+                                                                Mark as read
+                                                            </a> <i class="fa fa-share-alt"></i>
+                                                        </p>
                                                     </span>
                                                     @if($loop->last)
                                                         <a href="#" id="mark-all">
@@ -219,6 +206,71 @@ Dashboard <small>statistics and more</small>
                         </div>
                     </div>
                 </div>
+
+                <!--END TABS-->
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-sm-12">
+        <div class="portlet">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-bell"></i>Pemberitahuan
+                </div>
+                <div class="tools">
+                    <a href="" class="collapse"></a>
+                    <a href="#portlet-config" data-toggle="modal" class="config"></a>
+                    <a href="" class="reload"></a>
+                    <a href="" class="remove"></a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <!--BEGIN TABS-->
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#tab_1_1" data-toggle="tab">Lihat</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab_1_1">
+                        <div class="scroller" style="height: 250px;" data-always-visible="1" data-rail-visible="0">
+                            <ul class="feeds">
+                                @php
+                                    $broadcasts = broadcasts();
+                                @endphp
+                                @forelse($broadcasts as $broadcast)
+                                <li>
+                                    <div class="col1">
+                                        <div class="cont">
+                                            <div class="cont-col1">
+                                                <div class="label label-sm label-success">
+                                                    <i class="fa fa-bell"></i>
+                                                </div>
+                                            </div>
+                                            <div class="cont-col2">
+                                                <div class="desc">
+                                                    <p>[{{ $broadcast->created_at }}]</p>
+                                                    <p>{{ $broadcast['judul'] }}</p>
+                                                    <p>({{ $broadcast['isi'] }})</p>
+                                                    @empty
+                                                        There are no new notifications
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col2">
+                                        <div class="date">
+                                            Just now
+                                        </div>
+                                    </div>
+                                </li>
+                                @endforelse
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
                 <!--END TABS-->
             </div>
         </div>

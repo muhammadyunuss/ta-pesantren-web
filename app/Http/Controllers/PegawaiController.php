@@ -46,6 +46,7 @@ class PegawaiController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $user = auth()->user();
         $request->validate([
             'foto_pegawai' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -66,6 +67,9 @@ class PegawaiController extends Controller
         $data->kontak_pegawai = $request->get('kontakPegawai');
         $data->foto_pegawai = $data['foto_pegawai'];
         $data->tanggal_lahir_pegawai=$request->get('tanggalPegawai');
+        $data->jabatan=$request->get('jabatan');
+        $data->tanggal_masuk=$request->get('tanggal_masuk');
+        $data->status_aktif=$request->get('status_aktif');
         $data->pesantren_id = $user->pesantren_id;
         $data->save();
 
@@ -131,6 +135,9 @@ class PegawaiController extends Controller
                 'kontak_pegawai' => $request->get('kontakPegawai'),
                 'foto_pegawai' => $data['foto_pegawai'],
                 'tanggal_lahir_pegawai' => $request->get('tanggalPegawai'),
+                'jabatan' => $request->get('jabatan'),
+                'tanggal_masuk' => $request->get('tanggal_masuk'),
+                'status_aktif' => $request->get('status_aktif'),
                 'pesantren_id' =>  $user->pesantren_id,
             ]);
         }else{
@@ -139,6 +146,9 @@ class PegawaiController extends Controller
                 'alamat_pegawai' => $request->get('alamatPegawai'),
                 'kontak_pegawai' => $request->get('kontakPegawai'),
                 'tanggal_lahir_pegawai' => $request->get('tanggalPegawai'),
+                'jabatan' => $request->get('jabatan'),
+                'tanggal_masuk' => $request->get('tanggal_masuk'),
+                'status_aktif' => $request->get('status_aktif'),
                 'pesantren_id' =>  $user->pesantren_id,
             ]);
         }

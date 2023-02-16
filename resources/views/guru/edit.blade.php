@@ -107,6 +107,31 @@
                             <option value="Honorer">Honorer</option>
                     </select>
                 </div>
+                <div class="form-group">
+                    <label for="nuptk">NUPTK</label>
+                    <div>
+                        <input type="text" class="form-control @error('nuptk') is-invalid @enderror" id="nuptk" name="nuptk" value="{{ old('nuptk', $data->nuptk) }}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="jabatan">Jabatan</label>
+                    <div>
+                        <input type="text" class="form-control @error('jabatan') is-invalid @enderror" id="jabatan" name="jabatan" value="{{ old('jabatan', $data->jabatan) }}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="tanggal_masuk">Tanggal Masuk</label>
+                    <div>
+                        <input type="date" data-date-format="dd-mm-yyyy" class="form-control @error('tanggal_masuk') is-invalid @enderror" id="tanggal_masuk" name="tanggal_masuk" value="{{ old('tanggal_masuk', date('Y-m-d', $data->tanggal_masuk==null ? null : strtotime($data->tanggal_masuk))) }}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="status_aktif">Status Aktif</label>
+                    <select name="status_aktif" id="status_aktif" data-with="100%" class="form-control @error('status_aktif') is-invalid @enderror">
+                            <option value="1" {{ old('status_aktif', $data->status_aktif) == 1  ? 'selected' : null }}>Aktif</option>
+                            <option value="0" {{ old('status_aktif', $data->status_aktif) == 0  ? 'selected' : null }}>Tidak Aktif</option>
+                    </select>
+                </div>
             </div>
 				<div class="form-actions">
 					<button type="submit" class="btn btn-primary">Ubah</button>

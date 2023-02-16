@@ -17,8 +17,11 @@ class Guru extends Model
         'foto_guru',
         'nomor_guru',
         'pendidikan_guru',
-        'walikelas',
         'pesantren_id',
+        'walikelas',
+        'nuptk',
+        'jabatan',
+        'status_aktif',
         'kategori_guru'
       ];
 

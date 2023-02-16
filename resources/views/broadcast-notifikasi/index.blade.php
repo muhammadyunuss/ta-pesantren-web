@@ -3,9 +3,9 @@
 @section('content')
 <!-- BEGIN PAGE HEADER-->
 <h3 class="page-title">
-    Daftar Ulang | {{ $pesantren->nama_pesantren }} &nbsp;&nbsp;
-    <a type= "button" href="{{route('daftar-ulang.create')}}" class="btn btn-primary btn-sm">
-        + TAMBAH DAFTAR ULANG
+    Broadcast Notifikasi &nbsp;&nbsp;
+    <a type= "button" href="{{route('broadcast-notifikasi.create')}}" class="btn btn-primary btn-sm">
+        + Tambah Broadcas Notifikasi
     </a>
 </h3>
 <div class="page-bar">
@@ -16,7 +16,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('daftar-ulang.index')}}">Daftar Ulang</a>
+            <a href="{{route('broadcast-notifikasi.index')}}">Broadcast Notifikasi</a>
         </li>
     </ul>
 </div>
@@ -39,13 +39,9 @@
 <thead>
     <tr>
     <th>No</th>
-    <th>Tanggal</th>
-    <th>Nama</th>
-    <th>Keterangan</th>
-    <th>Debet</th>
-    <th>Kredit</th>
-    <th>Nama Santri</th>
-    <th>Status</th>
+    <th>Judul Pemberitahuan</th>
+    <th>Isi Pemberitahuan</th>
+    <th>Walisantri</th>
     <th>Aksi</th>
     </tr>
 </thead>
@@ -56,24 +52,24 @@
     @foreach($data as $d)
     <tr>
     <td>{{ $no++ }}</td>
-    <td>{{ $d->tanggal_pembayaran }}</td>
-    <td>{{ $d->nama_pembayaran }}</td>
-    <td>{{ $d->keterangan_pembayaran }}</td>
-    <td>Rp. {{ number_format($d->debet_pembayaran ,2,',','.') }}</td>
-    <td>Rp. {{ number_format($d->kredit_pembayaran ,2,',','.') }}</td>
-    <td>{{ $d->nama_santri }}</td>
-    <td>{{ $d->status_pembayaran }}</td>
+    <td>{{ $d->judul }}</td>
+    <td>{{ $d->isi }}</td>
+    @if ($d->nama_walisantri == null)
+    <td>Semua</td>
+    @else
+    <td>{{ $d->nama_walisantri }}</td>
+    @endif
     <td>
         <ul class="nav nav-pills">
             <li >
-                <button onclick="window.location='{{ route('daftar-ulang.edit', $d->id) }}'" type="button" class="btn btn-success">Ubah</button>
+                <button onclick="window.location='{{ route('broadcast-notifikasi.edit', $d->id) }}'" type="button" class="btn btn-success">Ubah</button>
             </li>
             <li>
-                <form method="POST" action="{{route('daftar-ulang.destroy' , $d->id)}}">
+                <form method="POST" action="{{route('broadcast-notifikasi.destroy' , $d->id)}}">
                     @method('DELETE')
                     @csrf
                     <input class="btn btn-danger " type="SUBMIT" value="Hapus"
-                    onclick="if(!confirm('Apakah Anda yakin akan menghapus data jadwal-progres dan data sediaan bahan baku yang berkaitan?')) {return false;}">
+                    onclick="if(!confirm('Apakah Anda yakin akan menghapus data ?')) {return false;}">
                 </form>
             </li>
         </ul>

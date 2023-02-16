@@ -65,9 +65,9 @@
     <td>{{ $d->status_pembayaran }}</td>
     <td>
         <ul class="nav nav-pills">
-            {{-- <li >
+            <li >
                 <button onclick="window.location='{{ route('infaq.edit', $d->id) }}'" type="button" class="btn btn-success">Ubah</button>
-            </li> --}}
+            </li>
             <li>
                 <form method="POST" action="{{route('infaq.destroy' , $d->id)}}">
                     @method('DELETE')

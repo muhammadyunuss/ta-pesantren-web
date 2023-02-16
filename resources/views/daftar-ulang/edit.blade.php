@@ -47,32 +47,51 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="pegawai_id">Pegawai</label>
-                    <select name="pegawai_id" id="pegawai_id" data-with="100%" class="form-control @error('pegawai_id') is-invalid @enderror" required>
-                        <option value="">Pilih Pegawai</option>
-                        @foreach ($pegawai as $s)
-                        <option value="{{ $s->id }}" {{ old('pegawai_id', $s->id) == $data->pegawai_id  ? 'selected' : null }}>{{ $s->nama_pegawai }}</option>
+                    <label for="tanggal_pembayaran">Tanggal Pembayaran</label>
+                    <div>
+                        <input type="date" data-date-format="dd-mm-yyyy" class="form-control @error('tanggal_pembayaran') is-invalid @enderror" id="tanggal_pembayaran" name="tanggal_pembayaran" value="{{ old('tanggal_pembayaran', date('Y-m-d', $data->tanggal_pembayaran==null ? null : strtotime($data->tanggal_pembayaran)))}}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="pembayaran_id">Pembayaran</label>
+                    <select name="pembayaran_id" id="pembayaran_id" data-with="100%" class="form-control @error('pembayaran_id') is-invalid @enderror" required>
+                        @foreach ($pembayaran as $s)
+                        <option value="{{ $s->id }}" {{ old('pembayaran_id', $s->id) == $data->pembayaran_id  ? 'selected' : null }}>{{ $s->nama_pembayaran }} - {{ $s->jenis_pembayaran }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="nama_pembayaran">Nama Daftar Ulang</label>
-                    <div>
-                        <input type="text" id="nama_pembayaran" name="nama_pembayaran" class="form-control @error('nama_pembayaran') is-invalid @enderror" placeholder="Nama Daftar Ulang" value="{{ $data->nama_pembayaran }}">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="jenis_pembayaran">Jenis Daftar Ulang</label>
-                    <select name="jenis_pembayaran" id="jenis_pembayaran" data-with="100%" class="form-control @error('jenis_pembayaran') is-invalid @enderror">
-                        <option value="">Pilih</option>
-                        <option value="Tunai" {{ old('jenis_pembayaran', "Tunai") == $data->jenis_pembayaran  ? 'selected' : null }}>Tunai</option>
-                        <option value="Transfer" {{ old('jenis_pembayaran', "Transfer") == $data->jenis_pembayaran  ? 'selected' : null }}>Transfer</option>
+                    <label for="santri_id">Santri</label>
+                    <select name="santri_id" id="santri_id" data-with="100%" class="form-control @error('santri_id') is-invalid @enderror" required>
+                        <option value="">Pilih Santri</option>
+                        @foreach ($santri as $s)
+                        <option value="{{ $s->id }}" {{ old('santri_id', $s->id) == $data->santri_id ? 'selected' : null }}>{{ $s->nama_santri }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="nominal_pembayaran">Nominal Daftar Ulang</label>
+                    <label for="debet_pembayaran">Nominal</label>
                     <div>
-                        <input type="number" id="nominal_pembayaran" name="nominal_pembayaran" class="form-control @error('nominal_pembayaran') is-invalid @enderror" placeholder="Nominal" value="{{ $data->nominal_pembayaran }}">
+                        <input type="number" id="debet_pembayaran" name="debet_pembayaran" class="form-control @error('debet_pembayaran') is-invalid @enderror" value="{{ $data->debet_pembayaran }}" placeholder="Nominal">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="keterangan_pembayaran">Keterangan</label>
+                    <div>
+                        <input type="text" id="keterangan_pembayaran" name="keterangan_pembayaran" class="form-control @error('keterangan_pembayaran') is-invalid @enderror" value="{{ $data->keterangan_pembayaran }}" placeholder="Keterangan">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Status Bayar</label>
+                    <div class="radio-list">
+                        <label class="radio-inline"><input type="radio" name="status_pembayaran" id="status_pembayaran" value="Lunas" {{ $data->status_pembayaran=="Lunas" ? 'checked': '' }}>Lunas </label>
+                        <label class="radio-inline"><input type="radio" name="status_pembayaran" id="status_pembayaran" value="Belum Lunas" {{ $data->status_pembayaran=="Belum Lunas" ? 'checked': '' }}>Belum Lunas </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label >Notifikasi</label>
+                    <div class="checkbox-list">
+                        <label><input name="notifikasi" id="notifikasi" type="checkbox"> Centang untuk mengirim Notifikasi kepada wali santri </label>
                     </div>
                 </div>
             </div>

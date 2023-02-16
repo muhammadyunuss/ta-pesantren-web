@@ -100,11 +100,16 @@ class InfaqController extends Controller
     public function edit($id)
     {
         $user = auth()->user();
-        $data = JenisPembayaran::where('id', $id)->first();
-        $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
+        $term = 'Infaq';
         $pegawai = Pegawai::where('pesantren_id', $user->pesantren_id)->get();
+        $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
+        $pembayaran = Pembayaran::where('pegawai_id', $user->pegawai_id)
+        ->where('nama_pembayaran','LIKE','%'.$term.'%')
+        ->get();
+        $santri = Santri::get();
+        $data = JenisPembayaran::where('id', $id)->first();
 
-        return view('infaq.edit',compact('data', 'pesantren', 'pegawai', 'id'));
+        return view('infaq.edit',compact('data', 'pesantren', 'pegawai', 'id', 'pembayaran', 'santri'));
     }
 
     public function update(Request $request, $id)

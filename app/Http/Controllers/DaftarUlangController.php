@@ -101,11 +101,17 @@ class DaftarUlangController extends Controller
     public function edit($id)
     {
         $user = auth()->user();
-        $data = JenisPembayaran::where('id', $id)->first();
-        $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
+        $term = 'Daftar Ulang';
         $pegawai = Pegawai::where('pesantren_id', $user->pesantren_id)->get();
+        $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
+        $pembayaran = Pembayaran::where('pegawai_id', $user->pegawai_id)
+        ->where('nama_pembayaran','LIKE','%'.$term.'%')
+        ->get();
+        $data = JenisPembayaran::where('id', $id)->first();
+        $santri = Santri::get();
 
-        return view('daftar-ulang.edit',compact('data', 'pesantren', 'pegawai', 'id'));
+        // dd($data);
+        return view('daftar-ulang.edit',compact('data', 'pesantren', 'pegawai', 'pembayaran','santri', 'id'));
     }
 
     public function update(Request $request, $id)

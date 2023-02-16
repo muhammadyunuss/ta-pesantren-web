@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BerandaController;
+use App\Http\Controllers\BroadcastNotifikasiController;
 use App\Http\Controllers\DaftarUlangController;
 use App\Http\Controllers\EkstrakurikulerController;
 use App\Http\Controllers\GuruController;
@@ -101,35 +102,46 @@ Route::middleware(['auth'])->group(function () {
         Route::prefix('presensi-santri-kelas')->group(function () {
             Route::post('search', [PresensiSantriKelasController::class, 'search'])->name('presensi-santri-kelas-search');
         });
+        Route::resource('broadcast-notifikasi', BroadcastNotifikasiController::class);
     });
 
     Route::prefix('manajemen-keuangan')->group(function () {
-        Route::resource('pembayaran', PembayaranController::class);
-        Route::resource('pengeluaran-pemasukan', PengeluaranPemasukanController::class);
+
         Route::prefix('pengeluaran-pemasukan')->group(function () {
         });
 
         Route::controller(PengeluaranPemasukanController::class)->group(function (){
+
             Route::get('create-pemasukan', 'createPemasukan')->name('pengeluaran-pemasukan.create-pemasukan');
+            Route::get('edit-pemasukan/{id}', 'editPemasukan')->name('pengeluaran-pemasukan.edit-pemasukan');
             Route::post('save-pemasukan', 'storePemasukan')->name('pengeluaran-pemasukan.save-pemasukan');
+
             Route::get('create-pengeluaran', 'createPengeluaran')->name('pengeluaran-pemasukan.create-pengeluaran');
+            Route::get('edit-pengeluaran/{id}', 'editPengeluaran')->name('pengeluaran-pemasukan.edit-pengeluaran');
+            Route::post('save-pengeluaran', 'storePengeluaran')->name('pengeluaran-pemasukan.save-pengeluaran');
+            Route::post('update-pengeluaran', 'updatePengeluaran')->name('pengeluaran-pemasukan.update-pengeluaran');
         });
 
-        Route::resource('daftar-ulang', DaftarUlangController::class);
         Route::controller(DaftarUlangController::class)->group(function (){
             Route::get('daftar-ulang-walisantri', 'indexWalisantri')->name('daftar-ulang-walisantri.index');
         });
-        Route::resource('infaq', InfaqController::class);
-        Route::resource('spp', SppController::class);
+
         Route::controller(SppController::class)->group(function (){
             Route::get('spp-walisantri', 'indexWalisantri')->name('spp-walisantri.index');
             Route::get('get-ajax-nominal-from-santri/{id}', 'getAjaxNominalFromSantri')->name('get-ajax-nominal-from-santri');
         });
-        Route::resource('verifikasi-pembayaran', VerifikasiPembayaranController::class);
-        Route::resource('tagihan', TagihanController::class);
+
         Route::prefix('rekap-laporan')->group(function () {
             Route::post('search', [RekapLaporanController::class, 'search'])->name('rekap-laporan-search');
         });
+
+        Route::resource('daftar-ulang', DaftarUlangController::class);
+        Route::resource('infaq', InfaqController::class);
+        Route::resource('spp', SppController::class);
+        Route::resource('verifikasi-pembayaran', VerifikasiPembayaranController::class);
+        Route::resource('tagihan', TagihanController::class);
+        Route::resource('pembayaran', PembayaranController::class);
+        Route::resource('pengeluaran-pemasukan', PengeluaranPemasukanController::class);
         Route::resource('rekap-laporan', RekapLaporanController::class);
 
     });

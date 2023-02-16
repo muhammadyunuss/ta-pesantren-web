@@ -3,7 +3,7 @@
 @section('content')
 <!-- BEGIN PAGE HEADER-->
 <h3 class="page-title">
-    SPP <br>
+    Pembayaran <br>
 </h3>
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -13,15 +13,15 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('spp.index')}}">Manajemen Keuangan</a>
+            <a href="{{route('pembayaran.index')}}">Manajemen Keuangan</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('spp.index')}}">SPP</a>
+            <a href="{{route('pembayaran.index')}}">Pembayaran</a>
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('spp.create')}}">Tambah SPP</a>
+            <a href="{{route('pembayaran.create')}}">Tambah Pembayaran</a>
         </li>
     </ul>
 </div>
@@ -32,11 +32,11 @@
 <div class="portlet">
 		<div class="portlet-title">
 			<div class="caption">
-				<i class="fa fa-reorder"></i> Ubah SPP
+				<i class="fa fa-reorder"></i> Ubah Pembayaran
 			</div>
 		</div>
 		<div class="portlet-body form">
-			<form method="POST" action="{{ route('spp.update', $data->id) }}" enctype="multipart/form-data">
+			<form method="POST" action="{{ route('pengeluaran-pemasukan.update', $data->id) }}" enctype="multipart/form-data">
 			@csrf
 			@method("PUT")
             <div class="form-body">
@@ -55,24 +55,16 @@
                 <div class="form-group">
                     <label for="pembayaran_id">Pembayaran</label>
                     <select name="pembayaran_id" id="pembayaran_id" data-with="100%" class="form-control @error('pembayaran_id') is-invalid @enderror" required>
+                        <option value="">Pilih Pembayaran</option>
                         @foreach ($pembayaran as $s)
-                        <option value="{{ $s->id }}" {{ old('pembayaran_id', $s->id) == $data->pembayaran_id  ? 'selected' : null }}>{{ $s->nama_pembayaran }} - {{ $s->jenis_pembayaran }}</option>
+                        <option value="{{ $s->id }}" {{ old('pembayaran_id', $s->id) == $data->pembayaran_id ? 'selected' : null }}>{{ $s->nama_pembayaran }} - {{ $s->jenis_pembayaran }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="santri_id">Santri</label>
-                    <select name="santri_id" id="santri_id" data-with="100%" class="form-control @error('santri_id') is-invalid @enderror" required>
-                        <option value="">Pilih Santri</option>
-                        @foreach ($santri as $s)
-                        <option value="{{ $s->id }}" {{ old('santri_id', $s->id) == $data->santri_id ? 'selected' : null }}>{{ $s->nama_santri }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="debet_pembayaran">Nominal</label>
+                    <label for="kredit_pembayaran">Nominal</label>
                     <div>
-                        <input type="number" id="debet_pembayaran" name="debet_pembayaran" class="form-control @error('debet_pembayaran') is-invalid @enderror" value="{{ $data->debet_pembayaran }}" placeholder="Nominal">
+                        <input type="number" id="kredit_pembayaran" name="kredit_pembayaran" class="form-control @error('kredit_pembayaran') is-invalid @enderror" value="{{ $data->kredit_pembayaran }}" placeholder="Nominal">
                     </div>
                 </div>
                 <div class="form-group">
@@ -88,12 +80,6 @@
                         <label class="radio-inline"><input type="radio" name="status_pembayaran" id="status_pembayaran" value="Belum Lunas" {{ $data->status_pembayaran=="Belum Lunas" ? 'checked': '' }}>Belum Lunas </label>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label >Notifikasi</label>
-                    <div class="checkbox-list">
-                        <label><input name="notifikasi" id="notifikasi" type="checkbox"> Centang untuk mengirim Notifikasi kepada wali santri </label>
-                    </div>
-                </div>
             </div>
 				<div class="form-actions">
 					<button type="submit" class="btn btn-primary">Ubah</button>
@@ -105,18 +91,6 @@
 @endsection
 @section('scripts')
 <script type="text/javascript">
-    $('#santri_id').change(function(e){
-        let id=$(this).val();
-        $.ajax({
-            url : "{{ url('/manajemen-keuangan/get-ajax-nominal-from-santri') }}"+"/"+id,
-            method : "GET",
-            async : true,
-            dataType : 'json',
-            success: function(data){
-                $('#debet_pembayaran').val(data.nominal_spp_perbulan);
-            }
-        });
-        return false;
-    });
+
 </script>
 @endsection

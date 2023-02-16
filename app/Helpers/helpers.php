@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\BroadcastNotifikasi;
 use App\Models\JenisPembayaran;
 use App\Models\KonfirmasiPembayaranSpp;
 use Carbon\Carbon;
@@ -70,6 +71,36 @@ if (! function_exists('jenisPembayaran')) {
             // $notifications = auth()->user()->unreadNotifications;
 
             // return $notifications;
+        }
+    }
+
+    if (! function_exists('broadcasts')) {
+        function broadcasts()
+        {
+            $user = auth()->user();
+            // $pegawai = Pegawai::where('pesantren_id', $user->pesantren_id)->get();
+            $data = BroadcastNotifikasi::leftjoin('walisantri', 'broadcast_notifikasi.walisantri_id', 'walisantri.id')
+            ->where('broadcast_notifikasi.pesantren_id', $user->pesantren_id)
+            ->select(
+                'broadcast_notifikasi.*',
+                'walisantri.nama_walisantri'
+            )
+            ->get();
+
+            // dd($data);
+
+            $broadcasts = [];
+            foreach ($data as $broadcast) {
+                if($broadcast->walisantri_id == $user->walisantri_id) {
+                    $broadcasts[] = $broadcast;
+                }elseif($broadcast->walisantri_id == 0) {
+                    $broadcasts[] = $broadcast;
+                }
+            }
+
+            // dd($broadcast);
+            return $broadcasts;
+
         }
     }
 }
