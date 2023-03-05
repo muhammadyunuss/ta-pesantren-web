@@ -18,14 +18,34 @@ use Illuminate\Support\Facades\Notification;
 
 class SppController extends Controller
 {
+    // public function index()
+    // {
+    //     $user = auth()->user();
+    //     $term = 'Spp';
+    //     $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
+    //     $data = JenisPembayaran::join('pembayaran', 'jenis_pembayaran.pembayaran_id', 'pembayaran.id')
+    //     ->where('pembayaran.nama_pembayaran','LIKE','%'.$term.'%')
+    //     // ->where('pesantren_id',$user->pesantren_id)
+    //     ->leftjoin('santri', 'jenis_pembayaran.santri_id', 'santri.id')
+    //     ->select(
+    //         'jenis_pembayaran.*',
+    //         'pembayaran.nama_pembayaran',
+    //         'santri.nama_santri'
+    //     )
+    //     ->get();
+
+    //     return view('spp.index', compact('data','pesantren'));
+    // }
+
     public function index()
     {
         $user = auth()->user();
         $term = 'Spp';
         $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
+        $santris = Santri::where('pesantren_id', $user->pesantren_id)->get();
         $data = JenisPembayaran::join('pembayaran', 'jenis_pembayaran.pembayaran_id', 'pembayaran.id')
         ->where('pembayaran.nama_pembayaran','LIKE','%'.$term.'%')
-        // ->where('pesantren_id',$user->pesantren_id)
+        ->where('pesantren_id',$user->pesantren_id)
         ->leftjoin('santri', 'jenis_pembayaran.santri_id', 'santri.id')
         ->select(
             'jenis_pembayaran.*',
@@ -33,8 +53,9 @@ class SppController extends Controller
             'santri.nama_santri'
         )
         ->get();
+        $now  = (int) date('Y');
 
-        return view('spp.index-new', compact('data','pesantren'));
+        return view('spp.indexnew', compact('data','pesantren', 'santris', 'now'));
     }
 
     public function indexWalisantri()
