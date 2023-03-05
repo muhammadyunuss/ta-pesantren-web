@@ -185,9 +185,9 @@ class PengeluaranPemasukanController extends Controller
      * @param  \App\Models\Pembayaran  $pembayaran
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pembayaran $pembayaran)
+    public function destroy($id)
     {
-        Pembayaran::where('id', $pembayaran)->delete();
+        jenisPembayaran::where('id', $id)->delete();
         return redirect()->route('pengeluaran-pemasukan.index')->with(['success' => 'Data Berhasil Dihapus!']);
     }
 }

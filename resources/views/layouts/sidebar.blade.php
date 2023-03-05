@@ -241,6 +241,11 @@
                                 <i class="icon-anchor"></i>
                                 Daftar Ulang</a>
                         </li>
+                        <li class= "{{ (request()->segment(2) == 'tagihan') ? 'active' : '' }}">
+                            <a href="{{route('tagihan.index')}}">
+                                <i class="icon-anchor"></i>
+                                Tagihan</a>
+                        </li>
                     </ul>
 
                 </li>

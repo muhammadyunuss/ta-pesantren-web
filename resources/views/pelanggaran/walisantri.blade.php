@@ -4,9 +4,9 @@
 <!-- BEGIN PAGE HEADER-->
 <h3 class="page-title">
     Daftar Data Pelanggaran Santri &nbsp;&nbsp;
-    <a type= "button" href="{{route('pelanggaran.create')}}" class="btn btn-primary btn-sm">
+    {{-- <a type= "button" href="{{route('pelanggaran.create')}}" class="btn btn-primary btn-sm">
         + Tambah Daftar Data Pelanggaran Santri
-    </a>
+    </a> --}}
 </h3>
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -16,7 +16,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('pelanggaran.index')}}">Daftar Data Pelanggaran Santri</a>
+            <a href="{{route('pelanggaran.index')}}">Daftar Data Pelanggaran Santri (Walisantri)</a>
         </li>
     </ul>
 </div>

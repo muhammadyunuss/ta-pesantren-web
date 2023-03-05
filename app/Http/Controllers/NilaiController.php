@@ -43,13 +43,12 @@ class NilaiController extends Controller
         $user = auth()->user();
         $santri = Santri::where('pesantren_id', $user->pesantren_id)->get();
         $kelas = Kelas::get();
-
         $data = Nilai::join('mata_pelajaran', 'nilai.matapelajaran_id', 'mata_pelajaran.id')
         ->join('santri', 'nilai.santri_id', 'santri.id')
         ->join('kelas', 'nilai.kelas_id', 'kelas.id')
         ->where('santri.pesantren_id', $user->pesantren_id)
-        ->where('nilai.santri_id', 'LIKE','%' .$santri_id.'%')
-        ->orWhere('nilai.kelas_id', 'LIKE','%' .$kelas_id.'%')
+        ->where('nilai.santri_id', $santri_id)
+        ->where('nilai.kelas_id', $kelas_id)
         ->select(
             'nilai.*',
             'mata_pelajaran.nama_mata_pelajaran',

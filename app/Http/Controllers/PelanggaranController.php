@@ -17,7 +17,7 @@ class PelanggaranController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->hasAnyPermission(['admin','super-admin'])) {
+        if (Auth::user()->hasRole(['admin','super-admin'])) {
             $queryBuilder = DB::table('pelanggaran')
             ->join("santri","pelanggaran.santri_id","=","santri.id")
             ->select(

@@ -3,9 +3,9 @@
 @section('content')
 <!-- BEGIN PAGE HEADER-->
 <h3 class="page-title">
-    Mata Pelajaran &nbsp;&nbsp;
-    <a type= "button" href="{{route('mata-pelajaran.create')}}" class="btn btn-primary btn-sm">
-        + TAMBAH MATA PELAJARAN
+    Nilai &nbsp;&nbsp;
+    <a type= "button" href="{{route('nilai.create')}}" class="btn btn-primary btn-sm">
+        + Tambah Nilai
     </a>
 </h3>
 <div class="page-bar">
@@ -16,7 +16,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('mata-pelajaran.index')}}">Mata Pelajaran</a>
+            <a href="{{route('nilai.index')}}">Nilai</a>
         </li>
     </ul>
 </div>

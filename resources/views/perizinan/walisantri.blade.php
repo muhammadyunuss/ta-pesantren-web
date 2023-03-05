@@ -4,6 +4,9 @@
 <!-- BEGIN PAGE HEADER-->
 <h3 class="page-title">
     Daftar Data Perizinan Santri &nbsp;&nbsp;
+    <a type= "button" href="{{route('perizinan.create')}}" class="btn btn-primary btn-sm">
+        + Tambah Daftar Data Perizinan Santri
+    </a>
 </h3>
 <div class="page-bar">
     <ul class="page-breadcrumb">

@@ -16,19 +16,34 @@ class TagihanController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $walisantri = WaliSantri::where('id', $user->walisantri_id)->first();
-        $data = JenisPembayaran::join('pembayaran', 'jenis_pembayaran.pembayaran_id', 'pembayaran.id')
-        ->leftjoin('santri', 'jenis_pembayaran.santri_id', 'santri.id')
-        ->leftjoin('walisantri', 'santri.id', 'walisantri.santri_id')
-        ->where('jenis_pembayaran.santri_id', $walisantri->id)
-        ->where('pesantren_id',$user->pesantren_id)
-        ->select(
-            'jenis_pembayaran.*',
-            'pembayaran.nama_pembayaran',
-            'santri.nama_santri',
-            'walisantri.nama_walisantri'
-        )
-        ->get();
+        if ($user->hasRole(['admin','super-admin'])) {
+            $walisantri = WaliSantri::where('id', $user->walisantri_id)->first();
+            $data = JenisPembayaran::join('pembayaran', 'jenis_pembayaran.pembayaran_id', 'pembayaran.id')
+            ->leftjoin('santri', 'jenis_pembayaran.santri_id', 'santri.id')
+            ->leftjoin('walisantri', 'santri.id', 'walisantri.santri_id')
+            ->where('pesantren_id',$user->pesantren_id)
+            ->select(
+                'jenis_pembayaran.*',
+                'pembayaran.nama_pembayaran',
+                'santri.nama_santri',
+                'walisantri.nama_walisantri'
+            )
+            ->get();
+        }else{
+            $walisantri = WaliSantri::where('id', $user->walisantri_id)->first();
+            $data = JenisPembayaran::join('pembayaran', 'jenis_pembayaran.pembayaran_id', 'pembayaran.id')
+            ->leftjoin('santri', 'jenis_pembayaran.santri_id', 'santri.id')
+            ->leftjoin('walisantri', 'santri.id', 'walisantri.santri_id')
+            ->where('jenis_pembayaran.santri_id', $walisantri->id)
+            ->where('pesantren_id',$user->pesantren_id)
+            ->select(
+                'jenis_pembayaran.*',
+                'pembayaran.nama_pembayaran',
+                'santri.nama_santri',
+                'walisantri.nama_walisantri'
+            )
+            ->get();
+        }
 
         return view('tagihan.index', compact('data'));
     }

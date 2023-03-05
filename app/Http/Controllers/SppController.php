@@ -34,7 +34,7 @@ class SppController extends Controller
         )
         ->get();
 
-        return view('spp.index', compact('data','pesantren'));
+        return view('spp.index-new', compact('data','pesantren'));
     }
 
     public function indexWalisantri()
