@@ -32,6 +32,7 @@ class DaftarUlangController extends Controller
             'pembayaran.nama_pembayaran',
             'santri.nama_santri'
         )
+        ->orderBy('created_at', 'DESC')
         ->get();
 
         return view('daftar-ulang.index', compact('data','pesantren'));

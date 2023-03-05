@@ -28,6 +28,7 @@ class TagihanController extends Controller
                 'santri.nama_santri',
                 'walisantri.nama_walisantri'
             )
+            ->orderBy('created_at', 'DESC')
             ->get();
         }else{
             $walisantri = WaliSantri::where('id', $user->walisantri_id)->first();
@@ -42,6 +43,7 @@ class TagihanController extends Controller
                 'santri.nama_santri',
                 'walisantri.nama_walisantri'
             )
+            ->orderBy('created_at', 'DESC')
             ->get();
         }
 

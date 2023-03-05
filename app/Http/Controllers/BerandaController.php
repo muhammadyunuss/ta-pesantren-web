@@ -28,6 +28,7 @@ class BerandaController extends Controller
             'pembayaran.nama_pembayaran'
         )
         ->get();
+
         return view('beranda.verifikasi-pembayaran', compact('data', 'jenisPembayaran' ,'id'));
     }
 
@@ -46,6 +47,8 @@ class BerandaController extends Controller
             $data['upload_bukti'] = "$profileImage";
         }
 
+        JenisPembayaran::where('id', $request->jenis_pembayaran_id)->update(['status_pembayaran' => 'Menunggu Verifikasi']);
+
         KonfirmasiPembayaranSpp::create($data);
 
         if($request){
@@ -57,9 +60,18 @@ class BerandaController extends Controller
 
     public function updateVerifikasiPembayaran(Request $request)
     {
+        // dd($request->all());
+        $konfirmasi_pembayaran_spp = KonfirmasiPembayaranSpp::where('id', $request->id)->first();
+
+        if($request->status_verifikasi == '1'){
+            JenisPembayaran::where('id', $konfirmasi_pembayaran_spp->jenis_pembayaran_id)->update(['status_pembayaran' => 'Lunas']);
+        }else{
+            JenisPembayaran::where('id', $konfirmasi_pembayaran_spp->jenis_pembayaran_id)->update(['status_pembayaran' => 'Di Tolak']);
+        }
+
         $data = $request->except(['_token', 'id']);
         KonfirmasiPembayaranSpp::where('id', $request->id)->update($data);
-        return redirect()->route('dashboard')->with(['success' => 'Data Berhasil Disimpan!']);
+        return redirect()->back()->with(['success' => 'Data Berhasil Disimpan!']);
     }
 
     public function markNotification(Request $request)

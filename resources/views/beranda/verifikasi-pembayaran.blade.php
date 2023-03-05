@@ -83,7 +83,7 @@
                     <label for="jenis_pembayaran_id">Jenis Pembayaran</label>
                     <select name="jenis_pembayaran_id" id="jenis_pembayaran_id" data-with="100%" class="form-control @error('jenis_pembayaran_id') is-invalid @enderror">
                         @foreach ($jenisPembayaran as $jp)
-                            <option value="{{ $jp->id }}" {{ old('jenis_pembayaran_id') }}>{{ $jp->nama_pembayaran }} || Rp. {{ number_format($jp->kredit_pembayaran ,2,',','.') }}</option>
+                            <option value="{{ $jp->id }}" {{ old('jenis_pembayaran_id') }}>{{ $jp->nama_pembayaran }} || Rp. {{ number_format($jp->debet_pembayaran ,2,',','.') }}</option>
                         @endforeach
                     </select>
                 </div>

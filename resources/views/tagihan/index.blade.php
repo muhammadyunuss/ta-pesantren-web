@@ -65,9 +65,11 @@
         <td>{{ $d->status_pembayaran }}</td>
         <td>
             <ul class="nav nav-pills">
+                @if ($d->status_pembayaran == 'Belum Lunas')
                 <li >
                     <button onclick="window.location='{{ route('verifikasi-pembayaran', $d->id) }}'" type="button" class="btn btn-success">Bayar</button>
                 </li>
+                @endif
                 {{-- <li>
                     <form method="POST" action="{{route('daftar-ulang.destroy' , $d->id)}}">
                         @method('DELETE')

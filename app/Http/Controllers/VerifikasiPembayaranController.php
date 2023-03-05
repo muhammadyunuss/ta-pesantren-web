@@ -25,6 +25,7 @@ class VerifikasiPembayaranController extends Controller
             'pembayaran.nama_pembayaran',
             'santri.nama_santri'
         )
+        ->orderBy('created_at', 'DESC')
         ->get();
 
         return view('verifikasi-pembayaran.index', compact('data'));
