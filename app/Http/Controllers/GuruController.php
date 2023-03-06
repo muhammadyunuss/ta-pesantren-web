@@ -113,7 +113,7 @@ class GuruController extends Controller
     public function update(Request $request, Guru $guru)
     {
         $request->validate([
-            'foto_guru' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'foto_guru' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $data = request()->except(['_token', '_method']);

@@ -189,18 +189,14 @@ Dashboard <small>statistics and more</small>
                                                             Mark all as read
                                                         </a>
                                                     @endif
-                                                    @empty
-                                                        There are no new notifications
+
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col2">
-                                        <div class="date">
-                                            Just now
-                                        </div>
-                                    </div>
                                 </li>
+                                @empty
+                                <p>There are no new notifications</p>
                                 @endforelse
                             </ul>
                         </div>
@@ -253,18 +249,13 @@ Dashboard <small>statistics and more</small>
                                                     <p>[{{ $broadcast->created_at }}]</p>
                                                     <p>{{ $broadcast['judul'] }}</p>
                                                     <p>({{ $broadcast['isi'] }})</p>
-                                                    @empty
-                                                        There are no new notifications
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col2">
-                                        <div class="date">
-                                            Just now
-                                        </div>
-                                    </div>
                                 </li>
+                                @empty
+                                <p>There are no new notifications</p>
                                 @endforelse
                             </ul>
                         </div>

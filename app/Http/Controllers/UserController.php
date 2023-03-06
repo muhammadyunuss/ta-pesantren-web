@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Pesantren;
 use App\Models\User;
 use App\Models\WaliSantri;
 use Spatie\Permission\Models\Role;
@@ -33,8 +34,9 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::pluck('name','name')->all();
-        // dd($roles);
-        return view('users.create',compact('roles'));
+        $pesantren = Pesantren::all();
+        // dd($pesantren);
+        return view('users.create',compact('roles', 'pesantren'));
     }
 
     /**
@@ -57,7 +59,10 @@ class UserController extends Controller
                 'nama_walisantri' => $request->name,
                 'email_walisantri' => $request->email
             ]);
-            $request->request->add(['walisantri_id' => $walisantri->id]);
+            $request->request->add([
+                'walisantri_id' => $walisantri->id,
+                'pesantren_id' => $request->pesantren_id
+            ]);
         }
 
         $input = $request->all();

@@ -82,20 +82,18 @@
                     <div class="invalid-feedback" style="color:red">{{ $message }}</div>
                     @enderror
                 </div><br>
-                {{-- <div class="form-group row">
-                    <label for="name" class="col-md-4 col-form-label">Nama Pesantren</label>
-                    <div class="col-md-6">
-                        <select name="namaPesantren" id="namaPesantren" class="form-control @error('namaPesantren') is-invalid @enderror">
-                            <option value="">== Pilih Nama Unit Pesantren ==</option>
-                            @foreach($datapesantren as $dp)
-                            <option value="{{ $dp->id }}" {{ old('namaPesantren', $data->id) == $dp->id ? 'selected' : null }}>{{ $dp->nama_pesantren }}</option>
-                            @endforeach
-                        </select>
-                        @error('namaPesantren')
-                        <div class="invalid-feedback" style="color:red">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div> --}}
+                <div class="form-group">
+                    <label for="namaPesantren">Nama Pesantren</label>
+                    <select name="namaPesantren" id="namaPesantren" class="form-control @error('namaPesantren') is-invalid @enderror">
+                        <option value="">Pilih Nama Unit Pesantren</option>
+                        @foreach($datapesantren as $dp)
+                        <option value="{{ $dp->id }}" {{ old('namaPesantren', $data->pesantren_id) == $dp->id ? 'selected' : null }}>{{ $dp->nama_pesantren }}</option>
+                        @endforeach
+                    </select>
+                    @error('namaPesantren')
+                    <div class="invalid-feedback" style="color:red">{{ $message }}</div>
+                    @enderror
+                </div>
                 <div class="form-group">
                     <label for="jabatan">Jabatan</label>
                     <input type="text" class="form-control @error('jabatan') is-invalid @enderror" name="jabatan" value="{{ old('jabatan', $data->jabatan) }}" placeholder="Isikan deskripsi Jabatan">

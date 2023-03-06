@@ -70,7 +70,9 @@ class PegawaiController extends Controller
         $data->jabatan=$request->get('jabatan');
         $data->tanggal_masuk=$request->get('tanggal_masuk');
         $data->status_aktif=$request->get('status_aktif');
-        $data->pesantren_id = $user->pesantren_id;
+        // $data->pesantren_id = $user->pesantren_id;
+        $data->pesantren_id = $request->get('namaPesantren');
+
         $data->save();
 
 
@@ -116,7 +118,6 @@ class PegawaiController extends Controller
         ]);
 
         $data = request()->except(['_token', '_method']);
-
         if ($image = $request->file('foto_pegawai')) {
             $destinationPath = 'image_upload/foto_pegawai/';
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
@@ -130,26 +131,26 @@ class PegawaiController extends Controller
         if($request->file('foto_pegawai'))
         {
             Pegawai::where('id', $pegawai->id)->update([
-                'nama_pegawai' => $request->get('namaPegawai'),
-                'alamat_pegawai' => $request->get('alamatPegawai'),
-                'kontak_pegawai' => $request->get('kontakPegawai'),
+                'nama_pegawai' => $data['namaPegawai'],
+                'alamat_pegawai' => $data['alamatPegawai'],
+                'kontak_pegawai' => $data['kontakPegawai'],
                 'foto_pegawai' => $data['foto_pegawai'],
-                'tanggal_lahir_pegawai' => $request->get('tanggalPegawai'),
-                'jabatan' => $request->get('jabatan'),
-                'tanggal_masuk' => $request->get('tanggal_masuk'),
-                'status_aktif' => $request->get('status_aktif'),
-                'pesantren_id' =>  $user->pesantren_id,
+                'tanggal_lahir_pegawai' => $data['tanggalPegawai'],
+                'jabatan' => $data['jabatan'],
+                'tanggal_masuk' => $data['tanggal_masuk'],
+                'status_aktif' => $data['status_aktif'],
+                'pesantren_id' =>  $data['namaPesantren']
             ]);
         }else{
             Pegawai::where('id', $pegawai->id)->update([
-                'nama_pegawai' => $request->get('namaPegawai'),
-                'alamat_pegawai' => $request->get('alamatPegawai'),
-                'kontak_pegawai' => $request->get('kontakPegawai'),
-                'tanggal_lahir_pegawai' => $request->get('tanggalPegawai'),
-                'jabatan' => $request->get('jabatan'),
-                'tanggal_masuk' => $request->get('tanggal_masuk'),
-                'status_aktif' => $request->get('status_aktif'),
-                'pesantren_id' =>  $user->pesantren_id,
+                'nama_pegawai' => $data['namaPegawai'],
+                'alamat_pegawai' => $data['alamatPegawai'],
+                'kontak_pegawai' => $data['kontakPegawai'],
+                'tanggal_lahir_pegawai' => $data['tanggalPegawai'],
+                'jabatan' => $data['jabatan'],
+                'tanggal_masuk' => $data['tanggal_masuk'],
+                'status_aktif' => $data['status_aktif'],
+                'pesantren_id' =>  $data['namaPesantren']
             ]);
         }
         return redirect()->route('pegawai.index')->with('status','Data Pegawai berhasil diubah');

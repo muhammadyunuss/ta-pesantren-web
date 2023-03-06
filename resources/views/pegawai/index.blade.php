@@ -41,10 +41,11 @@
             <!-- <th>ID</th> -->
             <th>Gambar</th>
             <th>Nama Pegawai</th>
+            <th>Jabatan</th>
             <th>Tanggal Lahir</th>
-            <th>Alamat Santri</th>
+            <th>Alamat Pegawai</th>
             <th>Kontak Pegawai</th>
-            <th>Unit Pegawai</th>
+            <th>Unit Pesantren</th>
             <th>Aksi</th>
         </tr>
     </thead>
@@ -75,6 +76,7 @@
                 </div>
             </td>
             <td>{{ $d->nama_pegawai }}</td>
+            <td>{{ $d->jabatan }}</td>
             <td>{{ $d->tanggal_lahir_pegawai }}</td>
             <td>{{ $d->alamat_pegawai }}</td>
             <td>{{ $d->kontak_pegawai }}</td>

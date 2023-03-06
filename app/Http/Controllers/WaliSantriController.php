@@ -11,7 +11,7 @@ class WaliSantriController extends Controller
 {
     public function index()
     {
-        $data = WaliSantri::join('santri', 'walisantri.santri_id', 'santri.id')
+        $data = WaliSantri::leftjoin('santri', 'walisantri.santri_id', 'santri.id')
         ->select(
             'walisantri.*',
             'santri.nama_santri'

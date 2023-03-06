@@ -28,6 +28,20 @@
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
+                <label for="name">Nama Pesantren</label>
+                    <select name="pesantren_id" id="pesantren_id" class="form-control @error('pesantren_id') is-invalid @enderror">
+                        <option value="">Pilih Pesantren</option>
+                        @foreach($pesantren as $ds)
+                        <option value="{{ $ds->id }}" {{ old('pesantren_id') == $ds->id ? 'selected' : null }}>{{ $ds->nama_pesantren }}</option>
+                        @endforeach
+                    </select>
+                    @error('pesantren_id')
+                    <div class="invalid-feedback" style="color:red">{{ $message }}</div>
+                    @enderror
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
                 <label for="name">Nama</label>
                 <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="Isikan Nama Prestasi Santri">
                 @error('name')
