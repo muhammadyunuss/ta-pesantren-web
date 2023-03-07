@@ -30,10 +30,11 @@
             <div class="form-group">
                 <label for="name">Nama Pesantren</label>
                     <select name="pesantren_id" id="pesantren_id" class="form-control @error('pesantren_id') is-invalid @enderror">
-                        <option value="">Pilih Pesantren</option>
-                        @foreach($pesantren as $ds)
+                        {{-- <option value="">Pilih Pesantren</option> --}}
+                        {{-- @foreach($pesantren as $ds)
                         <option value="{{ $ds->id }}" {{ old('pesantren_id') == $ds->id ? 'selected' : null }}>{{ $ds->nama_pesantren }}</option>
-                        @endforeach
+                        @endforeach --}}
+                        <option value="{{ $pesantren->id }}" {{ old('pesantren_id') == $pesantren->id ? 'selected' : null }}>{{ $pesantren->nama_pesantren }}</option>
                     </select>
                     @error('pesantren_id')
                     <div class="invalid-feedback" style="color:red">{{ $message }}</div>

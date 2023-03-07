@@ -32,7 +32,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <label for="name">Nama</label>
-                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="Isikan Nama Prestasi Santri">
+                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="...">
                 @error('name')
                 <div class="invalid-feedback" style="color:red">{{ $message }}</div>
                 @enderror
@@ -43,7 +43,7 @@
                 <strong>Permission:</strong>
                 <br/>
                 @foreach($permission as $value)
-                    <input type="checkbox" class="form-control @error('name') is-invalid @enderror" name="permission[]" value="{{ $value->id }}" placeholder="Isikan Nama Prestasi Santri">
+                    <input type="checkbox" class="form-control @error('name') is-invalid @enderror" name="permission[]" value="{{ $value->id }}" placeholder="...">
                     {{ $value->name }}</label>
                 <br/>
                 @endforeach

@@ -1,9 +1,19 @@
 v data pegawai ada unit pegawai, tapi Ketika diubah gaada
 v unit pegawai dirubah jadi unit pesantren
 v tampilan di data pegawai tidak ada jabatan, tapi diubah atau tambah ada (ditambahkan saja di tampilan data pegawai)
-? nama pesantren cuma bisa pilih satu
-? tampilan ui data guru datanya belum sesuai sama beberapa kolom data yang ada di tambah guru (semua data ditampilkan sesuai dengan data tambah dan ubah)
-- broadcast belum masuk ke akun wali santri di akun baru
+v nama pesantren cuma bisa pilih satu
+v tampilan ui data guru datanya belum sesuai sama beberapa kolom data yang ada di tambah guru (semua data ditampilkan sesuai dengan data tambah dan ubah)
+v broadcast belum masuk ke akun wali santri di akun baru
 v logo conquer, lonceng notifikasi serta search pada halaman Utama dashboard dihilangkan saja
-? nama pesantren cuma bisa pilih satu
+v nama pesantren cuma bisa pilih satu
 presensi pegawai tidak bisa diinput dan terbaca di index
+v data santri id gak tersimpan di perizinan database ketika tambah data perizinan baru
+v data pembayaran tampilnya hanya beberapa
+v buku besar pada manajemen keuangan dihilangkan saja
+v tagihan belum dihide
+v Ketika login pake superadmin untuk ke fitur roles muncul error
+v data pesantren yang bisa dipilih masih cuma 1
+v pada akun wali santri baru data infaq muncul error nama_pesantren
+v tombol tambah daftar ulang dalam wali santri masih ada
+v data user wali santri baru masih belum bisa terbaca di semua status santri (aplikasi wali santri)
+v data user wali santri baru masih error semua pada bagian pembayaran (aplikasi wali santri)

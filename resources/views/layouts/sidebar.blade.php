@@ -153,11 +153,11 @@
                                 <i class="icon-anchor"></i>
                                 Pemasukan & Pengeluaran</a>
                         </li>
-                        <li>
+                        {{-- <li>
                             <a href="">
                                 <i class="icon-anchor"></i>
                                 Buku Besar</a>
-                        </li>
+                        </li> --}}
                         <li class= "{{ (request()->segment(2) == 'daftar-ulang') ? 'active' : '' }}">
                             <a href="{{route('daftar-ulang.index')}}">
                                 <i class="icon-anchor"></i>
@@ -178,11 +178,13 @@
                                 <i class="icon-anchor"></i>
                                 Verifikasi Pembayaran</a>
                         </li>
+                        @if(Auth::user()->hasRole('walisantri'))
                         <li class= "{{ (request()->segment(2) == 'tagihan') ? 'active' : '' }}">
                             <a href="{{route('tagihan.index')}}">
                                 <i class="icon-anchor"></i>
                                 Tagihan</a>
                         </li>
+                        @endif
                         <li class= "{{ (request()->segment(2) == 'rekap-laporan') ? 'active' : '' }}">
                             <a href="{{route('rekap-laporan.index')}}">
                                 <i class="icon-anchor"></i>

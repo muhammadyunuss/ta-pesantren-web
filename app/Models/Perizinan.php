@@ -15,6 +15,6 @@ class Perizinan extends Model
         'keterangan_perizinan',
         'tanggal_mulai',
         'tanggal_selesai',
-        'santri_id '
+        'santri_id'
       ];
 }

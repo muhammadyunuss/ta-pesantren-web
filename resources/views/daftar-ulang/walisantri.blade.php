@@ -3,10 +3,10 @@
 @section('content')
 <!-- BEGIN PAGE HEADER-->
 <h3 class="page-title">
-    {{-- Daftar Ulang | {{ $pesantren->nama_pesantren }} &nbsp;&nbsp; --}}
-    <a type= "button" href="{{route('daftar-ulang.create')}}" class="btn btn-primary btn-sm">
+    Daftar Ulang | {{ $pesantren->nama_pesantren }} &nbsp;&nbsp;
+    {{-- <a type= "button" href="{{route('daftar-ulang.create')}}" class="btn btn-primary btn-sm">
         + TAMBAH DAFTAR ULANG
-    </a>
+    </a> --}}
 </h3>
 <div class="page-bar">
     <ul class="page-breadcrumb">

@@ -18,7 +18,7 @@ class PembayaranController extends Controller
     {
         $user = auth()->user();
         $pegawai = Pegawai::where('pesantren_id', $user->pesantren_id)->get();
-        $data = Pembayaran::join('pegawai', 'pembayaran.pegawai_id', 'pegawai.id')
+        $data = Pembayaran::leftjoin('pegawai', 'pembayaran.pegawai_id', 'pegawai.id')
         ->select(
             'pembayaran.*',
             'pegawai.nama_pegawai'

@@ -33,8 +33,10 @@ class UserController extends Controller
      */
     public function create()
     {
+        $user = auth()->user();
         $roles = Role::pluck('name','name')->all();
-        $pesantren = Pesantren::all();
+        // $pesantren = Pesantren::all();
+        $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
         // dd($pesantren);
         return view('users.create',compact('roles', 'pesantren'));
     }
@@ -47,8 +49,10 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $this->validate($request, [
             'name' => 'required',
+            'pesantren_id' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
             'roles' => 'required'
