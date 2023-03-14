@@ -115,11 +115,15 @@ Route::middleware(['auth'])->group(function () {
             Route::get('create-pemasukan', 'createPemasukan')->name('pengeluaran-pemasukan.create-pemasukan');
             Route::get('edit-pemasukan/{id}', 'editPemasukan')->name('pengeluaran-pemasukan.edit-pemasukan');
             Route::post('save-pemasukan', 'storePemasukan')->name('pengeluaran-pemasukan.save-pemasukan');
+            Route::get('file-export-pemasukan', 'fileExportPemasukan')->name('file-export-pemasukan');
+            Route::get('file-export-pemasukan-pdf', 'fileExportPemasukanPdf')->name('file-export-pemasukan-pdf');
 
             Route::get('create-pengeluaran', 'createPengeluaran')->name('pengeluaran-pemasukan.create-pengeluaran');
             Route::get('edit-pengeluaran/{id}', 'editPengeluaran')->name('pengeluaran-pemasukan.edit-pengeluaran');
             Route::post('save-pengeluaran', 'storePengeluaran')->name('pengeluaran-pemasukan.save-pengeluaran');
             Route::post('update-pengeluaran', 'updatePengeluaran')->name('pengeluaran-pemasukan.update-pengeluaran');
+            Route::get('file-export-pengeluaran', 'fileExportPengeluaran')->name('file-export-pengeluaran');
+            Route::get('file-export-pengeluaran-pdf', 'fileExportPengeluaranPdf')->name('file-export-pengeluaran-pdf');
         });
 
         Route::controller(DaftarUlangController::class)->group(function (){
@@ -143,6 +147,8 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('pembayaran', PembayaranController::class);
         Route::resource('pengeluaran-pemasukan', PengeluaranPemasukanController::class);
         Route::resource('rekap-laporan', RekapLaporanController::class);
+        Route::get('file-import-export', [UserController::class, 'fileImportExport']);
+
 
     });
 

@@ -67,6 +67,7 @@ class PegawaiController extends Controller
         $data->kontak_pegawai = $request->get('kontakPegawai');
         $data->foto_pegawai = $data['foto_pegawai'];
         $data->tanggal_lahir_pegawai=$request->get('tanggalPegawai');
+        $data->jenis_kelamin=$request->get('jenis_kelamin');
         $data->jabatan=$request->get('jabatan');
         $data->tanggal_masuk=$request->get('tanggal_masuk');
         $data->status_aktif=$request->get('status_aktif');
@@ -136,6 +137,7 @@ class PegawaiController extends Controller
                 'kontak_pegawai' => $data['kontakPegawai'],
                 'foto_pegawai' => $data['foto_pegawai'],
                 'tanggal_lahir_pegawai' => $data['tanggalPegawai'],
+                'jenis_kelamin' => $data['jenis_kelamin'],
                 'jabatan' => $data['jabatan'],
                 'tanggal_masuk' => $data['tanggal_masuk'],
                 'status_aktif' => $data['status_aktif'],
@@ -147,6 +149,7 @@ class PegawaiController extends Controller
                 'alamat_pegawai' => $data['alamatPegawai'],
                 'kontak_pegawai' => $data['kontakPegawai'],
                 'tanggal_lahir_pegawai' => $data['tanggalPegawai'],
+                'jenis_kelamin' => $data['jenis_kelamin'],
                 'jabatan' => $data['jabatan'],
                 'tanggal_masuk' => $data['tanggal_masuk'],
                 'status_aktif' => $data['status_aktif'],

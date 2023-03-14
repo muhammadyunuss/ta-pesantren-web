@@ -13,5 +13,4 @@ class Pesantren extends Model
     public function pegawai() {
         return $this->hasMany("App\Pegawai","pesantren_id","id");
     }
-    public $timestamps = false;
 }

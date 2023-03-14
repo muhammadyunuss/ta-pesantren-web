@@ -71,6 +71,14 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="jenis_kelamin">Jenis Kelamin</label>
+                    <select name="jenis_kelamin" id="jenis_kelamin" data-with="100%" class="form-control @error('jenis_kelamin') is-invalid @enderror" required>
+                        <option value="">Jenis Kelamin</option>
+                        <option value="Laki-Laki">Laki-Laki</option>
+                        <option value="Perempuan">Perempuan</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="nomor_guru">No. Hp</label>
                     <div>
                         <input type="text" class="form-control @error('nomor_guru') is-invalid @enderror" id="nomor_guru" name="nomor_guru" value="{{ old('nomor_guru') }}">

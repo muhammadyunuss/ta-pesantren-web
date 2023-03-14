@@ -77,6 +77,14 @@
                         @enderror
                     </div><br>
                     <div class="form-group">
+                        <label for="jenis_kelamin">Jenis Kelamin</label>
+                        <select name="jenis_kelamin" id="jenis_kelamin" data-with="100%" class="form-control @error('jenis_kelamin') is-invalid @enderror" required>
+                            <option value="">Jenis Kelamin</option>
+                            <option value="Laki-Laki" {{ old('jenis_kelamin', $data->jenis_kelamin) == 'Laki-Laki' ? 'selected' : null }}>Laki-Laki</option>
+                            <option value="Perempuan" {{ old('jenis_kelamin', $data->jenis_kelamin) == 'Perempuan' ? 'selected' : null }}>Perempuan</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label for="alamatSantri">Alamat Santri</label>
                         <textarea class="form-control @error('alamatSantri') is-invalid @enderror" name="alamatSantri" placeholder="Isikan deskripsi Alamat Santri" rows="3">{{ old('alamatSantri', $data->alamat_santri) }}</textarea>
                         @error('alamatSantri')

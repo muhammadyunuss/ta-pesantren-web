@@ -1,0 +1,61 @@
+09/03/2023 Review Si Pesantren
+
+Typo :
+v view->walisantri->index.blade line 70 ada jadwal progres seharusnya wali santri
+
+Error :
+v 1. Notifikasi pembayaran Infaq, Daftar Ulang, dan SPP tidak muncul pada dashboard wali santri, tapi masuk dalam tabel notifikasi
+
+Tambahan Program :
+v 1. Admin -> Tambah Field  No. Whatsapp Pesantren
+v 2. Dashboard Walisantri -> Tambah menu dibawah pembayaran "Chat Admin Pesantren"
+
+
+Revisi Setelah Direview Mas Rafly :
+v 1. Master Data Santri -> Index dan Form, Update : tambah field Jenis Kelamin, setelah tanggal lahir
+v 2. Master Data Pegawai-> tambah field Jenis Kelamin, setelah tanggal lahir
+v 3. Master Data Guru   -> tambah field Jenis Kelamin, setelah tanggal lahir
+v 4. Menu Sidebar Manajemen Akademik -> Presensi Asrama Kelas diganti Presensi Kelas,
+v 5. Halaman Judul Manajemen Akademik -> Presensi Asrama Kelas
+                                    Presensi Santri Pada Asrama diganti Presensi Kelas,
+				    Tombolnya juga +tambah presensi kelas
+6. Master Data Kelas, Mata Pelajaran  -> untuk pilih pesantren harusnya banyak Pesantren A, B , C, bukan cuma A, ini untuk akses full admin
+-- Kelas Bergantung pada guru yang terhubung dengan pesantren_id (Yunus)
+-- Bergantung pada guru yang terhubung dengan pesantren_id (Yunus)
+7. Presensi Santri Asrama -> untuk pilih pesantren harusnya banyak Pesantren A, B , C ini untuk akses full admin
+8. Presensi Pegawai -> untuk pilih pesantren harusnya banyak Pesantren A, B , C ini untuk akses full admin
+9. Untuk Presensi Asrama Kelas, untuk daftar listbox Kelas, disesuaikan dengan login Guru
+   - Jika yg login Admin : semua daftar kelas tampil
+   - Jika yg login Guru Pengajar maka sesuai dengan : tampil daftar kelas yg dia miliki saja (where guru_id)
+
+
+Revisi Dosen
+1. Perubahan Layout Presensi Pegawai, Santri, Kelas
+v 2. Dasboard Wali Santri
+v Tulisan Notification - > Ganti Notifikasi Pembayaran
+v Tuisann Pemberitahuan -> Ganti Pengumuman
+
+v 3. Dashboard Admin
+v Tulisan Notification - > Ganti Notifikasi Pembayaran
+v Tuisann Pemberitahuan -> Ganti Pengumuman
+
+v 4. Search dari sidebar dihilangkan
+v 5. Rekap Laporan Pemasukan, kasih export data excel, pdf, pakai jquery
+
+<div class="form-group">
+                    <label for="jenis_kelamin">Jenis Kelamin</label>
+                    <select name="jenis_kelamin" id="jenis_kelamin" data-with="100%" class="form-control @error('jenis_kelamin') is-invalid @enderror" required>
+                        <option value="">Jenis Kelamin</option>
+                        <option value="Laki-Laki">Laki-Laki</option>
+                        <option value="Perempuan">Perempuan</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                        <label for="jenis_kelamin">Jenis Kelamin</label>
+                        <select name="jenis_kelamin" id="jenis_kelamin" data-with="100%" class="form-control @error('jenis_kelamin') is-invalid @enderror" required>
+                            <option value="">Jenis Kelamin</option>
+                            <option value="Laki-Laki" {{ old('jenis_kelamin', $data->jenis_kelamin) == 'Laki-Laki' ? 'selected' : null }}>Laki-Laki</option>
+                            <option value="Perempuan" {{ old('jenis_kelamin', $data->jenis_kelamin) == 'Perempuan' ? 'selected' : null }}>Perempuan</option>
+                        </select>
+                    </div>

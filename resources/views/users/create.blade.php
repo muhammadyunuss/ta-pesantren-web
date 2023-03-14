@@ -44,7 +44,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <label for="name">Nama</label>
-                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="Isikan Nama Prestasi Santri">
+                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="Isikan Nama">
                 @error('name')
                 <div class="invalid-feedback" style="color:red">{{ $message }}</div>
                 @enderror
@@ -91,12 +91,12 @@
                 @enderror
             </div>
         </div>
-        <div class="form-group">
+        {{-- <div class="form-group">
             <label >Walisantri</label>
             <div class="checkbox-list">
                 <label><input name="walisantri" id="walisantri" type="checkbox"> Centang untuk membuat wali santri </label>
             </div>
-        </div>
+        </div> --}}
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
             <button type="submit" class="btn btn-primary">Simpan</button>
         </div>

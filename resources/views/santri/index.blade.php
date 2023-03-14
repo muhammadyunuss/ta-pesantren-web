@@ -42,6 +42,7 @@
         <th>NIS</th>
         <th>Nama Santri</th>
         <th>Tanggal Lahir</th>
+        <th>Jenis Kelamin</th>
         <th>Alamat Santri</th>
         <th>Nama Ayah Santri</th>
         <th>Nama Ibu Santri</th>
@@ -80,6 +81,7 @@
         <td>{{ $d->nis }}</td>
         <td>{{ $d->nama_santri }}</td>
         <td>{{ $d->tanggal_lahir_santri }}</td>
+        <td>{{ $d->jenis_kelamin }}</td>
         <td>{{ $d->alamat_santri }}</td>
         <td>{{ $d->nama_ayah }}</td>
         <td>{{ $d->nama_ibu }}</td>

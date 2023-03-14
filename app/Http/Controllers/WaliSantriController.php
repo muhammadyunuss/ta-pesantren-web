@@ -24,7 +24,7 @@ class WaliSantriController extends Controller
     {
         $user = auth()->user();
         $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
-        $santri = Santri::where('pesantren_id', $user->pesantren_id)->whereNull()->get();
+        $santri = Santri::where('pesantren_id', $user->pesantren_id)->get();
         // $guru = Guru::where('pesantren_id', $user->pesantren_id)->get();
         return view('walisantri.create',compact('pesantren', 'user', 'santri'));
     }

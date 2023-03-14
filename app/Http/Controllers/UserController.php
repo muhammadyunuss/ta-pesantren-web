@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Guru;
 use App\Models\Pesantren;
 use App\Models\User;
 use App\Models\WaliSantri;
@@ -58,7 +59,16 @@ class UserController extends Controller
             'roles' => 'required'
         ]);
 
-        if($request->walisantri){
+        if($request->roles == 'guru'){
+            $guru = Guru::create([
+                'nama_guru' => $request->name,
+                'pesantren_id' => $request->pesantren_id
+            ]);
+            $request->request->add([
+                'guru_id' => $guru->id,
+                'pesantren_id' => $request->pesantren_id
+            ]);
+        }elseif($request->roles == 'walisantri'){
             $walisantri = WaliSantri::create([
                 'nama_walisantri' => $request->name,
                 'email_walisantri' => $request->email
@@ -68,6 +78,17 @@ class UserController extends Controller
                 'pesantren_id' => $request->pesantren_id
             ]);
         }
+
+        // if($request->walisantri){
+        //     $walisantri = WaliSantri::create([
+        //         'nama_walisantri' => $request->name,
+        //         'email_walisantri' => $request->email
+        //     ]);
+        //     $request->request->add([
+        //         'walisantri_id' => $walisantri->id,
+        //         'pesantren_id' => $request->pesantren_id
+        //     ]);
+        // }
 
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);

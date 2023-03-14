@@ -9,14 +9,6 @@
 					</div>
 					<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
 				</li>
-				<li class="sidebar-search-wrapper">
-					<form class="search-form" role="form" action="index.html" method="get">
-						<div class="input-icon right">
-							<i class="icon-magnifier"></i>
-							<input type="text" class="form-control" name="query" placeholder="Search...">
-						</div>
-					</form>
-				</li>
 				<li class="{{ (request()->segment(1) == 'dashboard') ? 'active' : '' }} ">
 					<a href="{{ route('dashboard') }}">
 					<i class="icon-home"></i>
@@ -126,7 +118,7 @@
                         <li class= "{{ (request()->segment(2) == 'presensi-santri-kelas') ? 'active' : '' }}">
                             <a href="{{route('presensi-santri-kelas.index')}}">
                                 <i class="icon-anchor"></i>
-                                Presensi Asrama Kelas</a>
+                                Presensi Kelas Santri</a>
                         </li>
                         <li class= "{{ (request()->segment(2) == 'broadcast-notifikasi') ? 'active' : '' }}">
                             <a href="{{route('broadcast-notifikasi.index')}}">
@@ -311,6 +303,17 @@
                         </li>
                     </ul>
 
+                </li>
+                <li class="{{ (request()->segment(1) == 'pembayaran') ? 'active' : '' }}">
+                    @php
+                        $user = auth()->user();
+                        $pesantren = \App\Models\Pesantren::where('id', $user->pesantren_id)->first();
+                    @endphp
+                    <a href="{{ url('https://wa.me/62'.$pesantren->no_telepon.'?text=Halo%20admin,%20saya%20ingin%20bertanya%20produk%20$d.nama_prosesproduksi') }}}" target="_blank">
+                        <i class="icon-present"></i>
+                        <span class="title"> Chat Admin Pesantren</span>
+                        <span class="selected"></span>
+                    </a>
                 </li>
                 @endif
 			</ul>

@@ -40,6 +40,7 @@
         <tr>
             <th>Nama Pesantren</th>
             <th>Alamat Pesantren</th>
+            <th>No. Telepon</th>
             <th>Aksi</th>
         </tr>
     </thead>
@@ -48,6 +49,7 @@
         <tr>
             <td>{{ $d->nama_pesantren }}</td>
             <td>{{ $d->alamat_pesantren }}</td>
+            <td>{{ $d->no_telepon }}</td>
             <td>
                 <a class="btn btn-success" href="{{ route('pesantren.edit', $d->id) }}">Ubah</a> <br> <br>
                 <form method="POST" action="{{route('pesantren.destroy' , $d->id)}}">

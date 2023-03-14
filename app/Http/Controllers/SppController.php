@@ -97,8 +97,8 @@ class SppController extends Controller
         $term = 'Spp';
         $pegawai = Pegawai::where('pesantren_id', $user->pesantren_id)->get();
         $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
-        $pembayaran = Pembayaran::where('pegawai_id', $user->pegawai_id)
-        ->where('nama_pembayaran','LIKE','%'.$term.'%')
+        $pembayaran = Pembayaran::where('nama_pembayaran','LIKE','%'.$term.'%')
+        // ->where('pegawai_id', $user->pegawai_id)
         ->get();
         $santri = Santri::get();
 
@@ -121,9 +121,11 @@ class SppController extends Controller
             ]);
 
 
-            $user = User::whereHas('roles', function ($query) {
-                $query->where('id', 2);
-            })->get();
+            // $user = User::whereHas('roles', function ($query) {
+            //     $query->where('id', 2);
+            // })->get();
+
+            $user = User::where('walisantri_id', $walisantri->id)->first();
 
             Notification::send($user, new NewSppNotification($createnotif));
             JenisPembayaran::create($request->except(['notifikasi']));

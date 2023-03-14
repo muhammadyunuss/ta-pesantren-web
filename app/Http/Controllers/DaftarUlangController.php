@@ -64,8 +64,8 @@ class DaftarUlangController extends Controller
         $term = 'Daftar Ulang';
         $pegawai = Pegawai::where('pesantren_id', $user->pesantren_id)->get();
         $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
-        $pembayaran = Pembayaran::where('pegawai_id', $user->pegawai_id)
-        ->where('nama_pembayaran','LIKE','%'.$term.'%')
+        $pembayaran = Pembayaran::where('nama_pembayaran','LIKE','%'.$term.'%')
+        // ->where('pegawai_id', $user->pegawai_id)
         ->get();
         $santri = Santri::get();
 
@@ -78,7 +78,7 @@ class DaftarUlangController extends Controller
             JenisPembayaran::create($request->except(['notifikasi']));
         }else{
             $walisantri = WaliSantri::where('santri_id', $request->santri_id)->first();
-            $user = User::where('walisantri_id', $walisantri->id)->get();
+            $user = User::where('walisantri_id', $walisantri->id)->first();
             $param = [
                 'walisantri_id' => $walisantri->id,
                 'email_username' => $walisantri->email_walisantri,

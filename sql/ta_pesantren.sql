@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 172.17.0.2
--- Generation Time: Feb 05, 2023 at 02:07 AM
+-- Generation Time: Mar 14, 2023 at 07:12 AM
 -- Server version: 10.9.3-MariaDB-1:10.9.3+maria~ubu2204
 -- PHP Version: 8.0.24
 
@@ -20,6 +20,22 @@ SET time_zone = "+00:00";
 --
 -- Database: `ta_pesantren`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `broadcast_notifikasi`
+--
+
+CREATE TABLE `broadcast_notifikasi` (
+  `id` bigint(20) NOT NULL,
+  `pesantren_id` int(11) NOT NULL,
+  `walisantri_id` int(11) NOT NULL,
+  `judul` varchar(255) NOT NULL,
+  `isi` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -77,18 +93,30 @@ CREATE TABLE `failed_jobs` (
 
 CREATE TABLE `guru` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `nama_guru` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `alamat_guru` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nama_guru` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `alamat_guru` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `foto_guru` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `tanggal_lahir_guru` date NOT NULL,
+  `tanggal_lahir_guru` date DEFAULT NULL,
+  `jenis_kelamin` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `nomor_guru` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `pendidikan_guru` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `walikelas` enum('yes','no') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `kategori_guru` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `kategori_guru` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nuptk` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `jabatan` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status_aktif` tinyint(1) DEFAULT NULL,
+  `tanggal_masuk` date DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `pesantren_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `guru`
+--
+
+INSERT INTO `guru` (`id`, `nama_guru`, `alamat_guru`, `foto_guru`, `tanggal_lahir_guru`, `jenis_kelamin`, `nomor_guru`, `pendidikan_guru`, `walikelas`, `kategori_guru`, `nuptk`, `jabatan`, `status_aktif`, `tanggal_masuk`, `created_at`, `updated_at`, `pesantren_id`) VALUES
+(1, 'Guru 1', 'Alamat 1', '20230312040056.png', '1995-03-12', 'Laki-Laki', '08213882717', 'Sarjana', 'yes', 'Tetap', '-', 'Guru', 1, '2023-03-12', '2023-03-12 04:00:56', '2023-03-12 04:01:21', 1);
 
 -- --------------------------------------------------------
 
@@ -181,6 +209,49 @@ CREATE TABLE `migrations` (
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `migrations`
+--
+
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
+(1, '2014_10_12_000000_create_users_table', 1),
+(2, '2014_10_12_100000_create_password_resets_table', 1),
+(3, '2019_08_19_000000_create_failed_jobs_table', 1),
+(4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
+(5, '2022_03_03_092818_create_permission_tables', 1),
+(6, '2022_03_05_143106_create_pegawai_table', 1),
+(7, '2022_03_05_143229_create_pembayaran_table', 1),
+(8, '2022_03_05_143311_create_pesantren_table', 1),
+(9, '2022_03_05_143338_create_kelas_table', 1),
+(10, '2022_03_05_143439_create_nilai_table', 1),
+(11, '2022_03_05_143702_create_guru_table', 1),
+(12, '2022_03_05_143734_create_chat_table', 1),
+(13, '2022_03_05_144038_create_jenis_pembayaran_table', 1),
+(14, '2022_03_05_144210_create_santri_table', 1),
+(15, '2022_03_05_144236_create_walisantri_table', 1),
+(16, '2022_03_08_072656_add_pesantrenid_column', 1),
+(17, '2022_03_08_075452_add_guruid_column', 1),
+(18, '2022_03_08_075728_add_nis_column', 1),
+(19, '2022_03_08_080627_add_kelasid_column', 1),
+(20, '2022_03_08_081217_add_pesantrenid_guru_column', 1),
+(21, '2022_03_08_081338_add_pegawaiid_column', 1),
+(22, '2022_03_08_081520_add_walisantri_id_column', 1),
+(23, '2022_03_08_082124_add_pembayaranid_jenis_column', 1),
+(24, '2022_03_08_082254_add_nis_jenis_column', 1),
+(25, '2022_03_08_082410_add_nis_walisantri_column', 1),
+(26, '2022_04_04_062814_create_kesehatan_table', 1),
+(27, '2022_04_04_062845_create_prestasi_table', 1),
+(28, '2022_04_04_062923_create_pelanggaran_table', 1),
+(29, '2022_04_04_062954_create_ekstrakurikuler_table', 1),
+(30, '2022_04_04_063012_create_perizinan_table', 1),
+(31, '2022_04_04_072544_add_idsantri_kesehatan_table', 1),
+(32, '2022_04_04_073129_add_idsantri_prestasi_table', 1),
+(33, '2022_04_04_073200_add_idsantri_pelanggaran_table', 1),
+(34, '2022_04_04_073225_add_idsantri_ekstrakurikuler_table', 1),
+(35, '2022_04_04_073251_add_idsantri_perizinan_table', 1),
+(36, '2022_04_18_075316_add_pegawai_id_pembayaran', 1),
+(37, '2022_12_20_031809_create_notifications_table', 2);
+
 -- --------------------------------------------------------
 
 --
@@ -212,9 +283,7 @@ CREATE TABLE `model_has_roles` (
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (1, 'App\\Models\\User', 1),
 (2, 'App\\Models\\User', 2),
-(3, 'App\\Models\\User', 3),
-(3, 'App\\Models\\User', 10),
-(4, 'App\\Models\\User', 4);
+(3, 'App\\Models\\User', 4);
 
 -- --------------------------------------------------------
 
@@ -294,6 +363,10 @@ CREATE TABLE `pegawai` (
   `kontak_pegawai` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `foto_pegawai` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `tanggal_lahir_pegawai` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `jenis_kelamin` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `jabatan` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tanggal_masuk` date NOT NULL,
+  `status_aktif` tinyint(1) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `pesantren_id` bigint(20) UNSIGNED NOT NULL
@@ -303,11 +376,8 @@ CREATE TABLE `pegawai` (
 -- Dumping data for table `pegawai`
 --
 
-INSERT INTO `pegawai` (`id`, `nama_pegawai`, `alamat_pegawai`, `kontak_pegawai`, `foto_pegawai`, `tanggal_lahir_pegawai`, `created_at`, `updated_at`, `pesantren_id`) VALUES
-(1, 'Pegawai Saleh', 'Jl. Pegawai saleh', '123123123', 'Pegawai Saleh', '2021-12-12', NULL, NULL, 1),
-(2, '12312312', '213123213', '1212321', '20230107043318.jpg', '2023-01-07', '2023-01-07 04:09:42', '2023-01-07 04:33:18', 1),
-(3, '123123', '123213', '123123', NULL, '2023-01-07', '2023-01-07 04:10:32', '2023-01-07 04:10:32', 1),
-(4, '1111', '1111', '11111', '20230107043310.jpg', '2023-01-07', '2023-01-07 04:10:55', '2023-01-07 04:33:10', 1);
+INSERT INTO `pegawai` (`id`, `nama_pegawai`, `alamat_pegawai`, `kontak_pegawai`, `foto_pegawai`, `tanggal_lahir_pegawai`, `jenis_kelamin`, `jabatan`, `tanggal_masuk`, `status_aktif`, `created_at`, `updated_at`, `pesantren_id`) VALUES
+(1, 'Pagawa 1', 'Alamat 1', '089233213213', '20230312034311.png', '1996-03-12', 'Laki-Laki', 'Guru', '2023-03-12', 1, '2023-03-12 03:43:11', '2023-03-12 03:48:17', 1);
 
 -- --------------------------------------------------------
 
@@ -341,6 +411,18 @@ CREATE TABLE `pembayaran` (
   `pegawai_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `pembayaran`
+--
+
+INSERT INTO `pembayaran` (`id`, `nama_pembayaran`, `jenis_pembayaran`, `nominal_pembayaran`, `created_at`, `updated_at`, `pegawai_id`) VALUES
+(1, 'Spp', 'Tunai', '500000', '2023-03-13 03:11:56', '2023-03-13 03:11:56', 1),
+(2, 'Spp', 'Transfer', '500000', '2023-03-13 03:12:13', '2023-03-13 03:12:13', 1),
+(3, 'Infaq', 'Tunai', '500000', '2023-03-13 03:46:45', '2023-03-13 03:46:45', 1),
+(4, 'Infaq', 'Transfer', '500000', '2023-03-13 03:47:04', '2023-03-13 03:47:04', 1),
+(5, 'Daftar Ulang', 'Tunai', '1200000', '2023-03-13 03:52:29', '2023-03-13 03:52:29', 1),
+(6, 'Daftar Ulang', 'Transfer', '1200000', '2023-03-13 03:52:48', '2023-03-13 03:52:48', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -349,13 +431,13 @@ CREATE TABLE `pembayaran` (
 
 CREATE TABLE `perizinan` (
   `id` bigint(20) UNSIGNED NOT NULL,
+  `santri_id` int(11) NOT NULL,
   `riwayat_perizinan` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `keterangan_perizinan` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tanggal_mulai` date NOT NULL,
   `tanggal_selesai` date NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `santri_id` bigint(20) UNSIGNED DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -411,6 +493,7 @@ CREATE TABLE `pesantren` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `nama_pesantren` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `alamat_pesantren` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `no_telepon` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -419,9 +502,9 @@ CREATE TABLE `pesantren` (
 -- Dumping data for table `pesantren`
 --
 
-INSERT INTO `pesantren` (`id`, `nama_pesantren`, `alamat_pesantren`, `created_at`, `updated_at`) VALUES
-(1, 'Pesantren AL-AZHAR', 'Mesir', NULL, NULL),
-(2, 'Pesantren 2', 'BLABLABLA', NULL, NULL);
+INSERT INTO `pesantren` (`id`, `nama_pesantren`, `alamat_pesantren`, `no_telepon`, `created_at`, `updated_at`) VALUES
+(1, 'Pesantren AL-AZHAR', 'Mesir', '0821321321', NULL, NULL),
+(2, 'Pesantren AL-Hikmah', 'Surabaya', '0821312322', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -509,7 +592,8 @@ INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VAL
 (1, 'super-admin', 'web', '2022-12-20 13:09:53', '2022-12-20 13:09:53'),
 (2, 'admin', 'web', '2022-12-20 13:09:53', '2022-12-20 13:09:53'),
 (3, 'walisantri', 'web', '2022-12-20 13:09:53', '2022-12-20 13:09:53'),
-(4, 'santri ', 'web', '2022-12-20 13:09:53', '2022-12-20 13:09:53');
+(4, 'santri', 'web', '2022-12-20 13:09:53', '2022-12-20 13:09:53'),
+(5, 'guru', 'web', '2022-12-20 13:09:53', '2022-12-20 13:09:53');
 
 -- --------------------------------------------------------
 
@@ -546,6 +630,7 @@ CREATE TABLE `santri` (
   `nis` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nama_santri` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tanggal_lahir_santri` date NOT NULL,
+  `jenis_kelamin` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `alamat_santri` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `foto_santri` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `nominal_spp_perbulan` double NOT NULL,
@@ -562,11 +647,25 @@ CREATE TABLE `santri` (
 -- Dumping data for table `santri`
 --
 
-INSERT INTO `santri` (`id`, `pesantren_id`, `nis`, `nama_santri`, `tanggal_lahir_santri`, `alamat_santri`, `foto_santri`, `nominal_spp_perbulan`, `nama_ayah`, `nama_ibu`, `kamar_santri`, `asrama_santri`, `status_aktif`, `created_at`, `updated_at`) VALUES
-(1, 1, '0001', 'Santri Saleh', '2022-11-29', 'Jl CIP', 'Santri Saleh', 500000, 'ASYAH', 'ASBU', 'Melati', 'Wali Santri', 'yes', NULL, NULL),
-(2, 1, '0002', 'Yunus', '2022-11-29', 'Jl CIP', 'Santri Saleh', 500000, 'ASYAH', 'ASBU', 'Melati', 'Wali Santri', 'yes', NULL, NULL),
-(5, 1, '123213', '123123', '2022-12-12', '213123', '20230106145516.jpg', 500000, '123213', '123213', '123213', '123213', 'yes', NULL, NULL),
-(6, 1, '3456', 'Santri New', '2000-01-16', 'alamat', '20230116113341.jpg', 500001, 'ayah', 'ibu', '01', 'gedung', 'yes', NULL, NULL);
+INSERT INTO `santri` (`id`, `pesantren_id`, `nis`, `nama_santri`, `tanggal_lahir_santri`, `jenis_kelamin`, `alamat_santri`, `foto_santri`, `nominal_spp_perbulan`, `nama_ayah`, `nama_ibu`, `kamar_santri`, `asrama_santri`, `status_aktif`, `created_at`, `updated_at`) VALUES
+(1, 1, '1461600084', 'Santri', '1996-12-06', 'Laki-Laki', 'Jl. Surabaya', '20230310130443.jpg', 700000, 'Ayah', 'Ibu', 'Kamar Melati', 'Asrama Putri', 'yes', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `spp_bulanan`
+--
+
+CREATE TABLE `spp_bulanan` (
+  `id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `date` date NOT NULL,
+  `month` enum('Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `year` year(4) NOT NULL,
+  `spp` double(8,2) NOT NULL,
+  `santri_id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -585,20 +684,18 @@ CREATE TABLE `users` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `pesantren_id` int(11) DEFAULT NULL,
   `pegawai_id` int(11) DEFAULT NULL,
-  `walisantri_id` int(11) NOT NULL
+  `walisantri_id` int(11) DEFAULT NULL,
+  `guru_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `pesantren_id`, `pegawai_id`, `walisantri_id`) VALUES
-(1, 'Super Admin', 'superadmin@superadmin.com', '2022-12-20 13:09:53', '$2y$10$4WTRbBFdjP5V9NRRo0idHu3kebdBXERQNBepX2CdqzUsJBzBSsMeO', 'GfFTn6oKSB', '2022-12-20 13:09:53', '2022-12-20 13:09:53', 1, 1, 0),
-(2, 'Admin', 'admin@admin.com', '2022-12-20 13:09:53', '$2y$10$DkqnHswXOzqpYR0mpX4un.rXjnowFwTKQJNuVktMBNpANzyp8E2gS', 'Rt0ED33KwtzfASRpx95HiPbQQXA0Meha9k4NG7xQ1R35ALjbJpsucFsor0ct', '2022-12-20 13:09:53', '2022-12-20 13:09:53', 1, 1, 0),
-(3, 'Wali Murid', 'walimurid@walimurid.com', '2022-12-20 13:09:53', '$2y$10$WcIRAjsqqtPTOOeEe3wIL.FIj4RU8S25QqZGqnlipKjungkO.2che', 'REzjiYqbvn', '2022-12-20 13:09:53', '2022-12-20 13:09:53', 1, 1, 1),
-(4, 'Santri', 'santri@santri.com', '2022-12-20 13:09:53', '$2y$10$aWqLFL5M2V7eEKas6zWFkupOX8QACpDHrmxzjpaKvo/RxMnCQPxvi', 'uhysNYXi9T', '2022-12-20 13:09:53', '2022-12-20 13:09:53', 1, 1, 0),
-(9, 'Employee', 'employee@satu.com', NULL, '$2y$10$3tAECPszE49GdLcgqT.9Z.Fscz/TTm8vR2n.4q4kZNTimnqMhuzRG', NULL, '2022-12-23 03:10:54', '2022-12-23 03:10:54', NULL, NULL, 0),
-(10, 'Anjay', 'anjay@gmail.com', NULL, '$2y$10$jE6JDLdJSg10PsyhyaGobOBqivRI3dkkZyozR/BLqeSHZSdhrsTcm', NULL, '2023-01-18 03:05:18', '2023-01-18 06:21:31', NULL, NULL, 2);
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `pesantren_id`, `pegawai_id`, `walisantri_id`, `guru_id`) VALUES
+(1, 'Super Admin', 'superadmin@superadmin.com', '2022-12-20 13:09:53', '$2y$10$4WTRbBFdjP5V9NRRo0idHu3kebdBXERQNBepX2CdqzUsJBzBSsMeO', '973JewW9pBcDN68aLE13qlc0szpkF7ocQBj26nTqUtBJZGEOIl03KmBgbhH4', '2022-12-20 13:09:53', '2022-12-20 13:09:53', 1, NULL, 0, 0),
+(2, 'Admin', 'admin@admin.com', '2022-12-20 13:09:53', '$2y$10$DkqnHswXOzqpYR0mpX4un.rXjnowFwTKQJNuVktMBNpANzyp8E2gS', 'aM6OXxqkw17a2TWkpeTY5IqgVunSbq6VGkTaDjC8ODaZR8cZCRs1QTqTjWPt', '2022-12-20 13:09:53', '2022-12-20 13:09:53', 1, NULL, 0, 0),
+(4, 'Walisantri', 'walisantri@walisantri.com', NULL, '$2a$12$SXtWJ5BbObxPo1ohrDQ/KeF7TJc9Um4MVM/PNQCDnMbQ.lOGKCwz.', NULL, '2023-03-10 13:20:22', '2023-03-10 13:20:22', 1, NULL, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -621,15 +718,17 @@ CREATE TABLE `walisantri` (
 --
 
 INSERT INTO `walisantri` (`id`, `nama_walisantri`, `kontak_walisantri`, `email_walisantri`, `created_at`, `updated_at`, `santri_id`) VALUES
-(1, 'Wali Santri Saleh', '098765432456', 'wali@gmail.com', NULL, NULL, 1),
-(2, 'Sanji', '0821391239', 'painem@gmail.com', '2022-12-20 08:57:15', '2022-12-20 08:57:15', 2),
-(3, 'Wali Santri New', '0821391239', 'walisantrinew@gmail.com', '2023-01-16 11:35:28', '2023-01-16 11:35:28', 6),
-(4, 'Luffy', NULL, 'luffy@gmail.com', '2023-01-18 03:37:48', '2023-01-18 03:37:48', NULL),
-(5, 'Luffy', NULL, 'luffy@gmail.com', '2023-01-18 03:40:54', '2023-01-18 03:40:54', NULL);
+(1, 'Walisantri', '+6282139661296', 'walisantri@walisantri.com', '2023-03-10 13:20:22', '2023-03-10 13:21:50', 1);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `broadcast_notifikasi`
+--
+ALTER TABLE `broadcast_notifikasi`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `failed_jobs`
@@ -639,9 +738,21 @@ ALTER TABLE `failed_jobs`
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
+-- Indexes for table `guru`
+--
+ALTER TABLE `guru`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `jenis_pembayaran`
 --
 ALTER TABLE `jenis_pembayaran`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `kelas`
+--
+ALTER TABLE `kelas`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -700,6 +811,12 @@ ALTER TABLE `notifikasi`
 --
 ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
+
+--
+-- Indexes for table `pegawai`
+--
+ALTER TABLE `pegawai`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `pembayaran`
@@ -790,9 +907,27 @@ ALTER TABLE `walisantri`
 --
 
 --
+-- AUTO_INCREMENT for table `broadcast_notifikasi`
+--
+ALTER TABLE `broadcast_notifikasi`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `guru`
+--
+ALTER TABLE `guru`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `jenis_pembayaran`
 --
 ALTER TABLE `jenis_pembayaran`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `kelas`
+--
+ALTER TABLE `kelas`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -802,16 +937,34 @@ ALTER TABLE `kesehatan`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `konfirmasi_pembayaran_spp`
+--
+ALTER TABLE `konfirmasi_pembayaran_spp`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `mata_pelajaran`
+--
+ALTER TABLE `mata_pelajaran`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `notifikasi`
 --
 ALTER TABLE `notifikasi`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `pegawai`
+--
+ALTER TABLE `pegawai`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `perizinan`
@@ -820,22 +973,34 @@ ALTER TABLE `perizinan`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `presensi_pegawai`
+--
+ALTER TABLE `presensi_pegawai`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `presensi_santri_pada_kelas`
+--
+ALTER TABLE `presensi_santri_pada_kelas`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `santri`
 --
 ALTER TABLE `santri`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `walisantri`
 --
 ALTER TABLE `walisantri`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

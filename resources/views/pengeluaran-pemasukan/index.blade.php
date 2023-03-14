@@ -37,7 +37,6 @@
     {{ session('error') }}
 </div>
 @endif
-
 <div class="portlet">
     <div class="portlet-title">
         <div class="caption">
@@ -83,7 +82,7 @@
                                 @method('DELETE')
                                 @csrf
                                 <input class="btn btn-danger " type="SUBMIT" value="Hapus"
-                                onclick="if(!confirm('Apakah Anda yakin akan menghapus data jadwal-progres dan data sediaan bahan baku yang berkaitan?')) {return false;}">
+                                onclick="if(!confirm('Apakah Anda yakin akan menghapus data yang berkaitan tersebut ?')) {return false;}">
                             </form>
                         </li>
                     </ul>
@@ -139,7 +138,7 @@
                                 @method('DELETE')
                                 @csrf
                                 <input class="btn btn-danger " type="SUBMIT" value="Hapus"
-                                onclick="if(!confirm('Apakah Anda yakin akan menghapus data jadwal-progres dan data sediaan bahan baku yang berkaitan?')) {return false;}">
+                                onclick="if(!confirm('Apakah Anda yakin akan menghapus data yang berkaitan tersebut ?')) {return false;}">
                             </form>
                         </li>
                     </ul>

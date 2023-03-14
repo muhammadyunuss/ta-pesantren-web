@@ -62,6 +62,9 @@
     <tr>
     <th>Foto</th>
     <th>Nama Guru</th>
+    <th>Tanggal Lahir</th>
+    <th>Jenis Kelamin</th>
+    <th>Jabatan</th>
     <th>Alamat</th>
     <th>No. Hp</th>
     <th>Kategori Guru</th>
@@ -95,6 +98,9 @@
         </div>
     </td>
     <td>{{ $d->nama_guru }}</td>
+    <td>{{ $d->tanggal_lahir_guru }}</td>
+    <td>{{ $d->jenis_kelamin }}</td>
+    <td>{{ $d->jabatan }}</td>
     <td>{{ $d->alamat_guru }}</td>
     <td>{{ $d->nomor_guru  }}</td>
     <td>{{ $d->kategori_guru  }}</td>
@@ -108,7 +114,7 @@
                     @method('DELETE')
                     @csrf
                     <input class="btn btn-danger " type="SUBMIT" value="Hapus"
-                    onclick="if(!confirm('Apakah Anda yakin akan menghapus data jadwal-progres dan data sediaan bahan baku yang berkaitan?')) {return false;}">
+                    onclick="if(!confirm('Apakah Anda yakin akan menghapus data yang berkaitan tersebut ?')) {return false;}">
                 </form>
             </li>
         </ul>

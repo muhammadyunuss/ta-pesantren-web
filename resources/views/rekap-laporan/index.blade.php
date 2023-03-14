@@ -33,7 +33,6 @@
     {{ session('error') }}
 </div>
 @endif
-
 <div class="alert alert-default">
     <form  action="{{route('rekap-laporan-search')}}" method ="POST">
         @csrf
@@ -58,6 +57,13 @@
         </div>
     </form>
 
+</div>
+
+<div class="alert alert-default">
+    <a class="btn btn-success" href="{{ route('file-export-pemasukan') }}">Export Pemasukan Excel</a>
+    <a class="btn btn-success" href="{{ route('file-export-pengeluaran') }}">Export Pengeluaran Excel</a>
+    <a class="btn btn-success" href="{{ route('file-export-pemasukan-pdf') }}">Export Pemasukan PDF</a>
+    <a class="btn btn-success" href="{{ route('file-export-pengeluaran-pdf') }}">Export Pengeluaran PDF</a>
 </div>
 
 <!-- <p>The .table class adds basic styling (light padding and only horizontal dividers) to a table:</p>             -->
@@ -99,7 +105,7 @@
                     @method('DELETE')
                     @csrf
                     <input class="btn btn-danger " type="SUBMIT" value="Hapus"
-                    onclick="if(!confirm('Apakah Anda yakin akan menghapus data jadwal-progres dan data sediaan bahan baku yang berkaitan?')) {return false;}">
+                    onclick="if(!confirm('Apakah Anda yakin akan menghapus data yang berkaitan tersebut ?')) {return false;}">
                 </form>
             </li>
         </ul>

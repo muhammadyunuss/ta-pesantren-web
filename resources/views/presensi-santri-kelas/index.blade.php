@@ -3,9 +3,9 @@
 @section('content')
 <!-- BEGIN PAGE HEADER-->
 <h3 class="page-title">
-    Presensi Santri Pada Asrama &nbsp;&nbsp;
+    Presensi Kelas &nbsp;&nbsp;
     <a type= "button" href="{{route('presensi-santri-kelas.create')}}" class="btn btn-primary btn-sm">
-        + TAMBAH PRESENSI SANTRI PADA ASRAMA
+        + Tambah Presensi Kelas
     </a>
 </h3>
 <div class="page-bar">
@@ -16,7 +16,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('presensi-santri-kelas.index')}}">Presensi Santri Pada Asrama</a>
+            <a href="{{route('presensi-santri-kelas.index')}}">Presensi Kelas</a>
         </li>
     </ul>
 </div>

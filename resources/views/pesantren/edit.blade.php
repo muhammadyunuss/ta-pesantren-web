@@ -53,6 +53,13 @@
                     <div class="invalid-feedback" style="color:red">{{ $message }}</div>
                     @enderror
                 </div><br>
+                <div class="form-group">
+                    <label for="no_telepon">No. Telepon</label>
+                    <input type="text" class="form-control @error('no_telepon') is-invalid @enderror" name="no_telepon" value="{{ old('no_telepon',$data->no_telepon) }}" placeholder="No Telepon">
+                    @error('no_telepon')
+                    <div class="invalid-feedback" style="color:red">{{ $message }}</div>
+                    @enderror
+                </div><br>
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>

@@ -3,9 +3,9 @@
 @section('content')
 <!-- BEGIN PAGE HEADER-->
 <h3 class="page-title">
-    Presensi Santri Pada Asrama &nbsp;&nbsp;
+    Presensi Kelas &nbsp;&nbsp;
     <a type= "button" href="{{route('presensi-santri-kelas.create')}}" class="btn btn-primary btn-sm">
-        + TAMBAH PRESENSI SANTRI PADA ASRAMA
+        + Tambah Presensi Kelas
     </a>
 </h3>
 <div class="page-bar">
@@ -16,7 +16,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('presensi-santri-kelas.index')}}">Presensi Santri Pada Asrama</a>
+            <a href="{{route('presensi-santri-kelas.index')}}">Presensi Kelas</a>
         </li>
     </ul>
 </div>
@@ -111,7 +111,7 @@
                     @method('DELETE')
                     @csrf
                     <input class="btn btn-danger " type="SUBMIT" value="Hapus"
-                    onclick="if(!confirm('Apakah Anda yakin akan menghapus data jadwal-progres dan data sediaan bahan baku yang berkaitan?')) {return false;}">
+                    onclick="if(!confirm('Apakah Anda yakin akan menghapus data yang berkaitan tersebut ?')) {return false;}">
                 </form>
             </li>
         </ul>

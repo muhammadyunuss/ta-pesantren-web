@@ -68,6 +68,7 @@ class SantriController extends Controller
         $data->pesantren_id = $user->pesantren_id;
         $data->nama_santri = $request->get('namaSantri');
         $data->tanggal_lahir_santri = $request->get('tanggalSantri');
+        $data->jenis_kelamin = $request->get('jenis_kelamin');
         $data->alamat_santri = $request->get('alamatSantri');
         $data->foto_santri = $data['foto_santri'];
         $data->nama_ayah = $request->get('namaAyah');
@@ -141,6 +142,7 @@ class SantriController extends Controller
                 'nis' => $request->get('nisSantri'),
                 'nama_santri' => $request->get('namaSantri'),
                 'tanggal_lahir_santri' => $request->get('tanggalSantri'),
+                'jenis_kelamin' => $request->get('jenis_kelamin'),
                 'alamat_santri' => $request->get('alamatSantri'),
                 'foto_santri'=>$data['foto_santri'],
                 'nama_ayah' => $request->get('namaAyah'),
@@ -155,6 +157,7 @@ class SantriController extends Controller
                 'nis' => $request->get('nisSantri'),
                 'nama_santri' => $request->get('namaSantri'),
                 'tanggal_lahir_santri' => $request->get('tanggalSantri'),
+                'jenis_kelamin' => $request->get('jenis_kelamin'),
                 'alamat_santri' => $request->get('alamatSantri'),
                 'nama_ayah' => $request->get('namaAyah'),
                 'nama_ibu' => $request->get('namaIbu'),

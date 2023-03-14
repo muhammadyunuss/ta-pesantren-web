@@ -63,8 +63,8 @@ class InfaqController extends Controller
         $term = 'Infaq';
         $pegawai = Pegawai::where('pesantren_id', $user->pesantren_id)->get();
         $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
-        $pembayaran = Pembayaran::where('pegawai_id', $user->pegawai_id)
-        ->where('nama_pembayaran','LIKE','%'.$term.'%')
+        $pembayaran = Pembayaran::where('nama_pembayaran','LIKE','%'.$term.'%')
+        // ->where('pegawai_id', $user->pegawai_id)
         ->get();
         $santri = Santri::get();
 
@@ -77,12 +77,12 @@ class InfaqController extends Controller
             JenisPembayaran::create($request->except(['notifikasi']));
         }else{
             $walisantri = WaliSantri::where('santri_id', $request->santri_id)->first();
-            $user = User::where('walisantri_id', $walisantri->id)->get();
+            $user = User::where('walisantri_id', $walisantri->id)->first();
             $param = [
                 'walisantri_id' => $walisantri->id,
                 'email_username' => $walisantri->email_walisantri,
-                'judul_pemberitahuan' => 'Tagihan Pembayaran SPP',
-                'detail_pemberitahuan' => "Tagihan Pembayaran SPP, Atas nama Santri ".$walisantri->nama_walisantri." Sebesar Rp. ".number_format($request->debet_pembayaran ,2,',','.')." pada Tanggal ".date("d-m-Y", strtotime($request->tanggal_pembayaran)),
+                'judul_pemberitahuan' => 'Tagihan Pembayaran Infaq',
+                'detail_pemberitahuan' => "Tagihan Pembayaran Infaq, Atas nama Santri ".$walisantri->nama_walisantri." Sebesar Rp. ".number_format($request->debet_pembayaran ,2,',','.')." pada Tanggal ".date("d-m-Y", strtotime($request->tanggal_pembayaran)),
                 'tanggal_pemberitahuan' => $request->tanggal_pembayaran,
             ];
             $dataParam = response()->json( $param );

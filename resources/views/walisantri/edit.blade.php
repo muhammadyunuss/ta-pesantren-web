@@ -21,7 +21,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="{{route('walisantri.create')}}">TambahWali Santri</a>
+            <a href="{{route('walisantri.create')}}">Tambah Wali Santri</a>
         </li>
     </ul>
 </div>
@@ -32,7 +32,7 @@
 <div class="portlet">
 		<div class="portlet-title">
 			<div class="caption">
-				<i class="fa fa-reorder"></i> Ubah Supplier
+				<i class="fa fa-reorder"></i> Ubah Wali Santri
 			</div>
 		</div>
 		<div class="portlet-body form">

@@ -6,6 +6,7 @@ use App\Models\Guru;
 use App\Models\Kelas;
 use App\Models\Pesantren;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class KelasController extends Controller
 {
@@ -33,8 +34,13 @@ class KelasController extends Controller
     public function create()
     {
         $user = auth()->user();
-        $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
-        $guru = Guru::where('pesantren_id', $user->pesantren_id)->get();
+        if(Auth::user()->hasRole('super-admin')){
+            $pesantren = Pesantren::get();
+            $guru = Guru::get();
+        }else{
+            $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
+            $guru = Guru::where('pesantren_id', $user->pesantren_id)->get();
+        }
         return view('kelas.create',compact('guru', 'user', 'pesantren'));
     }
 
@@ -77,10 +83,22 @@ class KelasController extends Controller
     public function edit($id)
     {
         $user = auth()->user();
-        $data = Kelas::where('kelas.id', $id)
+        $data = Kelas::join('guru', 'kelas.guru_id', 'guru.id')
+        // ->join('pesantren', 'guru.pesantren_id', 'pesantren.id')
+        ->where('kelas.id', $id)
+        ->select(
+            'kelas.*',
+            'guru.nama_guru',
+            'guru.pesantren_id'
+        )
         ->first();
-        $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
-        $guru = Guru::where('pesantren_id', $user->pesantren_id)->get();
+        if(Auth::user()->hasRole('super-admin')){
+            $pesantren = Pesantren::get();
+            $guru = Guru::get();
+        }else{
+            $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
+            $guru = Guru::where('pesantren_id', $user->pesantren_id)->get();
+        }
 
         return view('kelas.edit',compact('data', 'pesantren', 'guru', 'id'));
     }

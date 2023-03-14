@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\MataPelajaran;
 use App\Models\Pesantren;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MataPelajaranController extends Controller
 {
@@ -16,13 +17,23 @@ class MataPelajaranController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $data = MataPelajaran::join('pesantren', 'mata_pelajaran.pesantren_id', 'pesantren.id')
-        ->where('pesantren_id', $user->pesantren_id)
-        ->select(
-            'mata_pelajaran.*',
-            'pesantren.nama_pesantren'
-        )
-        ->get();
+        if(Auth::user()->hasRole('super-admin')){
+            $data = MataPelajaran::join('pesantren', 'mata_pelajaran.pesantren_id', 'pesantren.id')
+            // ->where('pesantren_id', $user->pesantren_id)
+            ->select(
+                'mata_pelajaran.*',
+                'pesantren.nama_pesantren'
+            )
+            ->get();
+        }else{
+            $data = MataPelajaran::join('pesantren', 'mata_pelajaran.pesantren_id', 'pesantren.id')
+            ->where('pesantren_id', $user->pesantren_id)
+            ->select(
+                'mata_pelajaran.*',
+                'pesantren.nama_pesantren'
+            )
+            ->get();
+        }
         return view('mata-pelajaran.index', compact('data'));
     }
 
@@ -34,7 +45,11 @@ class MataPelajaranController extends Controller
     public function create()
     {
         $user = auth()->user();
-        $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
+        if(Auth::user()->hasRole('super-admin')){
+            $pesantren = Pesantren::get();
+        }else{
+            $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
+        }
         return view('mata-pelajaran.create',compact('user', 'pesantren'));
     }
 
@@ -79,7 +94,11 @@ class MataPelajaranController extends Controller
         $user = auth()->user();
         $data = MataPelajaran::where('id', $id)
         ->first();
-        $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
+        if(Auth::user()->hasRole('super-admin')){
+            $pesantren = Pesantren::get();
+        }else{
+            $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
+        }
 
         return view('mata-pelajaran.edit',compact('data', 'pesantren', 'id'));
     }

@@ -25,7 +25,8 @@ class User extends Authenticatable
         'password',
         'walisantri_id',
         'pegawai_id',
-        'pesantren_id'
+        'pesantren_id',
+        'guru_id'
     ];
 
     /**

@@ -140,7 +140,7 @@ Dashboard <small>statistics and more</small>
         <div class="portlet">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="icon-bell"></i>Notifications
+                    <i class="icon-bell"></i>Notifikasi Pembayaran
                 </div>
                 <div class="tools">
                     <a href="" class="collapse"></a>
@@ -153,7 +153,7 @@ Dashboard <small>statistics and more</small>
                 <!--BEGIN TABS-->
                 <ul class="nav nav-tabs">
                     <li class="active">
-                        <a href="#tab_1_1" data-toggle="tab">System</a>
+                        <a href="#tab_1_1" data-toggle="tab">Pembayaran</a>
                     </li>
                 </ul>
                 <div class="tab-content">
@@ -212,7 +212,7 @@ Dashboard <small>statistics and more</small>
         <div class="portlet">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="icon-bell"></i>Pemberitahuan
+                    <i class="icon-bell"></i>Pengumuman
                 </div>
                 <div class="tools">
                     <a href="" class="collapse"></a>

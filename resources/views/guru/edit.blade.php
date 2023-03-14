@@ -32,7 +32,7 @@
 <div class="portlet">
 		<div class="portlet-title">
 			<div class="caption">
-				<i class="fa fa-reorder"></i> Ubah Supplier
+				<i class="fa fa-reorder"></i> Ubah Guru
 			</div>
 		</div>
 		<div class="portlet-body form">
@@ -78,6 +78,14 @@
                     <div>
                         <input type="date" data-date-format="dd-mm-yyyy" class="form-control @error('tanggal_lahir_guru') is-invalid @enderror" id="tanggal_lahir_guru" name="tanggal_lahir_guru" value="{{ old('tanggal_lahir_guru', date('Y-m-d', $data->tanggal_lahir_guru==null ? null : strtotime($data->tanggal_lahir_guru)))}}">
                     </div>
+                </div>
+                <div class="form-group">
+                    <label for="jenis_kelamin">Jenis Kelamin</label>
+                    <select name="jenis_kelamin" id="jenis_kelamin" data-with="100%" class="form-control @error('jenis_kelamin') is-invalid @enderror" required>
+                        <option value="">Jenis Kelamin</option>
+                        <option value="Laki-Laki" {{ old('jenis_kelamin', $data->jenis_kelamin) == 'Laki-Laki' ? 'selected' : null }}>Laki-Laki</option>
+                        <option value="Perempuan" {{ old('jenis_kelamin', $data->jenis_kelamin) == 'Perempuan' ? 'selected' : null }}>Perempuan</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="nomor_guru">No. Hp</label>

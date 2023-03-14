@@ -49,6 +49,7 @@ class PesantrenController extends Controller
 
         $data->nama_pesantren = $request->get('namaPesantren');
         $data->alamat_pesantren = $request->get('alamatPesantren');
+        $data->no_telepon = $request->get('no_telepon');
 
         $data->save();
 
@@ -99,6 +100,7 @@ class PesantrenController extends Controller
 
         $pesantren->nama_pesantren = $request->get('namaPesantren');
         $pesantren->alamat_pesantren = $request->get('alamatPesantren');
+        $pesantren->no_telepon = $request->get('no_telepon');
 
         $pesantren->save();
 
