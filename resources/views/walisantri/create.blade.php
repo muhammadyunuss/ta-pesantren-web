@@ -39,12 +39,24 @@
 			<form method="POST" action="{{ route('walisantri.store') }}" enctype="multipart/form-data">
 			@csrf
 				<div class="form-body">
+                    @if (Auth::user()->hasRole('super-admin'))
+                    <div class="form-group">
+                        <label for="pesantren_id">Pesantren</label>
+                        <select name="pesantren_id" id="pesantren_id" data-with="100%" class="form-control @error('pesantren_id') is-invalid @enderror">
+                            <option value="">Pilih Pesantren</option>
+                            @foreach ($pesantren as $g)
+                            <option value="{{ $g->id }}">{{ $g->nama_pesantren }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    @else
                     <div class="form-group">
                         <label for="pesantren_id">Pesantren</label>
                         <select name="pesantren_id" id="pesantren_id" data-with="100%" class="form-control @error('pesantren_id') is-invalid @enderror">
                             <option value="{{ $pesantren->id }}">{{ $pesantren->nama_pesantren }}</option>
                         </select>
                     </div>
+                    @endif
                     <div class="form-group">
                         <label for="nama_walisantri">Nama Wali Santri</label>
                         <div>

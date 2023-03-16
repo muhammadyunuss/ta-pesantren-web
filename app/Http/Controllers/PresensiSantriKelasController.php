@@ -7,6 +7,7 @@ use App\Models\Pesantren;
 use App\Models\PresensiSantriKelas;
 use App\Models\Santri;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class PresensiSantriKelasController extends Controller
@@ -69,8 +70,13 @@ class PresensiSantriKelasController extends Controller
     public function create()
     {
         $user = auth()->user();
-        $santri = Santri::where('pesantren_id', $user->pesantren_id)->get();
-        $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
+        if (Auth::user()->hasAnyPermission(['super-admin'])) {
+            $santri = Santri::get();
+            $pesantren = Pesantren::get();
+        }else{
+            $santri = Santri::where('pesantren_id', $user->pesantren_id)->get();
+            $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
+        }
         $kelas = Kelas::get();
         return view('presensi-santri-kelas.create',compact('kelas', 'pesantren', 'santri'));
     }

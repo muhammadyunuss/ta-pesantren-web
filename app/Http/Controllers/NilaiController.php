@@ -8,6 +8,7 @@ use App\Models\Nilai;
 use App\Models\Pesantren;
 use App\Models\Santri;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class NilaiController extends Controller
 {
@@ -69,7 +70,11 @@ class NilaiController extends Controller
     {
         $user = auth()->user();
         $santri = Santri::where('pesantren_id', $user->pesantren_id)->get();
-        $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
+        if (Auth::user()->hasAnyPermission(['super-admin'])) {
+            $pesantren = Pesantren::get();
+        }else{
+            $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
+        }
         $kelas = Kelas::get();
         $mata_pelajaran = MataPelajaran::get();
         return view('nilai.create',compact('pesantren', 'santri', 'kelas', 'mata_pelajaran'));

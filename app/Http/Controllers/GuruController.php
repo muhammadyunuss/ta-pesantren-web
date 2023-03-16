@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Guru;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class GuruController extends Controller
@@ -19,9 +20,6 @@ class GuruController extends Controller
         $data = DB::table('guru')
         ->select(
             'guru.*',
-            // 'bahan_baku.nama_bahanbaku',
-            // 'bahan_baku.stok',
-            // 'bahan_baku.satuan'
         )
         ->get();
         return view('guru.index', compact('data'));
@@ -35,9 +33,14 @@ class GuruController extends Controller
     public function create()
     {
         $user = auth()->user();
-        $getPesantren = DB::table('pesantren')
-        ->where('id', $user->pesantren_id)
-        ->first();
+        if (Auth::user()->hasAnyPermission(['super-admin'])) {
+            $getPesantren = DB::table('pesantren')
+            ->get();
+        }else{
+            $getPesantren = DB::table('pesantren')
+            ->where('id', $user->pesantren_id)
+            ->first();
+        }
         return view('guru.create', compact('getPesantren'));
     }
 

@@ -38,12 +38,24 @@
         <form method="POST" action="{{ route('guru.store') }}" enctype="multipart/form-data">
         @csrf
             <div class="form-body">
-                <div class="form-group">
-                    <label for="pesantren_id">Pesantren</label>
-                    <select name="pesantren_id" id="pesantren_id" data-with="100%" class="form-control @error('pesantren_id') is-invalid @enderror">
-                            <option value="{{ $getPesantren->id }}" {{ old('pesantren_id', $getPesantren->id) == $getPesantren->id  ? 'selected' : null }}>{{ $getPesantren->nama_pesantren }}</option>
-                    </select>
-                </div>
+                @if (Auth::user()->hasRole('super-admin'))
+                    <div class="form-group">
+                        <label for="pesantren_id">Pesantren</label>
+                        <select name="pesantren_id" id="pesantren_id" data-with="100%" class="form-control @error('pesantren_id') is-invalid @enderror">
+                            <option value="">Pilih Pesantren</option>
+                            @foreach ($getPesantren as $g)
+                            <option value="{{ $g->id }}">{{ $g->nama_pesantren }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    @else
+                    <div class="form-group">
+                        <label for="pesantren_id">Pesantren</label>
+                        <select name="pesantren_id" id="pesantren_id" data-with="100%" class="form-control @error('pesantren_id') is-invalid @enderror">
+                            <option value="{{ $getPesantren->id }}">{{ $getPesantren->nama_pesantren }}</option>
+                        </select>
+                    </div>
+                    @endif
                 <div class="form-group">
                     <label for="nama_guru">Nama Guru</label>
                     <div>
@@ -129,7 +141,7 @@
                             <option value="0">Tidak Aktif</option>
                     </select>
                 </div>
-            </div>
+            </>
             <div class="form-actions">
                 <button type="submit" class="btn btn-primary">Simpan</button>
             </div>

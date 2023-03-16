@@ -6,6 +6,7 @@ use App\Models\Pesantren;
 use App\Models\Santri;
 use App\Models\WaliSantri;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class WaliSantriController extends Controller
 {
@@ -23,8 +24,13 @@ class WaliSantriController extends Controller
     public function create()
     {
         $user = auth()->user();
-        $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
-        $santri = Santri::where('pesantren_id', $user->pesantren_id)->get();
+        if (Auth::user()->hasAnyPermission(['super-admin'])) {
+            $pesantren = Pesantren::get();
+            $santri = Santri::get();
+        }else{
+            $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
+            $santri = Santri::where('pesantren_id', $user->pesantren_id)->get();
+        }
         // $guru = Guru::where('pesantren_id', $user->pesantren_id)->get();
         return view('walisantri.create',compact('pesantren', 'user', 'santri'));
     }

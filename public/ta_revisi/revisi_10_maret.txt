@@ -59,3 +59,9 @@ v 5. Rekap Laporan Pemasukan, kasih export data excel, pdf, pakai jquery
                             <option value="Perempuan" {{ old('jenis_kelamin', $data->jenis_kelamin) == 'Perempuan' ? 'selected' : null }}>Perempuan</option>
                         </select>
                     </div>
+
+dan akses super admin agar bebas milih list pesantren ini untuk menu :
+v data guru,
+v nilai mata pelajaran
+v presensi kelas santri 
+v wali santri
