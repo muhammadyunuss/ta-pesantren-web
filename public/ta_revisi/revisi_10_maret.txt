@@ -42,6 +42,15 @@ v Tuisann Pemberitahuan -> Ganti Pengumuman
 v 4. Search dari sidebar dihilangkan
 v 5. Rekap Laporan Pemasukan, kasih export data excel, pdf, pakai jquery
 
+1. Untuk create user
+Dikasih list box sesuai akses, jika pegawai ada list pegawai valuenya id pegawai,
+jika wali ada list wali santri klo gak salah (atau ketika membuat data wali santri
+juga bisa langsung insert ke user dikasih id wali atau id santri, intinya biar nyambung gtu nus)
+
+2. Untuk akses super admin itu data2 form, yg ada inputan milih pesantren,
+ harusnya bisa keluar semua data pesantren nya,
+ bukan berdasarkan login id pesantren. Karena kan dia super admin
+
 <div class="form-group">
                     <label for="jenis_kelamin">Jenis Kelamin</label>
                     <select name="jenis_kelamin" id="jenis_kelamin" data-with="100%" class="form-control @error('jenis_kelamin') is-invalid @enderror" required>

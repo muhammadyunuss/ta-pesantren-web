@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Guru;
+use App\Models\Pegawai;
 use App\Models\Pesantren;
 use App\Models\User;
 use App\Models\WaliSantri;
@@ -37,9 +38,19 @@ class UserController extends Controller
         $user = auth()->user();
         $roles = Role::pluck('name','name')->all();
         // $pesantren = Pesantren::all();
-        $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
+        // $pesantren = Pesantren::where('id', $user->pesantren_id)->first();
+        $pesantren = Pesantren::get();
         // dd($pesantren);
         return view('users.create',compact('roles', 'pesantren'));
+    }
+
+    public function setPegawai($id)
+    {
+        $user = auth()->user();
+        $roles = Role::pluck('name','name')->all();
+        $pegawai = Pegawai::get();
+        $user = User::where('id', $id)->first();
+        return view('users.set-pegawai',compact('pegawai', 'id', 'user'));
     }
 
     /**
@@ -100,6 +111,15 @@ class UserController extends Controller
                         ->with('success','User created successfully');
     }
 
+    public function storeSetPegawai(Request $request)
+    {
+        User::where('id', $request->user_id)->update([
+            'pegawai_id' => $request->pegawai_id,
+            ]);
+        return redirect()->route('users.index')
+            ->with('success','Set User Pegawai successfully');
+    }
+
     /**
      * Display the specified resource.
      *
@@ -158,6 +178,8 @@ class UserController extends Controller
         return redirect()->route('users.index')
                         ->with('success','User updated successfully');
     }
+
+
 
     /**
      * Remove the specified resource from storage.

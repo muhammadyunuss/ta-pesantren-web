@@ -62,6 +62,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('update-verifikasi-pembayaran', [BerandaController::class, 'updateVerifikasiPembayaran'])->name('update-verifikasi-pembayaran');
 
     Route::prefix('setting')->group(function () {
+
+        Route::get('set-pegawai/{id}', [UserController::class, 'setPegawai'])->name('users.set-pegawai');
+        Route::post('store-set-pegawai', [UserController::class, 'storeSetPegawai'])->name('users.store-set-pegawai');
+
         Route::resource('roles', RoleController::class);
         Route::resource('users', UserController::class);
         Route::resource('pesantren',PesantrenController::class);
@@ -124,6 +128,7 @@ Route::middleware(['auth'])->group(function () {
             Route::post('update-pengeluaran', 'updatePengeluaran')->name('pengeluaran-pemasukan.update-pengeluaran');
             Route::get('file-export-pengeluaran', 'fileExportPengeluaran')->name('file-export-pengeluaran');
             Route::get('file-export-pengeluaran-pdf', 'fileExportPengeluaranPdf')->name('file-export-pengeluaran-pdf');
+
         });
 
         Route::controller(DaftarUlangController::class)->group(function (){
@@ -148,8 +153,6 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('pengeluaran-pemasukan', PengeluaranPemasukanController::class);
         Route::resource('rekap-laporan', RekapLaporanController::class);
         Route::get('file-import-export', [UserController::class, 'fileImportExport']);
-
-
     });
 
     Route::prefix('pembayaran')->group(function () {
